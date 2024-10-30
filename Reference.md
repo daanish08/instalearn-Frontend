@@ -21,3 +21,9 @@ Authentication urls:
 /login (or /admin/login, /api/v1/auth/login)
 /logout (or /api/v1/auth/logout)
 /profile (or /api/v1/users/me)
+
+Tasks:
+----
+1.
+2.
+3.
