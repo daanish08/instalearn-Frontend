@@ -22,8 +22,9 @@ Authentication urls:
 /logout (or /api/v1/auth/logout)
 /profile (or /api/v1/users/me)
 
-Tasks:
+Collaborators:
 ----
-1.
-2.
-3.
+1.Daanish
+2.Vignesh
+3.Tharun
+4.Suriya
