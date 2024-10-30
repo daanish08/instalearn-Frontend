@@ -1,12 +1,56 @@
-<div class="px-4 py-5 my-3 text-center  text-white fw-semibold">
+<!-- home-component.html -->
+<div class="px-4 py-5 my-3 text-center text-white fw-semibold">
   <p class="lead mb-4">In look for a technical Course?</p>
-  <h1 class="display-3  text-white ">Start <u><span class="fw-bold">learning</span></u> a new<br> language today
-    <u><span class="fw-bold">with the best</span></u><br>online tutors!
+  <h1 class="display-3 text-white">
+    Start <u><span class="fw-bold">learning</span></u> a new<br />
+    language today <u><span class="fw-bold">with the best</span></u
+    ><br />online courses! 
   </h1>
-  <!-- <div class="col-lg-6 mx-auto">
-    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-      <button type="button" routerLink="/employees" class="btn btn-primary btn-lg px-4 gap-3">Manage Employees</button>
-      <button type="button" routerLink="/concepts" class="btn btn-outline-secondary btn-lg px-4">Learn Concepts</button>
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
+  </svg>
+  <i class="bi bi-arrow-down-circle-fill"></i>
+</div>
+
+
+
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2">
+  <div class="col" *ngFor="let course of courses">
+    <div class="card shadow-sm">
+      <svg
+        class="bd-placeholder-img card-img-top"
+        width="100%"
+        height="225"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Placeholder: Thumbnail"
+        preserveAspectRatio="xMidYMid slice"
+        focusable="false"
+      >
+        <title>Placeholder</title>
+        <rect width="100%" height="100%" fill="#55595c"></rect>
+        <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+      </svg>
+      <div class="card-body">
+        <h3>{{ course.title }}</h3>
+        <p class="card-text">Course Description: {{ course.description }}</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-secondary" routerLink="/login">
+              Enroll
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div> -->
+  </div>
+</div>
+
+<br>
+<div class="d-grid gap-2 col-6 mx-auto">
+  <button class="btn btn-primary" type="button" routerLink="/courses">Show all courses + </button>
+  <svg class="bi ms-1" width="20" height="20">
+    <use xlink:href="#arrow-right-short"></use>
+  </svg>
 </div>

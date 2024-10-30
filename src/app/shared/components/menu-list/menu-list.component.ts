@@ -12,7 +12,7 @@ import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 export class MenuListComponent {
 
   menus = [
-    { title: "Home", url: "/" },
+    { title: "Home", url: "/", exact: true },
     { title: "Courses", url: "/courses" },
     { title: "About", url: "/about" },
     { title: "Contact", url: "/contact" },
