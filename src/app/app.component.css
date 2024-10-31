@@ -1,12 +1,4 @@
-.bg {
-  background-image: url('https://websitedemos.net/language-tutors-02/wp-content/uploads/sites/700/2020/09/bg-03-free-img.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  height: 100vh;
-  position: relative;
-  /* Needed for the ::before pseudo-element */
-}
+
 
 .bg::before {
   /* content: "";
