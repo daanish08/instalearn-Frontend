@@ -50,22 +50,22 @@ export class HomeComponent {
  // features
 features = [
   {
-    imgTag: "assets/home/graduate.png",
+    imgTag: "/assets/img/Home/graduate.png",
     title: "Expert Tutors",
     description: "Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
   },
   {
-    imgTag: "graduate.png",
+    imgTag: "/assets/img/Home/graduate.png",
     title: "Verified Profiles",
     description: "Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
   },
   {
-    imgTag: "graduate.png",
+    imgTag: "/assets/img/Home/graduate.png",
     title: "Pay Per Lesson",
     description: "Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
   },
   {
-    imgTag: "graduate.png",
+    imgTag: "/assets/img/Home/graduate.png",
     title: "Affordable Prices",
     description: "Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
   }

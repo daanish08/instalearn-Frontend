@@ -16,8 +16,8 @@ export class MenuListComponent {
     { title: "Courses", url: "/courses" },
     { title: "About", url: "/about" },
     { title: "Contact", url: "/contact" },
-    { title: "Login", url: "/login" },
-    { title: "Register", url: "/register" },
+    { title: "Admin", url: "login/admin" },
+    { title: "User", url: "login/user" },
   ];
 
 }

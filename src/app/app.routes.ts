@@ -3,8 +3,15 @@ import { HomeComponent } from './home/components/home/home.component';
 import { AboutComponent } from './about/components/about/about.component';
 import { ContactComponent } from './contact/components/contact/contact.component';
 import { CoursesComponent } from './courses/components/courses/courses.component';
-import { LoginComponent } from './login/components/login/login.component';
 import { RegisterComponent } from './register/components/register/register.component';
+import { AdminloginComponent } from './login/components/adminlogin/adminlogin.component';
+import { UserloginComponent } from './login/components/userlogin/userlogin.component';
+import { UserregisterComponent } from './register/components/userregister/userregister.component';
+import { AdminregisterComponent } from './register/components/adminregister/adminregister.component';
+import { AdmindashboardComponent } from './admin/components/admindashboard/admindashboard.component';
+import { CoursecreationComponent } from './admin/components/coursecreation/coursecreation.component';
+import { ApprovecoursesComponent } from './admin/components/approvecourses/approvecourses.component';
+import { CourseDetailsComponent } from './courses/components/course-details/course-details.component';
 
 
 //config the routes
@@ -12,8 +19,37 @@ export const routes: Routes = [
   { path: '', component: HomeComponent, title: "Home Page" },
   { path: 'courses', component: CoursesComponent, title: "Courses" },
   { path: 'courses', component: CoursesComponent, title: "Courses" },
-  { path: 'login', component: LoginComponent, title: "Login Now" },
-  { path: 'register', component: RegisterComponent, title: "Register Now" },
+  { path: 'login', 
+    children:[{ path: 'user', component: UserloginComponent, title: "User Login" },
+    {path:'admin',component: AdminloginComponent, title: "Admin Login" }
+  ] },
+  { path: 'register', 
+    children:[{ path: 'user', component: UserregisterComponent, title: "User Registration" },
+                {path:'admin',component: AdminregisterComponent, title: "Admin Registration" }
+    ] 
+  },
+  {
+    path: 'admin',
+    children: [
+        { path: 'dashboard', component: AdmindashboardComponent, title: 'Admin Dashboard' },
+        { path: 'create-courses', component: CoursecreationComponent, title: 'Create Course' },
+        { path: 'approve-courses', component: ApprovecoursesComponent, title: 'Approve Courses' },
+    ]
+},{
+  path: 'courses',
+  children: [
+      { path: '', component: CoursesComponent, title: 'All Courses' }, // Default route to show all courses
+      { path: 'admin/:adminId', component: CoursesComponent, title: 'Courses by Admin' }, // Specific courses by admin
+      { path: ':courseId', component: CourseDetailsComponent, title: 'Detailed View of Course' }, // Detailed view of a specific course
+      { path: 'user/:userId', component: CoursesComponent, title: 'Courses Enrolled By Users' }, // Courses enrolled by a specific user
+  ]
+},
+
+
+
+  // {path:'admin',children:[
+  //   {path:}
+  // ]}
   // {
   //     path: 'employees', children: [
   //         { path: 'add', component: AddEmployeeComponent, title: "Employee List" },

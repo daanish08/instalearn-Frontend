@@ -1,0 +1,29 @@
+<div class="container-fluid  px-5 bg-body-tertiary">
+  <h1 class="text-left fw-light pt-4 pb-4">Welcome, <span class="fw-bold text-success">{{userName}}</span></h1>
+  <div class="row text-center mb-4">
+    <div *ngFor="let data of adminDashBoardData" class="col-md-3">
+        <div class="card border mb-3">
+            <div class="card-header fw-light bg-success text-white">{{ data.title }}</div>
+            <div class="card-body bg-body-tertiary">
+                <h5 class="card-title fs-3 text-muted pb-2" >{{ data.count }}</h5>
+                <a [routerLink]="data.route" class="btn btn-success fw-bold">{{ data.buttonTitle }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mb-2  bg-body-tertiary"  style="padding-left: 80px; padding-right: 80px;">
+  <div class="col-md-12 px-5">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" *ngFor="let card of courseManagementCards">
+          <div class="col-auto d-none d-lg-block">
+              <img [src]="card.image" class="bd-placeholder-img" width="300" height="280" alt="Thumbnail" />
+          </div>
+          <div class="col p-5 d-flex flex-column position-static ">
+              <h3 class="mb-1 fw-semibold pt-3">{{ card.title }}</h3>
+              <div class="mb-1 text-muted fs-6 pb-3">{{ card.description }}</div>
+              <a [routerLink]="card.route" class="btn btn-success fw-light" style="width:35%">{{ card.buttonText }}</a>
+          </div>
+      </div>
+  </div>
+</div>
+
+</div>

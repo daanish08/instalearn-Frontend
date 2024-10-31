@@ -1,11 +1,12 @@
-import { UpperCasePipe } from '@angular/common';
+import { CommonModule, UpperCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../../../shared/components/header/header.component";
+import { DevelopersComponent } from "../developers/developers.component";
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [HeaderComponent],
+  imports: [HeaderComponent, DevelopersComponent, CommonModule],
   template: `
   <div class="bg-about px-3">
   <div class="px-4 py-5 my-3 mt-0 text-center text-white ">
@@ -37,20 +38,22 @@ import { HeaderComponent } from "../../../shared/components/header/header.compon
               <span class="fs-5 ">E</span>xcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum...
             </p>
           </div>
-          <div class="d-flex">
-          <div class="mb-5">
-            <h6  class="text-danger text-left fw-light pb-2">Our Vision</h6>
-            <h3>Consectetur adipisicing elit, sed do eiusmod tempor incididunt.</h3>
-          </div>
-          <div class="mb-5">
-            <h6 class="text-danger text-left fw-light pb-2">Our Mission</h6>
-            <h3>Adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</h3>
+
+
+          <div class="d-flex" >
+          <div class="mb-5" *ngFor="let MissionVision of MissionVisions">
+            <h6  class="text-danger text-left fw-light pb-2">{{MissionVision.head}}</h6>
+            <h3>{{MissionVision.description}}</h3>
           </div>
           </div>
+
+          
           <div class="mb-5">
-            <img src="https://websitedemos.net/language-tutors-02/wp-content/uploads/sites/700/2020/09/about-us-01-free-img.jpg" alt="About Image" class="img-fluid">
+            <img  src="https://websitedemos.net/language-tutors-02/wp-content/uploads/sites/700/2020/09/about-us-01-free-img.jpg" alt="About Image" class="img-fluid rounded">
           </div>
         </article>
+
+        <app-developers></app-developers>
       </main>
     </div>
   </div>
@@ -62,7 +65,6 @@ import { HeaderComponent } from "../../../shared/components/header/header.compon
   .bg-about{
       background-image: url('https://websitedemos.net/language-tutors-02/wp-content/uploads/sites/700/2020/09/bg-06-free-img.jpg');
       background-size: cover;
-    
       background-position: center;
       background-attachment: fixed;
       height: 80vh;
@@ -78,6 +80,15 @@ h1{
 `
 })
 export class AboutComponent {
-  randomTextsd = "Hi ";
+  MissionVisions = [
+    {
+      head: 'Our Mission',
+      description: 'Consectetur adipisicing elit, sed do eiusmod tempor incididunt.'
+    },
+    {
+      head: 'Our Vision',
+      description: 'Adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.'
+    }
+  ]
 
 }

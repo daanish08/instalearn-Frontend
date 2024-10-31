@@ -38,8 +38,17 @@
       </div>
     </div>
   </div>
+  <div class="col-6 mx-auto d-flex justify-content-center align-items-center" style="height: 10vh;">
+    <button class="btn btn-success" type="button" routerLink="/courses" style="width: 300px;">
+      Show all courses +
+      <svg class="bi ms-1" width="20" height="20">
+        <use xlink:href="#arrow-right-short"></use>
+      </svg>
+    </button>
+  </div>
   <hr class="my-4">
 </div>
+
 
 
 <div class="container-fluid py-2 bg-body-tertiary">
@@ -68,13 +77,13 @@
 </div>
 
 <div class="container-fluid py-0 bg-body-tertiary">
-  <div class="container py-5">
+  <div class="container-fluid px-4 py-2">
     <div class="row">
       <!-- Features -->
       <div class="col-md-3 text-center mb-4" *ngFor="let feature of features">
         <div class="card h-100 border-0 bg-body-tertiary">
           <div class="card-body">
-            <img [src]="getAssetPath(feature.imgTag)" alt="{{ feature.title }}" class="img-fluid mb-4 " />
+            <img [src]="feature.imgTag" [alt]="feature.title" class="img-fluid mb-4" />
             <h4 class="card-subtitle mb-1 text-start">{{ feature.title }}</h4>
             <!-- <img src="/src/assets/img/Home/payPerPerson.png"> -->
             <p class="card-text text-start text-muted" style="font-size: 15px;">{{ feature.description }}</p>
@@ -82,14 +91,14 @@
         </div>
       </div>
     </div>
-    <hr class="my-3">  
+    <!-- <hr class="my-3">   -->
   </div>
  
 
 </div>
 
 
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2">
+<!-- <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2">
   <div class="col" *ngFor="let course of courses">
     <div class="card shadow-sm">
       <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
@@ -125,6 +134,4 @@
   <svg class="bi ms-1" width="20" height="20">
     <use xlink:href="#arrow-right-short"></use>
   </svg>
-</div>
-
-<br>
+</div> -->
