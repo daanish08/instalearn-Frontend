@@ -26,7 +26,7 @@
 
       </div>
       <div class="form-group">
-        <label for="description" class="pb-2 fw-light">Description</label>
+        <label for="description" class="pb-2 fw-light">Description (Min 100 words.)</label>
         <textarea class="form-control mb-3" id="description" [(ngModel)]="description" placeholder="Enter description"
           name="description" required></textarea>
       </div>
@@ -35,12 +35,7 @@
         <input type="number" class="form-control mb-3" id="duration" [(ngModel)]="duration" name="duration" required>
       </div>
 
-      <div class="form-group">
-        <label for="smallContent" class="pb-2 fw-light">Course Small Content</label>
-        <textarea class="form-control mb-3" id="smallContent" [(ngModel)]="smallContent"
-          placeholder="Enter short content" name="smallContent" required></textarea>
-      </div>
-      <button type="submit" class="btn btn-success">Next</button>
+      <button type="submit" class="btn btn-success mb-3">Next</button>
     </form>
   </div>
 
