@@ -29,7 +29,7 @@ import jsPDF from 'jspdf';
   /* certificate.component.css */
 .certificate {
   width: 800px;
-  height:100%;
+  height:800px;
   margin: 0 auto;
   padding: 5px;
   text-align: center;
