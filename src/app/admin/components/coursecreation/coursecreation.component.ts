@@ -28,6 +28,7 @@ export class CoursecreationComponent {
 
  isLoading: boolean = false; // Loading state
  isSuccess: boolean = false; // Success state
+ 
 
  nextStep() {
      if (this.currentStep === 1) {
