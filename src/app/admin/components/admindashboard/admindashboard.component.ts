@@ -22,10 +22,10 @@ export class AdmindashboardComponent {
         buttonTitle: "View Users",
     },
     {
-        title: "Courses Uploaded",
+        title: "Feedbacks",
         count: 10,
-        route: "/admin/courses",
-        buttonTitle: "View Uploaded Courses",
+        route: "/admin/feedback-details",
+        buttonTitle: "View Feedbacks"
     },
     {
         title: "Enrolled Courses",
