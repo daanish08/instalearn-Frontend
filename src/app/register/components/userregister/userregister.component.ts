@@ -8,6 +8,9 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { UserRegService } from '../../services/user-reg.service';
 
 @Component({
   selector: 'app-userregister',
@@ -17,23 +20,23 @@ import {
     <div class="d-flex bg-body-tertiary" style="height: 580px;">
       <div class="col-md-6 register-image"></div>
       <div class="col-md-6 d-flex align-items-center justify-content-center">
-        <form [formGroup]="registerForm" class="w-75" (ngSubmit)="onSubmit()">
+        <form [formGroup]="registerForm" class="w-75" (ngSubmit)="handleAddUser()">
           <h2 class="text-center mb-1 fw-light">
             Register As <span class="fw-bold text-success">USER</span>
           </h2>
           <div class="form-group py-2">
-            <label for="name" class="pb-1">Name</label>
+            <label for="userName" class="pb-1">Name</label>
             <input
               type="text"
-              formControlName="name"
+              formControlName="userName"
               class="form-control"
-              id="name"
+              id="userName"
               placeholder="Enter name"
             />
             <div
               *ngIf="
-                registerForm.get('name')?.invalid &&
-                registerForm.get('name')?.touched
+                registerForm.get('userName')?.invalid &&
+                registerForm.get('userName')?.touched
               "
               class="text-danger"
             >
@@ -63,15 +66,15 @@ import {
             <label for="phone" class="pb-1">Contact No.</label>
             <input
               type="text"
-              formControlName="contact"
+              formControlName="phone"
               class="form-control"
               id="cnt_no"
               placeholder="Enter contact No."
             />
             <div
               *ngIf="
-                registerForm.get('contact')?.invalid &&
-                registerForm.get('contact')?.touched
+                registerForm.get('phone')?.invalid &&
+                registerForm.get('phone')?.touched
               "
               class="text-danger"
             >
@@ -124,11 +127,16 @@ import {
 export class UserregisterComponent {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private toastr: ToastrService, // Inject ToastrService
+    private userRegService: UserRegService
+  ) {
     this.registerForm = this.fb.group({
-      name: ['', Validators.required],
+      userName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      contact: ['',[Validators.required, this.contactNumberValidator]],
+      phone: ['',[Validators.required, this.contactNumberValidator]],
       password: ['', Validators.required],
     });
   }
@@ -138,11 +146,30 @@ export class UserregisterComponent {
     return valid ? null : { invalidContactNumber: true };
   }
 
-  onSubmit() {
+  ngOnInit(): void {
+    // Initialization is already done in the constructor
+  }
+
+  handleAddUser() {
     if (this.registerForm.valid) {
-      const formData = this.registerForm.value;
-      console.log('Form Data:', formData);
-      // Handle form submission logic here, possibly sending data to a server
+      const adminData: any = this.registerForm.value;
+      console.log(adminData);
+      console.log('Form Submitted', this.registerForm.value);
+
+      this.userRegService.registerUser(adminData).subscribe(
+        (response: any) => {
+          console.log('Registration successful:', response);
+          // this.toastr.success('Registration successful!', 'Success'); // Show success toast
+          this.router.navigate(['/login/user']);
+        },
+        (error: any) => {
+          console.error('Registration failed', error);
+          // this.toastr.error('Registration failed. Please try again.', 'Error'); // Show error toast
+        }
+      );
     }
+  }
+  resetForm() {
+    this.registerForm.reset();
   }
 }

@@ -1,14 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
   FormGroup,
   Validators,
   AbstractControl,
-  ValidationErrors,
+  ValidationErrors
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AdminRegService } from '../../services/admin-reg.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-adminregister',
@@ -18,7 +20,7 @@ import { Router } from '@angular/router';
     <div class="d-flex bg-body-tertiary" style="height: 580px;">
       <div class="col-md-6 register-image"></div>
       <div class="col-md-6 d-flex align-items-center justify-content-center">
-        <form [formGroup]="registerForm" class="w-75" (ngSubmit)="onSubmit()">
+        <form [formGroup]="registerForm" class="w-75" (ngSubmit)="handleAddAdmin()">
           <h2 class="text-center mb-1 fw-light">
             Register As <span class="fw-bold text-success">ADMIN</span>
           </h2>
@@ -67,15 +69,15 @@ import { Router } from '@angular/router';
             <label for="phone" class="pb-1">Contact No.</label>
             <input
               type="text"
-              formControlName="contact"
+              formControlName="phone"
               class="form-control"
-              id="cnt_no"
+              id="phn_no"
               placeholder="Enter contact No."
             />
             <div
               *ngIf="
-                registerForm.get('contact')?.touched &&
-                registerForm.get('contact')?.invalid
+                registerForm.get('phone')?.touched &&
+                registerForm.get('phone')?.invalid
               "
               class="text-danger"
             >
@@ -125,6 +127,9 @@ import { Router } from '@angular/router';
         </form>
       </div>
     </div>
+
+   
+
   `,
   styles: `
   .register-page {
@@ -136,14 +141,19 @@ import { Router } from '@angular/router';
     background-size: cover;
   }`,
 })
-export class AdminregisterComponent {
+export class AdminregisterComponent implements OnInit {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private toastr: ToastrService, // Inject ToastrService
+    private adminRegService: AdminRegService
+  ) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      contact: ['', [Validators.required, this.contactNumberValidator]],
+      phone: ['', [Validators.required, this.contactNumberValidator]],
       password: ['', Validators.required],
       refCode: [''], // Optional field
     });
@@ -154,11 +164,30 @@ export class AdminregisterComponent {
     return valid ? null : { invalidContactNumber: true };
   }
 
-  onSubmit() {
+  ngOnInit(): void {
+    // Initialization is already done in the constructor
+  }
+
+  handleAddAdmin() {
     if (this.registerForm.valid) {
+      const adminData: any = this.registerForm.value;
+      console.log(adminData);
       console.log('Form Submitted', this.registerForm.value);
-      // Navigate to the admin login page
-      this.router.navigate(['/login/admin']);
+
+      this.adminRegService.registerAdmin(adminData).subscribe(
+        (response: any) => {
+          console.log('Registration successful:', response);
+          // this.toastr.success('Registration successful!', 'Success'); // Show success toast
+          this.router.navigate(['/login/admin']);
+        },
+        (error: any) => {
+          console.error('Registration failed', error);
+          this.toastr.error('Registration failed. Please try again.', 'Error'); // Show error toast
+        }
+      );
     }
+  }
+  resetForm() {
+    this.registerForm.reset();
   }
 }

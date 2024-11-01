@@ -1,88 +1,112 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { CourseServiceService } from '../../../courses/services/courses/course-service.service';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-// import { bootstrapApplication } from '@angular/platform-browser';
-// import { Router, RouterLink, RouterModule } from '@angular/router';
+
+
+// interface attachements:any[]{
+
+// }
 
 @Component({
   selector: 'app-coursecreation',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './coursecreation.component.html',
-  styleUrl: './coursecreation.component.css'
+  styleUrls: ['./coursecreation.component.css']
 })
-export class CoursecreationComponent {
- // Step 1 variables
- courseName: string = '';
- description: string = '';
- duration: number = 0;
- instructor: string = '';
- smallContent: string = '';
+export class CoursecreationComponent implements OnInit {
 
- // Step 2 variables
- fileName: string = '';
- fileLocation: string = '';
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.fileLocation = file; // Store the file object
+    }
+  }
+  
+  courseCreation: FormGroup | undefined;
 
- currentStep: number = 1; // Current step of the form
- progress: number = 50; // Progress in percentage
+  courseName: string = '';
+  description: string = '';
+  duration: number = 0;
+  instructor: string = '';
 
- isLoading: boolean = false; // Loading state
- isSuccess: boolean = false; // Success state
- 
+  courseURL: string = '';
+  fileType:string='';
+  fileLocation: string = '';
 
- nextStep() {
-     if (this.currentStep === 1) {
-         this.currentStep = 2; // Move to the attachment step
-         this.progress = 100; // Update progress (you can adjust this)
-     }
- }
+  currentStep: number = 1;
+  progress: number = 50;
 
- prevStep() {
-     if (this.currentStep === 2) {
-         this.currentStep = 1; // Move back to the first step
-         this.progress = 50; // Update progress
-     }
- }
+  isLoading: boolean = false;
+  isSuccess: boolean = false;
 
- submitCourse() {
-     const courseData = {
-         name: this.courseName,
-         description: this.description,
-         duration: this.duration,
-         instructor: this.instructor,
-         smallContent: this.smallContent,
-         attachments: {
-             fileName: this.fileName,
-             fileLocation: this.fileLocation
-         }
-     };
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private toastr: ToastrService,
+    private courseService: CourseServiceService
+  ) { }
 
-  //    this.isLoading = true; // Set loading state to true
-  //    this.isSuccess = false; // Reset success state
+  ngOnInit(): void {
+    // Initialize form or other setup logic here if needed
+  }
 
-  //    this.apiService.uploadCourse(courseData).subscribe(response => {
-  //     console.log('Course created successfully:', response);
-  //     this.isLoading = false; // Set loading state to false
-  //     this.isSuccess = true; // Set success state to true
-      
-  //     // Redirect to dashboard after a brief delay
-  //     setTimeout(() => {
-  //         this.router.navigate(['/admin/dashboard']); // Redirect to the dashboard
-  //     }, 2000); // Delay for 2 seconds to show the success message
-  // }, error => {
-  //     console.error('Error creating course:', error);
-  //     this.isLoading = false; // Set loading state to false
-  //     // Handle error (e.g., show an error message)
-  // });
+  nextStep() {
+    if (this.currentStep === 1) {
+      this.currentStep = 2;
+      this.progress = 100;
+    }
+  }
 
-    //  // Call your API to create the course
-    //  this.apiService.uploadCourse(courseData).subscribe(response => {
-    //      console.log('Course created successfully:', response);
-    //      // Handle success (e.g., redirect or show a message)
-    //  }, error => {
-    //      console.error('Error creating course:', error);
-    //      // Handle error (e.g., show an error message)
-    //  });
- }
+  prevStep() {
+    if (this.currentStep === 2) {
+      this.currentStep = 1;
+      this.progress = 50;
+    }
+  }
 
-}
+  submitCourse() {
+    const courseData = {
+      courseName: this.courseName,
+      description: this.description,
+      duration: this.duration,
+      instructor: this.instructor,
+      courseURL: this.courseURL,
+      attachments: [
+        {
+          fileType: this.fileType,
+          fileLocation: this.fileLocation
+        }
+      ]
+    };
+    console.log(courseData);
+
+    this.isLoading = true;
+    this.isSuccess = false;
+
+    this.courseService.getCoursesCreated(this.courseName, this.description,this.duration, this.instructor,courseData.attachments).subscribe(
+      response => {
+        console.log('Course created successfully:', response);
+        this.toastr.success('Course created successfully!', 'Success');
+        this.isLoading = false;
+        this.isSuccess = true;
+
+        setTimeout(() => {
+          this.router.navigate(['/admin/dashboard']);
+        }, 2000);
+      },
+      error => {
+        console.error('Error creating course:', error);
+        this.toastr.error('Error creating course. Please try again.', 'Error');
+        this.isLoading = false;
+      }
+    );
+  }      
+  attachments(courseName: string, description: string, duration: number, instructor: string, attachments: any) {
+    throw new Error('Method not implemented.');
+  }
+  }
+
