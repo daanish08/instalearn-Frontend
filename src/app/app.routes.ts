@@ -12,6 +12,9 @@ import { AdmindashboardComponent } from './admin/components/admindashboard/admin
 import { CoursecreationComponent } from './admin/components/coursecreation/coursecreation.component';
 import { ApprovecoursesComponent } from './admin/components/approvecourses/approvecourses.component';
 import { CourseDetailsComponent } from './courses/components/course-details/course-details.component';
+import { UserDashboardComponent } from './user/components/user-dashboard/user-dashboard.component';
+import { UserEnrolledStatusComponent } from './user/components/user-enrolled-status/user-enrolled-status.component';
+import { CourseCompletionDetailsComponent } from './courses/components/course-completion-details/course-completion-details.component';
 
 
 //config the routes
@@ -35,6 +38,14 @@ export const routes: Routes = [
         { path: 'create-courses', component: CoursecreationComponent, title: 'Create Course' },
         { path: 'approve-courses', component: ApprovecoursesComponent, title: 'Approve Courses' },
     ]
+}, {
+  path: 'user',
+  children: [
+      { path: 'dashboard', component: UserDashboardComponent, title: 'User Dashboard' },
+      { path: 'courses', component: CoursecreationComponent, title: 'View Course' },
+      { path: 'enroll-courses', component: UserEnrolledStatusComponent, title: 'Enroll Courses' },
+      { path: 'enroll-courses/:enrollId/', component: UserEnrolledStatusComponent, title: 'Enroll Courses' },
+  ]
 },{
   path: 'courses',
   children: [
@@ -42,7 +53,8 @@ export const routes: Routes = [
       { path: 'admin/:adminId', component: CoursesComponent, title: 'Courses by Admin' }, // Specific courses by admin
       { path: ':courseId', component: CourseDetailsComponent, title: 'Detailed View of Course' }, // Detailed view of a specific course
       { path: 'user/:userId', component: CoursesComponent, title: 'Courses Enrolled By Users' }, // Courses enrolled by a specific user
-  ]
+      {path:':courseId/completed',component:CourseCompletionDetailsComponent ,title:'Course Completion Details'}//Completion Page of the specific users
+    ]
 },
 
 
