@@ -9,39 +9,36 @@
     </div>
   </div>
 
-
   <div *ngIf="currentStep === 1" class="formData">
-    <form (ngSubmit)="nextStep()">
+    <form #courseForm="ngForm" (ngSubmit)="nextStep()">
       <div class="d-flex">
-        <div class="form-group " style="width: 100%;">
+        <div class="form-group" style="width: 100%;">
           <label for="courseName" class="pb-2 fw-light">Course Name</label>
-          <input type="text" class="form-control mb-3 " id="courseName" [(ngModel)]="courseName"
+          <input type="text" class="form-control mb-3" id="courseName" [(ngModel)]="courseName"
             placeholder="Enter course name" name="courseName" required>
         </div>
         <div class="form-group" style="width: 100%;">
           <label for="instructor" class="pb-2 fw-light">Instructor Name</label>
           <input type="text" class="form-control mb-3" id="instructor" [(ngModel)]="instructor"
-            placeholder="Enter Instructor" name="instructor" required>
+            placeholder="Enter Instructor Name" name="instructor" required>
         </div>
-
       </div>
       <div class="form-group">
         <label for="description" class="pb-2 fw-light">Description (Min 100 words.)</label>
         <textarea class="form-control mb-3" id="description" [(ngModel)]="description" placeholder="Enter description"
-          name="description" required></textarea>
+          name="description" required minlength="100"></textarea>
       </div>
       <div class="form-group">
         <label for="duration" class="pb-2 fw-light">Duration (in hours)</label>
-        <input type="number" class="form-control mb-3" id="duration" [(ngModel)]="duration" name="duration" required>
+        <input type="number" class="form-control mb-3" id="duration" [(ngModel)]="duration" name="duration" required min="1">
       </div>
 
-      <button type="submit" class="btn btn-success mb-3">Next</button>
+      <button type="submit" class="btn btn-success mb-3" [disabled]="!courseForm.valid">Next</button>
     </form>
   </div>
 
   <div *ngIf="currentStep === 2" class="px-5">
-    <!-- <h4>Attachments</h4> -->
-    <form (ngSubmit)="submitCourse()">
+    <form #attachmentForm="ngForm" (ngSubmit)="submitCourse()">
       <div class="form-group">
         <label for="fileName" class="pb-1 fw-light">URL Links</label>
         <input type="text" class="form-control mb-3" id="fileName" [(ngModel)]="fileName" name="fileName"
@@ -49,24 +46,23 @@
       </div>
       <div class="form-group">
         <label for="fileLocation" class="pb-1 fw-light">File Location</label>
-        <input type="file" class="form-control mb-3" id="fileLocation" [(ngModel)]="fileLocation" name="fileLocation"
-          placeholder="Upload File" required>
+        <input type="file" class="form-control mb-3" id="fileLocation" [(ngModel)]="fileLocation" name="fileLocation" placeholder="Upload File"
+          required>
       </div>
       <div class="d-flex">
         <button type="button" class="btn btn-danger" (click)="prevStep()">Back</button>
-        <!-- routerLink="/" -->
-        <button type="button" class="btn btn-success mx-5" (click)="submitCourse()">Submit</button>
+        <button type="submit" class="btn btn-success mx-5" [disabled]="!attachmentForm.valid">Submit</button>
       </div>
     </form>
   </div>
-  <!-- Loader -->
+
   <div *ngIf="isLoading" class="text-center mt-4">
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
     <p>Creating course, please wait...</p>
   </div>
-  <!-- Success Message -->
+
   <div *ngIf="isSuccess" class="alert alert-success mt-4" role="alert">
     Course created successfully!
   </div>
