@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { FeedbacksService } from '../../services/feedbacks/feedbacks.service';
 
 @Component({
   selector: 'app-feedback-details',
@@ -25,7 +26,7 @@ import { RouterLink } from '@angular/router';
     </thead>
     <tbody >
         <tr *ngFor="let feedback of feedbacks">
-            <td>{{ feedback.feedbackId }}</td>
+            <td>{{ feedback.contactId }}</td>
             <td>{{ feedback.name }}</td>
             <td>{{ feedback.contact }}</td>
             <td>{{ feedback.comment }}</td>
@@ -38,35 +39,50 @@ import { RouterLink } from '@angular/router';
   `,
   styles: ``
 })
-export class FeedbackDetailsComponent {
+export class FeedbackDetailsComponent implements OnInit{
+  
+  feedbacks:any[]=[];
+  //Connect to the Service on load using dep Injection
+  constructor(private feedbackService: FeedbacksService) {
+    console.log("INSIDE CONSTRUCTOR");
+  }
 
-  feedbacks: any[] = [
-    {
-      "feedbackId": 1,
-      "name": "John Doe",
-      "contact": "123-456-7890",
-      "comment": "Inquiry about online courses.",
-      "enquiryType": "Course Information",
-      "display": true
-    },
-    {
-      "feedbackId": 2,
-      "name": "Jane Smith",
-      "contact": "987-654-3210",
-      "comment": "Need help with registration.",
-      "enquiryType": "Registration Assistance",
-      "display": false 
-    },
-    {
-      "feedbackId": 3,
-      "name": "Peter Jones",
-      "contact": "555-123-4567",
-      "comment": "Question about payment options.",
-      "enquiryType": "Payment Inquiry",
-      "display": true
-    }
-  ]
-  ;
+  ngOnInit(): void {
+    this.feedbackService.getFeedbacks()
+      .subscribe((response:any)=>{
+        this.feedbacks=response;
+        console.log(this.feedbacks);
+      })
+    // throw new Error('Method not implemented.');
+  }
+
+  // feedbacks: any[] = [
+  //   {
+  //     "feedbackId": 1,
+  //     "name": "John Doe",
+  //     "contact": "123-456-7890",
+  //     "comment": "Inquiry about online courses.",
+  //     "enquiryType": "Course Information",
+  //     "display": true
+  //   },
+  //   {
+  //     "feedbackId": 2,
+  //     "name": "Jane Smith",
+  //     "contact": "987-654-3210",
+  //     "comment": "Need help with registration.",
+  //     "enquiryType": "Registration Assistance",
+  //     "display": false 
+  //   },
+  //   {
+  //     "feedbackId": 3,
+  //     "name": "Peter Jones",
+  //     "contact": "555-123-4567",
+  //     "comment": "Question about payment options.",
+  //     "enquiryType": "Payment Inquiry",
+  //     "display": true
+  //   }
+  // ]
+  // ;
 
 
 }
