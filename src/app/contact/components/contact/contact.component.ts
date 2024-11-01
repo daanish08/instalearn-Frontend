@@ -1,16 +1,125 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   template: `
-    <p>
-      contact works!
-    </p>
+    <div class="bg-about px-3">
+      <div class="px-4 py-5 my-3 mt-0 text-center text-white ">
+        <h1 class="display-3 text-white pb-5 fw-light">About</h1>
+        <h3 class="display-5 text-white pb-5 fw-semibold">
+          We are an online language learning community lorem ipsum dolor sit
+          amet.
+        </h3>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="30"
+          height="30"
+          fill="currentColor"
+          class="bi bi-arrow-down-circle-fill"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"
+          />
+        </svg>
+        <i class="bi bi-arrow-down-circle-fill"></i>
+      </div>
+    </div>
+    <div class="container mt-5">
+      <h2 class="text-left fw-light">
+        For any <span class="fw-semibold text-success">Media</span> and
+        <span class="fw-semibold text-success">Business</span> inquiries
+        <hr class="pb-2" />
+      </h2>
+      <p>
+        Send us a message below or email us at
+        <a href="mailto:contact@info.com">contact&#64;info.com</a>
+      </p>
+      <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            ngModel
+            placeholder="Your Name"
+            required
+          />
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="contactInfo">Contact Info</label>
+          <input
+            type="text"
+            class="form-control"
+            id="contactInfo"
+            name="contactInfo"
+            ngModel
+            placeholder="Email or Phone"
+            required
+          />
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea
+            class="form-control"
+            id="message"
+            name="message"
+            ngModel
+            rows="4"
+            required
+          ></textarea>
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="inquiryType">What is this about</label>
+          <select
+            class="form-control"
+            id="inquiryType"
+            name="inquiryType"
+            ngModel
+            required
+          >
+            <option>Feedback</option>
+            <option>Query</option>
+            <option>Help</option>
+            <!-- Add more options as needed -->
+          </select>
+        </div>
+        <br />
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="contactForm.invalid"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
   `,
-  styles: ``
+  styles: [
+    `
+      .bg-about {
+        background-image: url('https://websitedemos.net/language-tutors-02/wp-content/uploads/sites/700/2020/09/bg-002-free-img.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        height: 100vh;
+        position: relative;
+      }
+    `,
+  ],
 })
 export class ContactComponent {
-
+  onSubmit(contactForm: NgForm) {
+    const formData = contactForm.value;
+    console.log('Form Data:', formData);
+  }
 }
