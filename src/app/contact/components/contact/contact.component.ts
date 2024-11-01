@@ -9,10 +9,10 @@ import { NgForm } from '@angular/forms';
   template: `
     <div class="bg-about px-3">
       <div class="px-4 py-5 my-3 mt-0 text-center text-white ">
-        <h1 class="display-3 text-white pb-5 fw-light">About</h1>
+        <h1 class="display-3 text-white pb-5 fw-light">Contact</h1>
         <h3 class="display-5 text-white pb-5 fw-semibold">
-          We are an online language learning community lorem ipsum dolor sit
-          amet.
+          Join our vibrant online language learning community and connect with
+          us
         </h3>
         <svg
           xmlns="http://www.w3.org/2000/svg"

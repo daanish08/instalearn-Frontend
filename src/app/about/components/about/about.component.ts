@@ -12,8 +12,8 @@ import { DevelopersComponent } from '../developers/developers.component';
       <div class="px-4 py-5 my-3 mt-0 text-center text-white ">
         <h1 class="display-3 text-white pb-5 fw-light">About</h1>
         <h3 class="display-5 text-white pb-5 fw-semibold">
-          We are an online language learning community lorem ipsum dolor sit
-          amet.
+          "We are an online community dedicated to making language learning
+          engaging and accessible for everyone."
         </h3>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -39,16 +39,16 @@ import { DevelopersComponent } from '../developers/developers.component';
               <div class="mb-5">
                 <h6 class="text-danger text-center fw-light pb-2">About us</h6>
                 <h2 class="fw-bold  text-center">
-                  We connect students and teachers <br />lorem ipsum dolor sit
-                  amet,<br />
-                  consectetur.
+                  We connect students and teachers <br />together to create
+                  enriching<br />
+                  educational experiences.
                 </h2>
                 <!-- <span class=""><hr></span> -->
 
                 <p class="lead">
-                  <span class="fs-5 ">E</span>xcepteur sint occaecat cupidatat
-                  non proident, sunt in culpa qui officia deserunt mollit anim
-                  id est laborum...
+                  <span class="fs-5 ">W</span>e prioritize quality and
+                  commitment, ensuring a supportive and engaging learning
+                  environment for all."
                 </p>
               </div>
 
@@ -99,12 +99,12 @@ export class AboutComponent {
     {
       head: 'Our Mission',
       description:
-        'Consectetur adipisicing elit, sed do eiusmod tempor incididunt.',
+        'To inspire and empower learners through innovative and effective educational experiences.',
     },
     {
       head: 'Our Vision',
       description:
-        'Adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.',
+        'To revolutionize education by creating a world where learning is accessible, engaging, and transformative for everyone.',
     },
   ];
 }

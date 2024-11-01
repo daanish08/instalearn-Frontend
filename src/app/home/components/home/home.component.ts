@@ -19,31 +19,31 @@ export class HomeComponent {
     { logo: 'C4', title: 'Course 4', description: 'Course 4 description goes here.' },
     { logo: 'C5', title: 'Course 5', description: 'Course 5 description goes here.' },
     { logo: 'C6', title: 'Course 6', description: 'Course 6 description goes here.' },
-    { logo: 'C4', title: 'Course 4', description: 'Course 4 description goes here.' },
-    { logo: 'C5', title: 'Course 5', description: 'Course 5 description goes here.' },
-    { logo: 'C6', title: 'Course 6', description: 'Course 6 description goes here.' },
-     { logo: 'C4', title: 'Course 4', description: 'Course 4 description goes here.' },
-    { logo: 'C5', title: 'Course 5', description: 'Course 5 description goes here.' },
-    { logo: 'C6', title: 'Course 6', description: 'Course 6 description goes here.' },
-     { logo: 'C4', title: 'Course 4', description: 'Course 4 description goes here.' },
-    { logo: 'C5', title: 'Course 5', description: 'Course 5 description goes here.' },
-    { logo: 'C6', title: 'Course 6', description: 'Course 6 description goes here.' },
+    { logo: 'C4', title: 'Course 7', description: 'Course 4 description goes here.' },
+    { logo: 'C5', title: 'Course 8', description: 'Course 5 description goes here.' },
+    { logo: 'C6', title: 'Course 9', description: 'Course 6 description goes here.' },
+     { logo: 'C4', title: 'Course 10', description: 'Course 4 description goes here.' },
+    { logo: 'C5', title: 'Course 11', description: 'Course 5 description goes here.' },
+    { logo: 'C6', title: 'Course 12', description: 'Course 6 description goes here.' },
+     { logo: 'C4', title: 'Course 13', description: 'Course 4 description goes here.' },
+    { logo: 'C5', title: 'Course 14', description: 'Course 5 description goes here.' },
+    { logo: 'C6', title: 'Course 15', description: 'Course 6 description goes here.' },
   ];
 
   stepstoFindCourse=[
     {
       id:1,
       head:"Find the perfect tutor",
-      description:"Elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Nam varius consectetur."
+      description:"Connect with expert tutors tailored to your learning needs."
     },
     {
       id:2,
       head:"Enroll your lesson",
-      description:"Elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Nam varius consectetur."
+      description:"Sign up for personalized lessons and start your journey today."
     },{
       id:3,
       head:"Start the journey",
-      description:"Elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Nam varius consectetur."
+      description:"Embark on a path to success with tailored guidance and support."
     },
   ]
 
@@ -52,22 +52,22 @@ features = [
   {
     imgTag: "/assets/img/Home/graduate.png",
     title: "Expert Tutors",
-    description: "Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+    description: "Connect with knowledgeable tutors who illuminate the path to understanding."
   },
   {
     imgTag: "/assets/img/Home/graduate.png",
     title: "Verified Profiles",
-    description: "Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+    description: "Access trustworthy profiles, ensuring quality and authenticity."
   },
   {
     imgTag: "/assets/img/Home/graduate.png",
     title: "Pay Per Lesson",
-    description: "Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+    description: "Enjoy flexibility with a pay-per-lesson model tailored to your needs."
   },
   {
     imgTag: "/assets/img/Home/graduate.png",
     title: "Affordable Prices",
-    description: "Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+    description: "Experience quality education at prices that won't break the bank."
   }
 ];
 
