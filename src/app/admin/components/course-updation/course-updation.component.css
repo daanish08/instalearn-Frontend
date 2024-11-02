@@ -1,0 +1,12 @@
+input,
+textarea {
+  width: 80%;
+}
+
+.formData {
+  padding-left: 50px;
+}
+
+button {
+  width: 150px;
+}
