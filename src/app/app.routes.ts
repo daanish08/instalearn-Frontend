@@ -15,6 +15,7 @@ import { UserDashboardComponent } from './user/components/user-dashboard/user-da
 import { UserEnrolledStatusComponent } from './user/components/user-enrolled-status/user-enrolled-status.component';
 import { CourseCompletionDetailsComponent } from './courses/components/course-completion-details/course-completion-details.component';
 import { FeedbackDetailsComponent } from './admin/components/feedback-details/feedback-details.component';
+import { UserListComponent } from './admin/components/user-list/user-list.component';
 
 
 //config the routes
@@ -36,6 +37,7 @@ export const routes: Routes = [
     children: [
         { path: 'dashboard', component: AdmindashboardComponent, title: 'Admin Dashboard' },
         { path: 'create-courses', component: CoursecreationComponent, title: 'Create Course' },
+        { path: 'user-list', component: UserListComponent, title: 'User List' },
         { path: 'approve-courses', component: ApprovecoursesComponent, title: 'Approve Courses' },
         { path: 'feedback-details', component: FeedbackDetailsComponent, title: 'Feedbacks' }
     ]

@@ -9,7 +9,6 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { UserRegService } from '../../services/user-reg.service';
 
 @Component({
@@ -130,7 +129,7 @@ export class UserregisterComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private toastr: ToastrService, // Inject ToastrService
+    // private toastr: ToastrService, // Inject ToastrService
     private userRegService: UserRegService
   ) {
     this.registerForm = this.fb.group({

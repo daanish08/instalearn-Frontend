@@ -10,7 +10,6 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminRegService } from '../../services/admin-reg.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-adminregister',
@@ -147,7 +146,7 @@ export class AdminregisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private toastr: ToastrService, // Inject ToastrService
+    // private toastr: ToastrService, // Inject ToastrService
     private adminRegService: AdminRegService
   ) {
     this.registerForm = this.fb.group({
@@ -182,7 +181,7 @@ export class AdminregisterComponent implements OnInit {
         },
         (error: any) => {
           console.error('Registration failed', error);
-          this.toastr.error('Registration failed. Please try again.', 'Error'); // Show error toast
+          // this.toastr.error('Registration failed. Please try again.', 'Error'); // Show error toast
         }
       );
     }

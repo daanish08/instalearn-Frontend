@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { CourseServiceService } from '../../../courses/services/courses/course-service.service';
 import { CommonModule } from '@angular/common';
 
 
-// interface attachements:any[]{
-
-// }
 
 @Component({
   selector: 'app-coursecreation',
@@ -46,7 +42,7 @@ export class CoursecreationComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private toastr: ToastrService,
+    // private toastr: ToastrService,
     private courseService: CourseServiceService
   ) { }
 
@@ -86,27 +82,28 @@ export class CoursecreationComponent implements OnInit {
 
     this.isLoading = true;
     this.isSuccess = false;
-
-    this.courseService.getCoursesCreated(this.courseName, this.description,this.duration, this.instructor,courseData.attachments).subscribe(
-      response => {
-        console.log('Course created successfully:', response);
-        this.toastr.success('Course created successfully!', 'Success');
-        this.isLoading = false;
-        this.isSuccess = true;
-
-        setTimeout(() => {
-          this.router.navigate(['/admin/dashboard']);
-        }, 2000);
-      },
-      error => {
-        console.error('Error creating course:', error);
-        this.toastr.error('Error creating course. Please try again.', 'Error');
-        this.isLoading = false;
-      }
-    );
-  }      
-  attachments(courseName: string, description: string, duration: number, instructor: string, attachments: any) {
-    throw new Error('Method not implemented.');
   }
-  }
+}
+  //   this.courseService.getCoursesCreated(this.courseName, this.description,this.duration, this.instructor,courseData.attachments).subscribe(
+  //     response => {
+  //       console.log('Course created successfully:', response);
+  //       this.toastr.success('Course created successfully!', 'Success');
+  //       this.isLoading = false;
+  //       this.isSuccess = true;
+
+  //       setTimeout(() => {
+  //         this.router.navigate(['/admin/dashboard']);
+  //       }, 2000);
+  //     },
+  //     error => {
+  //       console.error('Error creating course:', error);
+  //       this.toastr.error('Error creating course. Please try again.', 'Error');
+  //       this.isLoading = false;
+  //     }
+  //   );
+  // }      
+  // attachments(courseName: string, description: string, duration: number, instructor: string, attachments: any) {
+  //   throw new Error('Method not implemented.');
+  // }
+  // }
 

@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { AdminServiceService } from '../../services/admin-service/admin-service.service';
 
 @Component({
   selector: 'app-admindashboard',
@@ -10,32 +11,38 @@ import { RouterModule } from '@angular/router';
   templateUrl: './admindashboard.component.html',
   styleUrl: './admindashboard.component.css'
 })
-export class AdmindashboardComponent {
+export class AdmindashboardComponent implements OnInit{
+
+  constructor(private adminService: AdminServiceService) {}
+
+  ngOnInit(): void {
+    this.loadDashboardData();
+  }
 
   userName="Daanish";
 
   adminDashBoardData = [
     {
         title: "Users List",
-        count: 10,
-        route: "/admin/users",
+        count: 0,
+        route: "/admin/user-list",
         buttonTitle: "View Users",
     },
     {
         title: "Feedbacks",
-        count: 10,
+        count: 0,
         route: "/admin/feedback-details",
         buttonTitle: "View Feedbacks"
     },
     {
         title: "Enrolled Courses",
-        count: 10,
+        count: 0,
         route: "/admin/courses",
         buttonTitle: "View Enrolled Courses",
     },
     {
         title: "Pending Approvals",
-        count: 5,
+        count: 0,
         route: "/admin/approve-courses",
         buttonTitle: "View Pending Approvals",
     }
@@ -51,14 +58,22 @@ courseManagementCards = [
       image: "/assets/img/vectorIcons/createCourse.jpg" // Path to the image
   },
   {
-      title: "Approve Enrollments",
-      description: "Conduct thorough evaluations and authorize user enrollments to ensure a high-quality learning experience and effective course participation.",
-      buttonText: "Review Now",
-      route: "/admin/approve-courses", // Route to navigate to the course approvals page
+      title: "Update Course",
+      description: "Efficiently design, implement, and oversee your courses with streamlined processes and comprehensive management tools.",
+      buttonText: "Update Now",
+      route: "/admin/update-courses", // Route to navigate to the course approvals page
       image: "/assets/img/vectorIcons/enrollCourse.jpg" // Path to the image
   },
+  {
+    title: "Approve Enrollments",
+    description: "Conduct thorough evaluations and authorize user enrollments to ensure a high-quality learning experience and effective course participation.",
+    buttonText: "Review Now",
+    route: "/admin/approve-courses", // Route to navigate to the course approvals page
+    image: "/assets/img/vectorIcons/enrollCourse.jpg" // Path to the image
+},
 
 ];
+
 
 
 
@@ -66,8 +81,22 @@ courseManagementCards = [
     console.log("Hi")
   }
 
-  // viewUser(value){
-  //   console.log(value);
+  loadDashboardData() {
+    this.adminService.getUserCount().subscribe(count => {
+      this.adminDashBoardData[0].count = count;
+    });
 
-  // }
+    this.adminService.getFeedbackCount().subscribe(count => {
+      this.adminDashBoardData[1].count = count;
+    });
+
+    this.adminService.getEnrolledCoursesCount().subscribe(count => {
+      this.adminDashBoardData[2].count = count;
+    });
+
+    this.adminService.getPendingApprovalsCount().subscribe(count => {
+      this.adminDashBoardData[3].count = count;
+    });
+  }
+
 }
