@@ -9,7 +9,8 @@ interface Course {
   description: string;
   duration: string;
   instructor: string;
-  attachments: string[];
+ githubUrl:string,
+ driveUrl:string,
   videoUrl: string;
 }
 
@@ -24,6 +25,11 @@ export class CourseDetailsComponent implements OnInit {
   course!: Course;
   currentStep: number = 1;
 
+  openLink(url: string) {
+    window.open(url, '_blank');
+  }
+  
+
   ngOnInit(): void {
     this.course = {
       image: '/assets/img/vectorIcons/createCourse.jpg',
@@ -31,7 +37,8 @@ export class CourseDetailsComponent implements OnInit {
       description: 'Deep dive into Angular development with hands-on projects and best practices.',
       duration: '8 weeks',
       instructor: 'Jane Doe',
-      attachments: ['syllabus.pdf', 'project-guidelines.docx'],
+      driveUrl: 'https://www.youtube.com/embed/0Z3I8TSUwLI?si=0PgPvV28zOX2CQ1r',
+      githubUrl: 'https://www.youtube.com/embed/0Z3I8TSUwLI?si=0PgPvV28zOX2CQ1r',
       videoUrl: 'https://www.youtube.com/embed/0Z3I8TSUwLI?si=0PgPvV28zOX2CQ1r'
     };
   }

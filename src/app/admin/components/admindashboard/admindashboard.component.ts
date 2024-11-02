@@ -35,10 +35,10 @@ export class AdmindashboardComponent implements OnInit{
         buttonTitle: "View Feedbacks"
     },
     {
-        title: "Enrolled Courses",
+        title: "Courses",
         count: 0,
         route: "/admin/courses",
-        buttonTitle: "View Enrolled Courses",
+        buttonTitle: "View Courses",
     },
     {
         title: "Pending Approvals",

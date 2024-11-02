@@ -8,11 +8,11 @@ import jsPDF from 'jspdf';
   standalone: true,
   imports: [DatePipe],
   template: `
-   <div class="container-fluid mt-5 p-5">
-  <div id="certificate" class="certificate bg-tertiary py-5">
-    <div class="certificate-border py-2">
-    <div class="p-5 border border-black">
-      <!-- <img src="/assets/CompletedLogo.png" alt="" width="150" height="130"> -->
+   <div class="container-fluid mt-2 p-3">
+  <div id="certificate" class="certificate bg-tertiary py-4">
+    <div class="certificate-border py-3">
+    <div class="p-4 border border-black">
+      <img src="https://www.ford.com/etc/designs/brand_ford/brand/skin/ford/img/bri-icons/Ford-logo.svg" alt="" width="150" height="50">
       <h1 class="fw-light pb-2"><span class="text-success">Certificate</span> of Completion</h1>
       <p>This is to certify that</p>
       <h2>{{ username }}</h2>

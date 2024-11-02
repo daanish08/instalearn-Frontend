@@ -6,7 +6,7 @@
 
       <!-- Progress Bar -->
       <div class="progress mb-4">
-        <div class="progress-bar" role="progressbar" [style.width]="(currentStep / 3) * 100 + '%'"
+        <div class="progress-bar bg-success" role="progressbar" [style.width]="(currentStep / 3) * 100 + '%'"
           [attr.aria-valuenow]="currentStep" aria-valuemin="1" aria-valuemax="3"></div>
       </div>
 
@@ -23,12 +23,16 @@
 
       <!-- Step 2: Attachments -->
       <div *ngIf="currentStep === 2">
-        <h5 class="fw-semibold text-success border-bottom w-10">Attachments</h5>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item" *ngFor="let attachment of course.attachments">
-            <a href="#" class="text-decoration-none">{{ attachment }}</a>
-          </li>
-        </ul>
+        <h5 class="fw-semibold text-success border-bottom w-10">Course Materials</h5>
+        <div class="d-flex justify-content-center">
+          <button type="button" class="btn btn-outline-success mx-2 my-2" (click)="openLink(course.githubUrl)" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+          </button>
+          <button type="button" class="btn btn-outline-success mx-2 my-2" (click)="openLink(course.driveUrl)" target="_blank">
+            <i class="fas fa-file-alt"></i> Google Drive
+          </button>
+        </div>
+        
       </div>
 
       <!-- Step 3: Video -->

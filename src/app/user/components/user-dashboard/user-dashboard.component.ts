@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { UserServiceService } from '../../services/user-service/user-service.service';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -40,9 +43,37 @@ import { RouterModule } from '@angular/router';
   `,
   styles: ``
 })
-export class UserDashboardComponent {
+export class UserDashboardComponent implements OnInit{
 
-  userName="User";
+  userName="daanish"
+ 
+ 
+
+  constructor(private http: HttpClient) { } // Inject HttpClient
+
+  ngOnInit(): void {
+    this.loadDashboardData();
+  }
+
+  loadDashboardData() {
+    // Make separate API calls for each count
+    this.getEnrolledCoursesCount().subscribe(count => this.userDashBoardData[0].count = count);
+    this.getAvailableCoursesCount().subscribe(count => this.userDashBoardData[1].count = count);
+    this.getApprovalStatusCount().subscribe(count => this.userDashBoardData[2].count = count);
+  }
+
+  getEnrolledCoursesCount(): Observable<number> {
+    return this.http.get<number>('/api/user/enrolled-courses-count'); // Replace with your API endpoint
+  }
+
+  getAvailableCoursesCount(): Observable<number> {
+    return this.http.get<number>('http://localhost:8080/instalearn/api/v1/course/count'); // Replace with your API endpoint
+  }
+
+  getApprovalStatusCount(): Observable<number> {
+    return this.http.get<number>('/api/admin/approval-count'); // Replace with your API endpoint
+  }
+
 
   userDashBoardData = [
     {
@@ -84,14 +115,4 @@ courseManagementCards = [
 
 ];
 
-
-
-  uploadCourse() {
-    console.log("Hi")
-  }
-
-  // viewUser(value){
-  //   console.log(value);
-
-  // }
 }
