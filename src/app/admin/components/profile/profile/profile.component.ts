@@ -27,6 +27,7 @@ export class ProfileComponent implements OnInit{
     this.loadUserProfile(this.id);
   }
 
+
   loadUserProfile(id: number) { // Accept 'id' as a parameter
     this.adminService.getAdminById(id).subscribe((response:any)=>{
       this.profile=response;

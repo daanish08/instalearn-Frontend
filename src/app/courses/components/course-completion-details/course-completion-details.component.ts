@@ -48,7 +48,6 @@ import jsPDF from 'jspdf';
   margin: 0 auto;
   padding: 25px;
   text-align: center;
-  // border: 2px solid #000; /* Ensure the border is visible */
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for depth */
 }
@@ -91,7 +90,6 @@ import jsPDF from 'jspdf';
 }
 
 .underline {
-  // text-decoration: underline; /* Underline the text */
   font-weight: bold; /* Optional: Make the text bold for emphasis */
 }
 
