@@ -18,6 +18,7 @@ import { FeedbackDetailsComponent } from './admin/components/feedback-details/fe
 import { UserListComponent } from './admin/components/user-list/user-list.component';
 import { ProfileComponent } from './admin/components/profile/profile/profile.component';
 import { UserProfileComponent } from './user/components/user-profile/user-profile/user-profile.component';
+import { CourseUpdationComponent } from './admin/components/course-updation/course-updation.component';
 
 
 //config the routes
@@ -40,6 +41,7 @@ export const routes: Routes = [
         { path: 'profile', component: ProfileComponent, title: 'Admin Profile' },
         { path: 'dashboard', component: AdmindashboardComponent, title: 'Admin Dashboard' },
         { path: 'create-courses', component: CoursecreationComponent, title: 'Create Course' },
+        { path: 'update-courses', component: CourseUpdationComponent, title: 'Update Course' },
         { path: 'user-list', component: UserListComponent, title: 'User List' },
         { path: 'approve-courses', component: ApprovecoursesComponent, title: 'Approve Courses' },
         { path: 'feedback-details', component: FeedbackDetailsComponent, title: 'Feedbacks' }
