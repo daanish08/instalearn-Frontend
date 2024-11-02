@@ -15,12 +15,12 @@ import { CommonModule } from '@angular/common';
 })
 export class CoursecreationComponent implements OnInit {
 
-  onFileChange(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.fileLocation = file; // Store the file object
-    }
-  }
+  // onFileChange(event: any) {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     this.fileLocation = file; // Store the file object
+  //   }
+  // }
   
   courseCreation: FormGroup | undefined;
 
@@ -29,9 +29,8 @@ export class CoursecreationComponent implements OnInit {
   duration: number = 0;
   instructor: string = '';
 
-  courseURL: string = '';
-  fileType:string='';
-  fileLocation: string = '';
+  driveURL: string = '';
+  githubURL: string = '';
 
   currentStep: number = 1;
   progress: number = 50;
@@ -70,13 +69,9 @@ export class CoursecreationComponent implements OnInit {
       description: this.description,
       duration: this.duration,
       instructor: this.instructor,
-      courseURL: this.courseURL,
-      attachments: [
-        {
-          fileType: this.fileType,
-          fileLocation: this.fileLocation
-        }
-      ]
+      driveURL: this.driveURL,
+      githubURL: this.githubURL
+      
     };
     console.log(courseData);
 

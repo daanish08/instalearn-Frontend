@@ -41,19 +41,15 @@
   <div *ngIf="currentStep === 2" class="px-5">
     <form #attachmentForm="ngForm" (ngSubmit)="submitCourse()">
       <div class="form-group">
-        <label for="fileName" class="pb-1 fw-light">URL Links</label>
-        <input type="text" class="form-control mb-3" id="courseURL" [(ngModel)]="courseURL" name="courseURL"
+        <label for="fileName" class="pb-1 fw-light">Drive Links: <span class="pb-1 text-warning">(Make the links public)</span></label>
+        <input type="text" class="form-control mb-3" id="driveURL" [(ngModel)]="driveURL" name="driveURL"
           placeholder="Enter URL" required>
       </div>
+      
       <div class="form-group">
-        <label for="fileType" class="pb-1 fw-light">File Type</label>
-        <input type="text" class="form-control mb-3" id="fileType"
-          name="fileType" required>
-      </div>
-      <div class="form-group">
-        <label for="fileLocation" class="pb-1 fw-light">File Location</label>
-        <input type="file" class="form-control mb-3" id="fileLocation" (change)="onFileChange($event)"
-          name="fileLocation" required>
+        <label for="fileLocation" class="pb-1 fw-light">Github Links: <span class="pb-1 text-warning">(Make the links public)</span></label>
+        <input type="text" class="form-control mb-3" id="githubURL" [(ngModel)]="githubURL"
+          name="githubURL" placeholder="Enter URL" required>
       </div>
       <div class="d-flex">
         <button type="button" class="btn btn-danger" (click)="prevStep()">Back</button>
