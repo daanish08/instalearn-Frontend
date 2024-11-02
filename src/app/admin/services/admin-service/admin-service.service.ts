@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Admin } from '../../models/IAdmin';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,8 @@ export class AdminServiceService {
   private fetchUsers = 'http://localhost:8080/instalearn/admin/users';
   private fetchUsersCount='http://localhost:8080/instalearn/admin/usersCount'
   private fetchFeedbackCount='http://localhost:8080/instalearn/admin/feedbacks/count'
+  private fetchDetailsById='http://localhost:8080/instalearn/admin/AdminList'
+  private fetchAdminDetailsById='http://localhost:8080/instalearn/admin/AdminList/'
 
   private countUsers=0;
   constructor(private http: HttpClient) { }
@@ -32,6 +35,11 @@ export class AdminServiceService {
 
   getPendingApprovalsCount(): Observable<number> {
     return this.http.get<number>('/api/pending-approvals-count'); // Adjust the endpoint as needed
+  }
+
+  getAdminById(id: number): Observable<Admin> {
+    const url = `${this.fetchDetailsById}/${id}`;
+    return this.http.get<Admin>(url);
   }
 
 }

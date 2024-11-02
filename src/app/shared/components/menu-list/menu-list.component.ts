@@ -39,7 +39,7 @@ export class MenuListComponent implements OnInit {
       { title: "Home", url: "/" },
       { title: "Dashboard", url: "/admin/dashboard" },
       { title: "Users", url: "/admin/user-list" },
-      { title: "Profile", url: "/user/profile" },
+      { title: "Profile", url: "/admin/profile" },
       { title: "Logout", url: "/" }, // Add a logout option
     ];
   }

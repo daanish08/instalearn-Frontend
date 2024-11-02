@@ -16,6 +16,8 @@ import { UserEnrolledStatusComponent } from './user/components/user-enrolled-sta
 import { CourseCompletionDetailsComponent } from './courses/components/course-completion-details/course-completion-details.component';
 import { FeedbackDetailsComponent } from './admin/components/feedback-details/feedback-details.component';
 import { UserListComponent } from './admin/components/user-list/user-list.component';
+import { ProfileComponent } from './admin/components/profile/profile/profile.component';
+import { UserProfileComponent } from './user/components/user-profile/user-profile/user-profile.component';
 
 
 //config the routes
@@ -35,6 +37,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     children: [
+        { path: 'profile', component: ProfileComponent, title: 'Admin Profile' },
         { path: 'dashboard', component: AdmindashboardComponent, title: 'Admin Dashboard' },
         { path: 'create-courses', component: CoursecreationComponent, title: 'Create Course' },
         { path: 'user-list', component: UserListComponent, title: 'User List' },
@@ -44,7 +47,8 @@ export const routes: Routes = [
 }, {
   path: 'user',
   children: [
-      { path: 'dashboard', component: UserDashboardComponent, title: 'User Dashboard' },
+    { path: 'profile', component: UserProfileComponent, title: 'User Profile' },  
+    { path: 'dashboard', component: UserDashboardComponent, title: 'User Dashboard' },
       { path: 'courses', component: CoursecreationComponent, title: 'View Course' },
       { path: 'enroll-courses', component: UserEnrolledStatusComponent, title: 'Enroll Courses' },
       { path: 'enroll-courses/:enrollId/', component: UserEnrolledStatusComponent, title: 'Enroll Courses' },
