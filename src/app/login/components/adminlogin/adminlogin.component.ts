@@ -65,7 +65,6 @@ import { LoginService } from '../../services/login.service';
             type="submit"
             class="btn btn-success btn-block my-3 w-100"
             [disabled]="loginForm.invalid"
-            routerLink="/admin/dashboard"
           >
             Login
           </button>
@@ -109,10 +108,8 @@ export class AdminloginComponent {
 
   onSubmit(form: any) {
     if (form.valid) {
-      this.loginService.login(form.value).subscribe((response: any) => {
-        console.log('login response', response);
-
-        this.router.navigate(['/user/dashboard']);
+      this.loginService.login(this.user).subscribe((response: any) => {
+        this.router.navigate(['/admin/dashboard']);
       });
     } else {
       console.error('Form is invalid');
