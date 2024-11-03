@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-adminlogin',
@@ -11,12 +12,7 @@ import { CommonModule } from '@angular/common';
     <div class="login-page d-flex bg-body-tertiary" style="height: 580px;">
       <div class="col-md-6 login-image"></div>
       <div class="col-md-6 d-flex align-items-center justify-content-center">
-        <form
-          class="w-75"
-          #loginForm="ngForm"
-          (ngSubmit)="onSubmit()"
-          novalidate
-        >
+        <form class="w-75" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
           <h2 class="text-center mb-1 fw-light">
             Login As <span class="fw-bold text-success">ADMIN</span>
           </h2>
@@ -69,7 +65,7 @@ import { CommonModule } from '@angular/common';
             type="submit"
             class="btn btn-success btn-block my-3 w-100"
             [disabled]="loginForm.invalid"
-             routerLink="/admin/dashboard"
+            routerLink="/admin/dashboard"
           >
             Login
           </button>
@@ -105,18 +101,21 @@ import { CommonModule } from '@angular/common';
 export class AdminloginComponent {
   user = {
     email: '',
-    password: ''
+    password: '',
   };
   isAdmin: boolean = false; // Default to user login
 
-  onSubmit() {
-    console.log('Form Submitted');
-    if (this.isAdmin) {
-      // Handle admin login logic
-      console.log('Admin Login:', this.user.email, this.user.password);
+  constructor(private router: Router, private loginService: LoginService) {}
+
+  onSubmit(form: any) {
+    if (form.valid) {
+      this.loginService.login(form.value).subscribe((response: any) => {
+        console.log('login response', response);
+
+        this.router.navigate(['/user/dashboard']);
+      });
     } else {
-      // Handle user login logic
-      console.log('User Login:', this.user.email, this.user.password);
+      console.error('Form is invalid');
     }
   }
 }

@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CourseServiceService } from '../../services/courses/course-service.service';
 
 interface Course {
+  id: number,
   imgTag:string,
   // title: string;
   courseName: string;

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class CourseServiceService {
 
   private apiUrl = 'http://localhost:8080/instalearn/api/v1/course/list';
-  private createLink='http://localhost:8080/instalearn/admin/A5/addCourse'
+  private createLink='http://localhost:8080/instalearn/admin/A1/addCourse'
   private courseDataById='http://localhost:8080/instalearn/api/v1/course/'
   private baseUrl='http://localhost:8080/instalearn/api/v1'
   

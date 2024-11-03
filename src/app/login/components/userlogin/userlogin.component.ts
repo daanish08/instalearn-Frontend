@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-userlogin',
   standalone: true,
-  imports: [RouterLink, FormsModule, CommonModule], // Include FormsModule
+  imports: [RouterLink, FormsModule, CommonModule],
   template: `
     <div class="login-page d-flex bg-body-tertiary" style="height: 580px;">
       <div class="col-md-6 login-image"></div>
@@ -110,20 +111,15 @@ export class UserloginComponent {
 
   isAdmin: boolean = false; // Default to user login
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private loginService: LoginService) {}
 
   onSubmit(form: any) {
     if (form.valid) {
-      if (this.isAdmin) {
-        // Handle admin login logic
-        console.log('Admin Login:', this.user.email, this.user.password);
-      } else {
-        // Handle user login logic
-        console.log('User Login:', this.user.email, this.user.password);
-      }
+      this.loginService.login(form.value).subscribe((response: any) => {
+        console.log('login response', response);
 
-      // Navigate to the user dashboard after successful login
-      this.router.navigate(['/user/dashboard']);
+        this.router.navigate(['/user/dashboard']);
+      });
     } else {
       console.error('Form is invalid');
     }
