@@ -12,13 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./coursecreation.component.css'],
 })
 export class CoursecreationComponent implements OnInit {
-  // onFileChange(event: any) {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     this.fileLocation = file; // Store the file object
-  //   }
-  // }
-
+  
   courseCreation: FormGroup | undefined;
 
   courseName: string = '';
@@ -28,7 +22,7 @@ export class CoursecreationComponent implements OnInit {
 
   driveURL: string = '';
   githubURL: string = '';
-  videoURL: string = '';
+  courseURL: string = '';
 
   currentStep: number = 1;
   progress: number = 50;
@@ -39,7 +33,6 @@ export class CoursecreationComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    // private toastr: ToastrService,
     private courseService: CourseServiceService
   ) {}
 
@@ -69,33 +62,29 @@ export class CoursecreationComponent implements OnInit {
       instructor: this.instructor,
       driveURL: this.driveURL,
       githubURL: this.githubURL,
-      videoURL: this.videoURL,
+      courseURL: this.courseURL,
     };
     console.log(courseData);
 
     this.isLoading = true;
     this.isSuccess = false;
+
+    this.courseService.getCoursesCreated(this.courseName, this.description,this.duration, this.instructor,this.courseURL,this.githubURL,this.driveURL).subscribe(
+      response => {
+        console.log('Course created successfully:', response);
+        // this.toastr.success('Course created successfully!', 'Success');
+        this.isLoading = false;
+        this.isSuccess = true;
+  
+        setTimeout(() => {
+          this.router.navigate(['/admin/dashboard']);
+        }, 2000);
+      },
+      error => {
+        console.error('Error creating course:', error);
+        // this.toastr.error('Error creating course. Please try again.', 'Error');
+        this.isLoading = false;
+      }
+    );
   }
 }
-//   this.courseService.getCoursesCreated(this.courseName, this.description,this.duration, this.instructor,courseData.attachments).subscribe(
-//     response => {
-//       console.log('Course created successfully:', response);
-//       this.toastr.success('Course created successfully!', 'Success');
-//       this.isLoading = false;
-//       this.isSuccess = true;
-
-//       setTimeout(() => {
-//         this.router.navigate(['/admin/dashboard']);
-//       }, 2000);
-//     },
-//     error => {
-//       console.error('Error creating course:', error);
-//       this.toastr.error('Error creating course. Please try again.', 'Error');
-//       this.isLoading = false;
-//     }
-//   );
-// }
-// attachments(courseName: string, description: string, duration: number, instructor: string, attachments: any) {
-//   throw new Error('Method not implemented.');
-// }
-// }

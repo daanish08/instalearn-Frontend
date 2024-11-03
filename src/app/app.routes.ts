@@ -59,26 +59,13 @@ export const routes: Routes = [
   path: 'courses',
   children: [
       { path: '', component: CoursesComponent, title: 'All Courses' }, // Default route to show all courses
+      { path: ':courseid/:userid/enroll', component: CoursesComponent, title: 'Courses by Admin' }, // Specific courses by admin 
       { path: 'admin/:adminId', component: CoursesComponent, title: 'Courses by Admin' }, // Specific courses by admin
-      { path: ':courseId', component: CourseDetailsComponent, title: 'Detailed View of Course' }, // Detailed view of a specific course
+      { path: ':id', component: CourseDetailsComponent, title: 'Detailed View of Course' }, // Detailed view of a specific course
       { path: 'user/:userId', component: CoursesComponent, title: 'Courses Enrolled By Users' }, // Courses enrolled by a specific user
       {path:':courseId/completed',component:CourseCompletionDetailsComponent ,title:'Course Completion Details'}//Completion Page of the specific users
     ]
-},
-
-
-
-  // {path:'admin',children:[
-  //   {path:}
-  // ]}
-  // {
-  //     path: 'employees', children: [
-  //         { path: 'add', component: AddEmployeeComponent, title: "Employee List" },
-  //         { path: ':id', component: EmployeeDetailsComponent, title: "Employee List" },
-  //         { path: ':id/edit', component: UpdateEmployeeComponent, title: "Employee List" },
-  //         { path: '', component: ListEmployeesComponent, title: "Employee List" },
-  //     ]
-  // },    
+}, 
   { path: 'about', component: AboutComponent, title: "About" },
   { path: 'contact', component: ContactComponent, title: "Contact" }
 ];

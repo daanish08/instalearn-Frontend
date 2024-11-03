@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CourseServiceService } from '../../services/courses/course-service.service';
 
 interface Course {
@@ -10,7 +10,9 @@ interface Course {
   description: string;
   duration: string;
   instructor: string;
-  attachments: string[]; // URLs or names of attachments
+  courseURL:string,
+  githubURL:string,
+  driveURL:string,
 }
 
 @Component({
@@ -18,39 +20,6 @@ interface Course {
   standalone: true,
   imports: [CommonModule,RouterLink],
   template: `
-  <!-- <div class="container-">
-   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-  <div class="col" *ngFor="let course of courses">
-    <div class="card shadow-sm h-100">
-      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
-        role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-        <title>Placeholder</title>
-        <rect width="100%" height="100%" fill="#55595c"></rect>
-        <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-      </svg>
-      <div class="card-body d-flex flex-column justify-content-between">
-        <div>
-          <h3 class="card-title">{{ course.title }}</h3>
-          <p class="card-text mb-2"><strong>Course Name:</strong> {{ course.courseName }}</p>
-          <p class="card-text mb-2"><strong>Description:</strong> {{ course.description }}</p>
-          <p class="card-text mb-2"><strong>Duration:</strong> {{ course.duration }}</p>
-          <p class="card-text mb-2"><strong>Instructor:</strong> {{ course.instructor }}</p>
-        </div>
-        <ul class="list-unstyled mb-4">
-          <li *ngFor="let attachment of course.attachments">
-            <a href="#" class="text-decoration-none">{{ attachment }}</a>
-          </li>
-        </ul>
-        <div class="mt-auto">
-          <button type="button" class="btn btn-primary btn-block" routerLink="/login">
-            Enroll
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div> -->
 
 
 <div class="container-fluid py-4 px-5 col-lg-12 bg-body-tertiary">
@@ -70,7 +39,7 @@ interface Course {
           <p class="card-text pb-2"><a href="#"
               class="text-muted text-decoration-none fw-normal  text-muted">{{course.description}}</a>
           </p>
-          <a href="#" class="btn btn-success text-white fw-light" routerLink="/courses/1">View</a>
+          <button class="btn btn-success text-white fw-light" (click)="enroll(course.id)">Enroll</button>
         </div>
       </div>
     </div>
@@ -84,8 +53,8 @@ export class CoursesComponent implements OnInit{
 
   courses: Course[] =[];
 
-  constructor(private courseService: CourseServiceService) {
-    console.log("INSIDE CONSTRUCTOR");
+  constructor(private courseService: CourseServiceService, private router: Router) {
+    console.log("INSIDE course CONSTRUCTOR");
   }
 
   
@@ -95,6 +64,32 @@ export class CoursesComponent implements OnInit{
         this.courses=response;
         console.log(this.courses);
       })
+  }
+  enroll(courseId: number) {
+    // Get the user ID (replace with your actual user ID retrieval method)
+    const userId = this.getUserId(); // Implement getUserId()
+
+    // Call the enrollment service
+    this.courseService.enrollInCourse(userId, courseId).subscribe({
+      next: (response) => {
+        console.log('Enrollment successful:', response);
+        // Optionally, display a success message to the user
+        alert('Enrollment successful!');
+      },
+      error: (error) => {
+        console.error('Enrollment failed:', error);
+        // Optionally, display an error message to the user
+        alert('Enrollment failed. Please try again.');
+      }
+    });
+
+  }
+
+  getUserId(): number {
+    // Replace this with your actual user ID retrieval logic.  For example:
+    // const userId = localStorage.getItem('userId');
+    // return parseInt(userId || '0', 10);
+    return 1; // Replace with your actual user ID retrieval logic.
   }
 
 
