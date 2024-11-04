@@ -57,7 +57,7 @@ interface Course {
                 >
               </p>
               <button
-                class="btn btn-success text-white fw-light"
+                class="btn btn-success me-md-2 text-white fw-light"
                 (click)="enroll(course.courseId)"
               >
                 Enroll
@@ -65,14 +65,14 @@ interface Course {
               <!-- Role-based buttons -->
               <button
                 *ngIf="userRole === 'admin'"
-                class="btn btn-primary text-white fw-light"
+                class="btn btn-primary me-md-2 text-white fw-light"
                 (click)="editCourse(course.courseId)"
               >
                 Edit
               </button>
               <button
                 *ngIf="userRole === 'admin'"
-                class="btn btn-danger text-white fw-light"
+                class="btn btn-danger me-md-2 text-white fw-light"
                 (click)="deleteCourse(course.courseId)"
               >
                 Delete
