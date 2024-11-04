@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { API_BASE_URL } from '../../../utils/environment';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { jwtDecode } from 'jwt-decode';
 
@@ -21,7 +21,7 @@ export interface JwtPayload {
   exp: number;
 }
 
-export interface Auth {
+interface Auth {
   id: string | null;
   role: string | null;
 }
@@ -32,15 +32,17 @@ export interface Auth {
 export class LoginService {
   apiUrl = API_BASE_URL;
 
+  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
+
   public auth: Auth = {
     id: null,
     role: null,
   };
 
   constructor(private http: HttpClient) {
-    let token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('authToken');
     if (token) {
-      console.log('setting up token');
       this.storeTokenData(token);
     }
   }
@@ -67,17 +69,16 @@ export class LoginService {
 
     localStorage.setItem('role', decodedToken.role);
     this.auth.role = decodedToken.role;
+
+    this.isLoggedInSubject.next(true);
   }
 
   logout() {
     localStorage.removeItem('authToken');
     localStorage.removeItem('id');
-    this.auth.id = null;
     localStorage.removeItem('role');
+    this.auth.id = null;
     this.auth.role = null;
-  }
-
-  getLocalStorageItem(key: string): string | null {
-    return localStorage.getItem(key);
+    this.isLoggedInSubject.next(false);
   }
 }

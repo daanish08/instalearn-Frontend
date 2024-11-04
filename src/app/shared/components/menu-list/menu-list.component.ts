@@ -1,40 +1,30 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { LoginService } from '../../../login/services/login.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-menu-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterModule],
+  imports: [FormsModule, RouterModule, CommonModule],
   templateUrl: './menu-list.component.html',
   styleUrls: ['./menu-list.component.css'],
 })
 export class MenuListComponent implements OnInit {
-  // BehaviorSubjects to track login and role state
-  private isLoggedIn$ = new BehaviorSubject<boolean>(false);
-  private isAdmin$ = new BehaviorSubject<boolean>(false);
-
-  // Observable for menus
   menus$ = new BehaviorSubject<any[]>(this.getDefaultMenus());
 
-  constructor(private loginService: LoginService) {}
+  constructor(public loginService: LoginService, private router: Router) {}
 
   ngOnInit(): void {
-    this.isLoggedIn$.next(!!this.loginService.auth.id);
-    this.isAdmin$.next(this.loginService.auth.role === 'ADMIN');
-
-    this.isLoggedIn$.subscribe((isLoggedIn) => {
-      console.log('isLoggedIn', isLoggedIn);
-
+    // Update menus based on the current login state
+    this.loginService.isLoggedIn$.subscribe((isLoggedIn) => {
       if (isLoggedIn) {
-        const isAdmin = this.isAdmin$.getValue();
+        const isAdmin = this.loginService.auth.role === 'ADMIN';
         this.menus$.next(isAdmin ? this.getAdminMenus() : this.getUserMenus());
-        console.log('changing isLoggedIn');
       } else {
         this.menus$.next(this.getDefaultMenus());
-        console.log('changing to default menu');
       }
     });
   }
@@ -56,7 +46,6 @@ export class MenuListComponent implements OnInit {
       { title: 'Dashboard', url: '/admin/dashboard' },
       { title: 'Users', url: '/admin/user-list' },
       { title: 'Profile', url: '/admin/profile' },
-      { title: 'Logout', url: '/' }, // Add a logout option
     ];
   }
 
@@ -65,18 +54,11 @@ export class MenuListComponent implements OnInit {
       { title: 'Home', url: '/' },
       { title: 'My Courses', url: '/user/courses' },
       { title: 'Profile', url: '/user/profile' },
-      { title: 'Logout', url: '/' }, // Add a logout option
     ];
   }
 
-  login(role: string) {
-    this.isLoggedIn$.next(true);
-    this.isAdmin$.next(role === 'admin');
-  }
-
   logout() {
-    localStorage.clear();
     this.loginService.logout();
-    this.isLoggedIn$.next(false);
+    this.router.navigate(['/']); // Optionally navigate to a different page after logout
   }
 }
