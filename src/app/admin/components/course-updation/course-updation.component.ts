@@ -12,7 +12,12 @@ import { CommonModule } from '@angular/common';
   styleUrl: './course-updation.component.css'
 })
 export class CourseUpdationComponent implements OnInit {
-  courseCreation: FormGroup | undefined;
+  courseUpdation: FormGroup | undefined;
+  courseArray:any=[];
+
+
+  courseId: number =11;
+  adminId: number = 2;
 
   courseName: string = '';
   description: string = '';
@@ -21,7 +26,7 @@ export class CourseUpdationComponent implements OnInit {
 
   driveURL: string = '';
   githubURL: string = '';
-  videoURL: string = '';
+  courseURL: string = '';
 
   currentStep: number = 1;
   progress: number = 50;
@@ -32,35 +37,39 @@ export class CourseUpdationComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    // private toastr: ToastrService,
     private courseService: CourseServiceService
   ) { }
 
   ngOnInit(): void {
-    this.loadDummyData();
+    this.loadCourseData(this.courseId);
   }
 
-  loadDummyData(): void {
-    const dummyData = {
-      courseName: 'Introduction to TypeScript',
-      description: 'This is a comprehensive course on TypeScript that covers all basics and advanced topics. It is designed for developers who wish to enhance their skills.',
-      duration: 40,
-      instructor: 'Jane Doe',
-      driveURL: 'https://drive.google.com/example-course-material',
-      githubURL: 'https://github.com/example-repo',
-      videoURL: 'https://youtube.com/example-course-video',
-    };
-
-    // Simulate fetching data from an API
-    this.courseName = dummyData.courseName;
-    this.description = dummyData.description;
-    this.duration = dummyData.duration;
-    this.instructor = dummyData.instructor;
-    this.driveURL = dummyData.driveURL;
-    this.githubURL = dummyData.githubURL;
-    this.videoURL = dummyData.videoURL;
+  loadCourseData(courseId: number) {
+    // Indicate loading started
+    // this.isLoading = true;
+    this.courseService.getcourseDetailsById(courseId)
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+          this.courseArray = response; // Ensure courseArray is the correct type
+  
+          // Now update the properties after receiving the response
+          this.courseName = this.courseArray.courseName;
+          this.description = this.courseArray.description;
+          this.duration = this.courseArray.duration;
+          this.instructor = this.courseArray.instructor;
+          this.driveURL = this.courseArray.driveURL;
+          this.githubURL = this.courseArray.githubURL;
+          this.courseURL = this.courseArray.courseURL;
+  
+        },
+        error => {
+          console.error("Error loading course data:", error);
+          // Handle error here
+        }
+      );
   }
-
+  
   nextStep() {
     if (this.currentStep === 1) {
       this.currentStep = 2;
@@ -75,7 +84,7 @@ export class CourseUpdationComponent implements OnInit {
     }
   }
 
-  submitCourse() {
+  updateCourse() {
     const courseData = {
       courseName: this.courseName,
       description: this.description,
@@ -83,7 +92,7 @@ export class CourseUpdationComponent implements OnInit {
       instructor: this.instructor,
       driveURL: this.driveURL,
       githubURL: this.githubURL,
-      videoURL: this.videoURL,
+      courseURL: this.courseURL,
     };
     console.log(courseData);
 
@@ -92,16 +101,20 @@ export class CourseUpdationComponent implements OnInit {
 
     // Here you can later add a service call to submit the updated course data
     // For example:
-    // this.courseService.updateCourse(courseData).subscribe(
-    //   response => {
-    //     this.isLoading = false;
-    //     this.isSuccess = true;
-    //     // Additional success handling here
-    //   },
-    //   error => {
-    //     this.isLoading = false;
-    //     // Handle error here
-    //   }
-    // );
+    this.courseService.handleupdateCourse(courseData, this.adminId, this.courseId)
+      .subscribe(
+        response => {
+          // console.log("Updating the course"+response);
+          this.isLoading = false;
+          this.isSuccess = true;
+          console.log("Course updated successfully:", response);
+          // Additional success handling here
+        },
+        error => {
+          console.log("error occued")
+          this.isLoading = false;
+          // Handle error here
+        }
+      );
   }
 }

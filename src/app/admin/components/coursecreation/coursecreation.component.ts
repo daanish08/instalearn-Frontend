@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CourseServiceService } from '../../../courses/services/courses/course-service.service';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-coursecreation',
@@ -33,7 +34,8 @@ export class CoursecreationComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private courseService: CourseServiceService
+    private courseService: CourseServiceService,
+    // private toastService:ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -72,7 +74,7 @@ export class CoursecreationComponent implements OnInit {
     this.courseService.getCoursesCreated(this.courseName, this.description,this.duration, this.instructor,this.courseURL,this.githubURL,this.driveURL).subscribe(
       response => {
         console.log('Course created successfully:', response);
-        // this.toastr.success('Course created successfully!', 'Success');
+        // this.toastService.success('Course created successfully!', 'Success');
         this.isLoading = false;
         this.isSuccess = true;
   
@@ -82,7 +84,7 @@ export class CoursecreationComponent implements OnInit {
       },
       error => {
         console.error('Error creating course:', error);
-        // this.toastr.error('Error creating course. Please try again.', 'Error');
+        // this.toastService.error('Error creating course. Please try again.', 'Error');
         this.isLoading = false;
       }
     );

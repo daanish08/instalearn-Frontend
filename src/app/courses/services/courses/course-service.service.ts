@@ -11,6 +11,7 @@ export class CourseServiceService {
   private apiUrl = API_BASE_URL + '/api/v1/course/list';
   private createLink = API_BASE_URL + '/admin/A1/addCourse';
   private courseDataById = API_BASE_URL + '/api/v1/course/';
+  private updateCourseById = API_BASE_URL + '/admin/';
 
   constructor(private http: HttpClient, private loginService: LoginService) {}
 
@@ -56,4 +57,13 @@ export class CourseServiceService {
       { responseType: 'text' as 'json' }
     );
   }
+
+
+  handleupdateCourse(courseData: any, adminId: number, courseId: number) {
+    console.log("Updating the course......");
+    return this.http.put<string>(
+      `${API_BASE_URL}/admin/A${adminId}/C${courseId}/update`,
+      courseData
+    );
+  }  
 }
