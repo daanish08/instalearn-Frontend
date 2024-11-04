@@ -1,10 +1,29 @@
-<nav class="d-flex flex-wrap justify-content-center py-3 mb-0 bg-success navbar navbar-expand-lg bd-navbar sticky-top text-white">
-  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-    <span class="fs-4 text-white">InstaLearn</span>
-  </a>
+<nav class="navbar navbar-expand-lg bd-navbar sticky-top bg-success text-white">
+  <div class="container-fluid">
+    <!-- Brand/logo aligned to the left -->
+    <a href="/" class="navbar-brand d-flex align-items-center link-body-emphasis text-decoration-none">
+      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+      <span class="fs-4 text-white">InstaLearn</span>
+    </a>
 
-  <div class="fw-bold px-3 text-white">
-    <app-menu-list></app-menu-list>
+    <!-- Toggler button aligned to the right -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar content, including menu list -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <div class="fw-bold px-3 text-white">
+        <app-menu-list></app-menu-list>
+      </div>
+    </div>
   </div>
 </nav>
