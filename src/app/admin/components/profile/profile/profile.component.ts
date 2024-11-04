@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminServiceService } from '../../../services/admin-service/admin-service.service';
 import { UserServiceService } from '../../../../user/services/user-service/user-service.service';
+import { RouterLink } from '@angular/router';
 
 interface UserProfile {
   name: string;
@@ -12,7 +13,7 @@ interface UserProfile {
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

@@ -4,86 +4,102 @@ import { Router, RouterLink } from '@angular/router';
 import { CourseServiceService } from '../../services/courses/course-service.service';
 
 interface Course {
-  id: number,
-  imgTag:string,
+  courseId: number;
+  imgTag: string;
   // title: string;
   courseName: string;
   description: string;
   duration: string;
   instructor: string;
-  courseURL:string,
-  githubURL:string,
-  driveURL:string,
+  courseURL: string;
+  githubURL: string;
+  driveURL: string;
 }
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule, RouterLink],
   template: `
-
-
-<div class="container-fluid py-4 px-5 col-lg-12 bg-body-tertiary">
-<h2 class="text-left fw-light">List of <span class="fw-semibold text-success">Courses</span>
-    <hr class="pb-2">
-  </h2>
-  <!-- Language Cards -->
-  <div class="row">
-    <div class="col-md-4 mb-4 px-3" *ngFor="let course of courses">
-      <div class="card text-center  bg-white border-0 " style="width: 100%;max-height:100%;">
-        <div class="card-body">
-          <div class="d-inline-block pb-3">
-          <img src="/assets/img/Home/graduate.png" class="card-img-top" width="50" height="50"alt="{{ course.courseName }}">
+    <div class="container-fluid py-4 px-5 col-lg-12 bg-body-tertiary">
+      <h2 class="text-left fw-light">
+        List of <span class="fw-semibold text-success">Courses</span>
+        <hr class="pb-2" />
+      </h2>
+      <!-- Language Cards -->
+      <div class="row">
+        <div class="col-md-4 mb-4 px-3" *ngFor="let course of courses">
+          <div
+            class="card text-center  bg-white border-0 "
+            style="width: 100%;max-height:100%;"
+          >
+            <div class="card-body">
+              <div class="d-inline-block pb-3">
+                <img
+                  src="/assets/img/Home/graduate.png"
+                  class="card-img-top"
+                  width="50"
+                  height="50"
+                  alt="{{ course.courseName }}"
+                />
+              </div>
+              <h4 class="card-title">
+                <a
+                  href="#"
+                  class=" text-decoration-none fw-semibold text-secondary"
+                  >{{ course.courseName }}</a
+                >
+              </h4>
+              <p class="card-text pb-2">
+                <a
+                  href="#"
+                  class="text-muted text-decoration-none fw-normal  text-muted"
+                  >{{ course.description }}</a
+                >
+              </p>
+              <button
+                class="btn btn-success text-white fw-light"
+                (click)="enroll(course.courseId)"
+              >
+                Enroll
+              </button>
+            </div>
           </div>
-          <h4 class="card-title"><a href="#"
-              class=" text-decoration-none fw-semibold text-secondary">{{course.courseName}}</a></h4>
-          <p class="card-text pb-2"><a href="#"
-              class="text-muted text-decoration-none fw-normal  text-muted">{{course.description}}</a>
-          </p>
-          <button class="btn btn-success text-white fw-light" (click)="enroll(course.id)">Enroll</button>
         </div>
       </div>
+      <hr class="my-2" />
     </div>
-  </div>
-  <hr class="my-2">
-</div>
   `,
-  styles: ``
+  styles: ``,
 })
-export class CoursesComponent implements OnInit{
+export class CoursesComponent implements OnInit {
+  courses: Course[] = [];
 
-  courses: Course[] =[];
-
-  constructor(private courseService: CourseServiceService, private router: Router) {
-    console.log("INSIDE course CONSTRUCTOR");
+  constructor(
+    private courseService: CourseServiceService,
+    private router: Router
+  ) {
+    console.log('INSIDE course CONSTRUCTOR');
   }
 
-  
   ngOnInit(): void {
-    this.courseService.getAllCourses()
-      .subscribe((response:any)=>{
-        this.courses=response;
-        console.log(this.courses);
-      })
+    this.courseService.getAllCourses().subscribe((response: any) => {
+      this.courses = response;
+      console.log(this.courses);
+    });
   }
   enroll(courseId: number) {
-    // Get the user ID (replace with your actual user ID retrieval method)
-    const userId = this.getUserId(); // Implement getUserId()
 
-    // Call the enrollment service
-    this.courseService.enrollInCourse(userId, courseId).subscribe({
-      next: (response) => {
+    this.courseService.enrollInCourse(courseId).subscribe({
+      next: (response: string) => {
         console.log('Enrollment successful:', response);
-        // Optionally, display a success message to the user
         alert('Enrollment successful!');
       },
       error: (error) => {
         console.error('Enrollment failed:', error);
-        // Optionally, display an error message to the user
         alert('Enrollment failed. Please try again.');
-      }
+      },
     });
-
   }
 
   getUserId(): number {
@@ -93,8 +109,6 @@ export class CoursesComponent implements OnInit{
     return 1; // Replace with your actual user ID retrieval logic.
   }
 
-
-  // courses1: Course[] = [
   //   {
   //     imgTag:'/assets/img/Home/graduate.png',
   //     title: 'Beginner Spanish',
@@ -151,4 +165,3 @@ export class CoursesComponent implements OnInit{
   //   }
   // ];
 }
-

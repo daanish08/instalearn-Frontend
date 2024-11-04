@@ -72,7 +72,7 @@ import { LoginService } from '../../services/login.service';
             Login
           </button>
           <div class="text-center mt-3">
-            <a href="#" class="text-decoration-none text-secondary"
+            <a href="#" routerLink="/login/forgot-password" class="text-decoration-none text-secondary"
               >Forgot password?</a
             >
           </div>

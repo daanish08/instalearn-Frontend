@@ -1,34 +1,41 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { API_BASE_URL } from '../../../../utils/environment';
+import { LoginService } from '../../../login/services/login.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CourseServiceService {
+  private apiUrl = API_BASE_URL + '/api/v1/course/list';
+  private createLink = API_BASE_URL + '/admin/A1/addCourse';
+  private courseDataById = API_BASE_URL + '/api/v1/course/';
 
-  private apiUrl = 'http://localhost:8080/instalearn/api/v1/course/list';
-  private createLink='http://localhost:8080/instalearn/admin/A1/addCourse'
-  private courseDataById='http://localhost:8080/instalearn/api/v1/course/'
-  private baseUrl='http://localhost:8080/instalearn/api/v1'
-  
+  constructor(private http: HttpClient, private loginService: LoginService) {}
 
-  constructor(private http: HttpClient) { }
-
-  getAllCourses(): Observable<any>{
-    console.log("Inside getting it");
+  getAllCourses(): Observable<any> {
+    console.log('Inside getting it');
     return this.http.get(this.apiUrl);
   }
 
-  getCoursesCreated(courseName: string, description: string, duration: number, instructor: string, courseURL:string,githubURL:string,driveURL:string): Observable<any> {
+  getCoursesCreated(
+    courseName: string,
+    description: string,
+    duration: number,
+    instructor: string,
+    courseURL: string,
+    githubURL: string,
+    driveURL: string
+  ): Observable<any> {
     const courseData = {
       courseName: courseName,
       description: description,
       duration: duration,
       instructor: instructor,
-      githubURL:githubURL,
-      driveURL:driveURL,
-      courseURL:courseURL
+      githubURL: githubURL,
+      driveURL: driveURL,
+      courseURL: courseURL,
     };
 
     console.log('Creating', courseData);
@@ -36,13 +43,17 @@ export class CourseServiceService {
     return this.http.post(this.createLink, courseData);
   }
 
-  getcourseDetailsById(courseId:number){
-    console.log("Collecting course details.....");
+  getcourseDetailsById(courseId: number) {
+    console.log('Collecting course details.....');
     const url = `${this.courseDataById}${courseId}`;
     return this.http.get(url);
   }
 
-  enrollInCourse(userId: number, courseId: number): Observable<any> {
-    return this.http.post(`${this.baseUrl}/enrollments`, { userId, courseId });
+  enrollInCourse(courseId: number): Observable<string> {
+    return this.http.post<string>(
+      `${API_BASE_URL}/api/v1/course/U${this.loginService.auth.id}/C${courseId}/enroll`,
+      {},
+      { responseType: 'text' as 'json' }
+    );
   }
 }
