@@ -48,7 +48,7 @@ export const routes: Routes = [
       { path: 'profile/edit', component: DevelopmentComponent, title: 'Under Construction' },
       { path: 'dashboard', component: AdmindashboardComponent, title: 'Admin Dashboard' },
       { path: 'create-courses', component: CoursecreationComponent, title: 'Create Course' },
-      { path: 'update-courses', component: CourseUpdationComponent, title: 'Update Course' },
+      { path: 'update/:courseid', component: CourseUpdationComponent, title: 'Update Course' },
       { path: 'user-list', component: UserListComponent, title: 'User List' },
       { path: 'approve-courses', component: ApprovecoursesComponent, title: 'Approve Courses' },
       { path: 'feedback-details', component: FeedbackDetailsComponent, title: 'Feedbacks' }
@@ -68,7 +68,7 @@ export const routes: Routes = [
     children: [
       { path: '', component: CoursesComponent, title: 'All Courses' }, // Default route to show all courses
       { path: ':courseid/:userid/enroll', component: CoursesComponent, title: 'Courses by Admin' }, // Specific courses by admin 
-      { path: 'admin/:adminId', component: CoursesComponent, title: 'Courses by Admin' }, // Specific courses by admin
+      { path: 'admin', component: CoursesComponent, title: 'Courses by Admin' }, // Specific courses by admin
       { path: ':id', component: CourseDetailsComponent, title: 'Detailed View of Course' }, // Detailed view of a specific course
       { path: 'user/:userId', component: CoursesComponent, title: 'Courses Enrolled By Users' }, // Courses enrolled by a specific user
       { path: ':courseId/completed', component: CourseCompletionDetailsComponent, title: 'Course Completion Details' }//Completion Page of the specific users

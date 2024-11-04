@@ -12,6 +12,7 @@ export class CourseServiceService {
   private createLink = API_BASE_URL + '/admin/A1/addCourse';
   private courseDataById = API_BASE_URL + '/api/v1/course/';
   private updateCourseById = API_BASE_URL + '/admin/';
+  private courseByAdmin= API_BASE_URL + '/admin/';
 
   constructor(private http: HttpClient, private loginService: LoginService) {}
 
@@ -47,8 +48,16 @@ export class CourseServiceService {
   getcourseDetailsById(courseId: number) {
     console.log('Collecting course details.....');
     const url = `${this.courseDataById}${courseId}`;
+    console.log(url);
     return this.http.get(url);
   }
+
+  getCoursesByAdminId(adminId:number){
+    console.log('Collecting list of course details.....');
+    const url = `${this.courseDataById}${adminId}`;
+    return this.http.get(`${this.courseByAdmin}A${adminId}/courses`);
+  }
+
 
   enrollInCourse(courseId: number): Observable<string> {
     return this.http.post<string>(
@@ -65,5 +74,9 @@ export class CourseServiceService {
       `${API_BASE_URL}/admin/A${adminId}/C${courseId}/update`,
       courseData
     );
-  }  
+  }
+  
+  deleteCourse(adminId:number,courseId:number){
+    return this.http.delete<string>(`${API_BASE_URL}/admin/A${adminId}/C${courseId}/delete`);
+  }
 }

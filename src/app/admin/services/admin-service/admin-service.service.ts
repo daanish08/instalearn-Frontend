@@ -13,8 +13,10 @@ export class AdminServiceService {
   private fetchFeedbackCount='http://localhost:8080/instalearn/admin/feedbacks/count'
   private fetchDetailsById='http://localhost:8080/instalearn/admin/AdminList'
   private fetchAdminDetailsById='http://localhost:8080/instalearn/admin/AdminList/'
-
+  private CourseCountByAdminId='http://localhost:8080/instalearn/api/v1/course'
   private countUsers=0;
+  
+  
   constructor(private http: HttpClient) { }
 
   getUserList(): Observable<any>{
@@ -29,8 +31,8 @@ export class AdminServiceService {
     return this.http.get<number>(this.fetchFeedbackCount); // Adjust the endpoint as needed
   }
 
-  getEnrolledCoursesCount(): Observable<number> {
-    return this.http.get<number>('/api/enrolled-courses-count'); // Adjust the endpoint as needed
+  getUploadedCoursesCount(adminId:number): Observable<number> {
+    return this.http.get<number>(`${this.CourseCountByAdminId}/A${adminId}/count`); // Adjust the endpoint as needed
   }
 
   getPendingApprovalsCount(): Observable<number> {

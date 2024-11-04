@@ -19,6 +19,7 @@ export class AdmindashboardComponent implements OnInit{
     this.loadDashboardData();
   }
 
+  adminId:any=1;
   userName="Daanish";
 
   adminDashBoardData = [
@@ -37,7 +38,7 @@ export class AdmindashboardComponent implements OnInit{
     {
         title: "Courses",
         count: 0,
-        route: "/admin/courses",
+        route: "/courses/admin",
         buttonTitle: "View Courses",
     },
     {
@@ -58,10 +59,10 @@ courseManagementCards = [
       image: "/assets/img/vectorIcons/createCourse.jpg" // Path to the image
   },
   {
-      title: "Update Course",
+      title: "View All Courses",
       description: "Efficiently design, implement, and oversee your courses with streamlined processes and comprehensive management tools.",
-      buttonText: "Update Now",
-      route: "/admin/update-courses", // Route to navigate to the course approvals page
+      buttonText: "View Courses",
+      route: "/courses", // Route to navigate to the course approvals page
       image: "/assets/img/vectorIcons/enrollCourse.jpg" // Path to the image
   },
   {
@@ -81,6 +82,8 @@ courseManagementCards = [
     console.log("Hi")
   }
 
+
+
   loadDashboardData() {
     this.adminService.getUserCount().subscribe(count => {
       this.adminDashBoardData[0].count = count;
@@ -90,7 +93,8 @@ courseManagementCards = [
       this.adminDashBoardData[1].count = count;
     });
 
-    this.adminService.getEnrolledCoursesCount().subscribe(count => {
+    this.adminService.getUploadedCoursesCount(this.adminId).subscribe(count => {
+      console.log(count)
       this.adminDashBoardData[2].count = count;
     });
 

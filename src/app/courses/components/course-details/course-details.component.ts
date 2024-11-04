@@ -12,7 +12,7 @@ interface Course {
   instructor: string;
  githubUrl:string,
  driveUrl:string,
-  videoUrl: string;
+  courseUrl: string;
 }
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CourseServiceService } from '../../../courses/services/courses/course-service.service';
 import { CommonModule } from '@angular/common';
 
@@ -14,9 +14,7 @@ import { CommonModule } from '@angular/common';
 export class CourseUpdationComponent implements OnInit {
   courseUpdation: FormGroup | undefined;
   courseArray:any=[];
-
-
-  courseId: number =11;
+  courseId:any;
   adminId: number = 2;
 
   courseName: string = '';
@@ -37,10 +35,12 @@ export class CourseUpdationComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private courseService: CourseServiceService
+    private courseService: CourseServiceService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.courseId = this.route.snapshot.paramMap.get('courseId');
     this.loadCourseData(this.courseId);
   }
 

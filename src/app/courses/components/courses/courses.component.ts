@@ -57,10 +57,21 @@ interface Course {
                 >
               </p>
               <button
+                *ngIf="userRole === 'user' || userRole === ' ' "
                 class="btn btn-success me-md-2 text-white fw-light"
                 (click)="enroll(course.courseId)"
               >
                 Enroll
+              </button>
+
+
+              <!-- ADMIN BUTTONS -->
+              <button
+                *ngIf="userRole === 'admin'"
+                class="btn btn-success me-md-2 text-white fw-light"
+                (click)="view(course.courseId)"
+              >
+                View
               </button>
               <!-- Role-based buttons -->
               <button
@@ -88,7 +99,8 @@ interface Course {
 })
 export class CoursesComponent implements OnInit {
   courses: Course[] = [];
-  userRole: string = ''; // Add this line
+  userRole: string = ''; 
+  adminId:number=5;
 
   constructor(
     private courseService: CourseServiceService,
@@ -98,10 +110,18 @@ export class CoursesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.getUserRole()=='admin'){
+      this.getCoursesByAdminId(this.adminId);
+      
+      console.log("Admin")
+    }
+    else{
+      console.log("User")
     this.courseService.getAllCourses().subscribe((response: any) => {
       this.courses = response;
       console.log(this.courses);
     });
+  }
 
     this.getUserRole(); // Add this line to fetch the user's role
   }
@@ -119,20 +139,76 @@ export class CoursesComponent implements OnInit {
     });
   }
 
+  view(courseId: number) {
+    this.router.navigate(['/courses',courseId]);
+    this.courseService.getcourseDetailsById(courseId)
+    .subscribe({
+      next: (response: any) => {
+        this.courses=response;
+        console.log('Enrollment successful:', response);
+      },
+      error: (error) => {
+        console.error('Enrollment failed:', error);
+      },
+    });
+  }
+
+  edit(courseId:number,adminId:number){
+    this.router.navigate(['admin/update',courseId]);
+    console.log(courseId)
+    this.courseService.getcourseDetailsById(courseId)
+    .subscribe({
+      next: (response: any) => {
+        this.courses=response;
+        // console.log(this.courses)
+        console.log('Enrollment successful:', response);
+      },
+      error: (error) => {
+        console.error('Enrollment failed:', error);
+      },
+    });
+  }
+  
+
+  delete(courseId: number,adminId:number) {
+    this.courseService.deleteCourse(adminId,courseId).subscribe({
+      next: (response: any) => {
+        console.log('Deleted successful:', response);
+        alert('Deleted successful!');
+      },
+      error: (error) => {
+        console.error('Deleted failed:', error);
+        alert('Deleted failed. Please try again.');
+      },
+    });
+  }
+
+  getCoursesByAdminId(adminId:number){
+    this.courseService.getCoursesByAdminId(adminId).subscribe((response: any) => {
+      this.courses = response;
+      console.log(this.courses);
+    });
+  }
+
+
+
   // New method to fetch user role
-  getUserRole(): void {
+  getUserRole(): string {
     // Fetch the user's role from a service or storage
     // For example, from localStorage or a service call
-    this.userRole = 'admin'; // Replace with actual logic to get user role
+    this.userRole = 'admin';
+    return this.userRole; // Replace with actual logic to get user role
   }
 
   // Placeholder methods for edit and delete actions
   editCourse(courseId: number): void {
-    console.log('Edit course:', courseId);
+    this.edit(courseId,this.adminId);
+    console.log('Edited course:', courseId);
     // Implement the edit logic here
   }
 
   deleteCourse(courseId: number): void {
+    this.delete(courseId,this.adminId);
     console.log('Delete course:', courseId);
     // Implement the delete logic here
   }
