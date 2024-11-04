@@ -6,7 +6,6 @@ import { CourseServiceService } from '../../services/courses/course-service.serv
 interface Course {
   courseId: number;
   imgTag: string;
-  // title: string;
   courseName: string;
   description: string;
   duration: string;
@@ -63,6 +62,21 @@ interface Course {
               >
                 Enroll
               </button>
+              <!-- Role-based buttons -->
+              <button
+                *ngIf="userRole === 'admin'"
+                class="btn btn-primary text-white fw-light"
+                (click)="editCourse(course.courseId)"
+              >
+                Edit
+              </button>
+              <button
+                *ngIf="userRole === 'admin'"
+                class="btn btn-danger text-white fw-light"
+                (click)="deleteCourse(course.courseId)"
+              >
+                Delete
+              </button>
             </div>
           </div>
         </div>
@@ -74,6 +88,7 @@ interface Course {
 })
 export class CoursesComponent implements OnInit {
   courses: Course[] = [];
+  userRole: string = ''; // Add this line
 
   constructor(
     private courseService: CourseServiceService,
@@ -87,9 +102,11 @@ export class CoursesComponent implements OnInit {
       this.courses = response;
       console.log(this.courses);
     });
-  }
-  enroll(courseId: number) {
 
+    this.getUserRole(); // Add this line to fetch the user's role
+  }
+
+  enroll(courseId: number) {
     this.courseService.enrollInCourse(courseId).subscribe({
       next: (response: string) => {
         console.log('Enrollment successful:', response);
@@ -102,12 +119,25 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  getUserId(): number {
-    // Replace this with your actual user ID retrieval logic.  For example:
-    // const userId = localStorage.getItem('userId');
-    // return parseInt(userId || '0', 10);
-    return 1; // Replace with your actual user ID retrieval logic.
+  // New method to fetch user role
+  getUserRole(): void {
+    // Fetch the user's role from a service or storage
+    // For example, from localStorage or a service call
+    this.userRole = 'admin'; // Replace with actual logic to get user role
   }
+
+  // Placeholder methods for edit and delete actions
+  editCourse(courseId: number): void {
+    console.log('Edit course:', courseId);
+    // Implement the edit logic here
+  }
+
+  deleteCourse(courseId: number): void {
+    console.log('Delete course:', courseId);
+    // Implement the delete logic here
+  }
+
+
 
   //   {
   //     imgTag:'/assets/img/Home/graduate.png',
