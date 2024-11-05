@@ -52,6 +52,7 @@ export class MenuListComponent implements OnInit {
   getUserMenus() {
     return [
       { title: 'Home', url: '/' },
+      { title: 'Dashboard', url: '/user/dashboard' },
       { title: 'My Courses', url: '/user/courses' },
       { title: 'Profile', url: '/user/profile' },
     ];

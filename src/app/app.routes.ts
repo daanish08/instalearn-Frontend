@@ -59,7 +59,7 @@ export const routes: Routes = [
       { path: 'profile', component: UserProfileComponent, title: 'User Profile' },
       { path: 'profile/edit', component: DevelopmentComponent, title: 'Under Construction' },
       { path: 'dashboard', component: UserDashboardComponent, title: 'User Dashboard' },
-      { path: 'courses', component: CoursecreationComponent, title: 'View Course' },
+      { path: 'courses', component: DevelopmentComponent, title: 'View Course' },
       { path: 'enroll-courses', component: UserEnrolledStatusComponent, title: 'Enroll Courses' },
       { path: 'enroll-courses/:enrollId/', component: UserEnrolledStatusComponent, title: 'Enroll Courses' },
     ]

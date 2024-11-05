@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CourseServiceService } from '../../services/courses/course-service.service';
+import { LoginService } from '../../../login/services/login.service';
 
 interface Course {
   courseId: number;
@@ -57,7 +58,7 @@ interface Course {
                 >
               </p>
               <button
-                *ngIf="userRole === 'user' || userRole === ' ' "
+                *ngIf="userRole === 'USER' || userRole === null"
                 class="btn btn-success me-md-2 text-white fw-light"
                 (click)="enroll(course.courseId)"
               >
@@ -67,7 +68,7 @@ interface Course {
 
               <!-- ADMIN BUTTONS -->
               <button
-                *ngIf="userRole === 'admin'"
+                *ngIf="userRole === 'ADMIN'"
                 class="btn btn-success me-md-2 text-white fw-light"
                 (click)="view(course.courseId)"
               >
@@ -75,14 +76,14 @@ interface Course {
               </button>
               <!-- Role-based buttons -->
               <button
-                *ngIf="userRole === 'admin'"
+                *ngIf="userRole === 'ADMIN'"
                 class="btn btn-primary me-md-2 text-white fw-light"
                 (click)="editCourse(course.courseId)"
               >
                 Edit
               </button>
               <button
-                *ngIf="userRole === 'admin'"
+                *ngIf="userRole === 'ADMIN'"
                 class="btn btn-danger me-md-2 text-white fw-light"
                 (click)="deleteCourse(course.courseId)"
               >
@@ -99,18 +100,19 @@ interface Course {
 })
 export class CoursesComponent implements OnInit {
   courses: Course[] = [];
-  userRole: string = ''; 
-  adminId:number=5;
+  userRole: string | null = ''; 
+  adminId:string| null=this.loginService.auth.id;
 
   constructor(
     private courseService: CourseServiceService,
-    private router: Router
+    private router: Router,
+    private loginService: LoginService
   ) {
     console.log('INSIDE course CONSTRUCTOR');
   }
 
   ngOnInit(): void {
-    if(this.getUserRole()=='admin'){
+    if(this.getUserRole()==='ADMIN'){
       this.getCoursesByAdminId(this.adminId);
       
       console.log("Admin")
@@ -153,7 +155,7 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  edit(courseId:number,adminId:number){
+  edit(courseId:number,adminId:string| null){
     this.router.navigate(['admin/update',courseId]);
     console.log(courseId)
     this.courseService.getcourseDetailsById(courseId)
@@ -183,7 +185,7 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  getCoursesByAdminId(adminId:number){
+  getCoursesByAdminId(adminId:string| null){
     this.courseService.getCoursesByAdminId(adminId).subscribe((response: any) => {
       this.courses = response;
       console.log(this.courses);
@@ -193,11 +195,10 @@ export class CoursesComponent implements OnInit {
 
 
   // New method to fetch user role
-  getUserRole(): string {
-    // Fetch the user's role from a service or storage
-    // For example, from localStorage or a service call
-    this.userRole = 'admin';
-    return this.userRole; // Replace with actual logic to get user role
+  getUserRole(): string | null{
+   
+    this.userRole = this.loginService.auth.role;
+    return this.userRole; 
   }
 
   // Placeholder methods for edit and delete actions
@@ -208,7 +209,7 @@ export class CoursesComponent implements OnInit {
   }
 
   deleteCourse(courseId: number): void {
-    this.delete(courseId,this.adminId);
+    // this.delete(courseId,this.adminId);
     console.log('Delete course:', courseId);
     // Implement the delete logic here
   }

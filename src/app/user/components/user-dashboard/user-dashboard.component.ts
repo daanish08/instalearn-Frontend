@@ -3,8 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { UserServiceService } from '../../services/user-service/user-service.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { LoginService } from '../../../login/services/login.service';
+
+
 
 @Component({
   selector: 'app-user-dashboard',
@@ -14,7 +17,7 @@ import { HttpClient } from '@angular/common/http';
     <div class="container-fluid  px-5 bg-body-tertiary">
   <h1 class="text-left fw-light pt-4 pb-4">Welcome, <span class="fw-bold text-success">{{userName}}</span></h1>
   <div class="row text-center mb-4">
-    <div *ngFor="let data of userDashBoardData" class="col-md-4">
+    <div *ngFor="let data of userDashBoardData" class="col-md-6">
         <div class="card border mb-3">
             <div class="card-header fw-light bg-success text-white">{{ data.title }}</div>
             <div class="card-body bg-body-tertiary">
@@ -25,7 +28,7 @@ import { HttpClient } from '@angular/common/http';
     </div>
 </div>
 <div class="row mb-2  bg-body-tertiary"  style="padding-left: 80px; padding-right: 80px;">
-  <div class="col-md-12 px-5">
+  <div class="col-md-12 px-1">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" *ngFor="let card of courseManagementCards">
           <div class="col-auto d-none d-lg-block">
               <img [src]="card.image" class="bd-placeholder-img" width="300" height="280" alt="Thumbnail" />
@@ -43,37 +46,55 @@ import { HttpClient } from '@angular/common/http';
   `,
   styles: ``
 })
+
+
 export class UserDashboardComponent implements OnInit{
 
-  userName="daanish"
- 
- 
+  userName:string="";
+  userId:string|null='';
+  IntId:number|undefined;
+  private userSubscription: Subscription | undefined; 
 
-  constructor(private http: HttpClient) { } // Inject HttpClient
+  constructor(private http: HttpClient,private loginService:LoginService,private userService:UserServiceService) { } // Inject HttpClient
 
   ngOnInit(): void {
+    this.userId=this.loginService.auth.id;
+    this.IntId=Number(this.userId);
+    this.loadUserName();
     this.loadDashboardData();
+   
   }
+
+
+ 
+  loadUserName() {
+    if (this.IntId) { // Check if userId is not null or empty
+      this.userSubscription = this.userService.getUserName(this.IntId)
+        .subscribe({
+          next: (response: any) => {
+            this.userName = response.userName;
+            console.log(this.userName)
+          }
+        });
+    }
+  }
+
 
   loadDashboardData() {
     // Make separate API calls for each count
     this.getEnrolledCoursesCount().subscribe(count => this.userDashBoardData[0].count = count);
     this.getAvailableCoursesCount().subscribe(count => this.userDashBoardData[1].count = count);
-    this.getApprovalStatusCount().subscribe(count => this.userDashBoardData[2].count = count);
-  }
+   
+     }
 
   getEnrolledCoursesCount(): Observable<number> {
-    return this.http.get<number>('/api/user/enrolled-courses-count'); // Replace with your API endpoint
+    console.log(this.userId);
+    return this.http.get<number>(`http://localhost:8080/instalearn/api/v1/${this.userId}/enroll/count`); // Replace with your API endpoint
   }
 
   getAvailableCoursesCount(): Observable<number> {
     return this.http.get<number>('http://localhost:8080/instalearn/api/v1/course/count'); // Replace with your API endpoint
   }
-
-  getApprovalStatusCount(): Observable<number> {
-    return this.http.get<number>('/api/admin/approval-count'); // Replace with your API endpoint
-  }
-
 
   userDashBoardData = [
     {
@@ -88,12 +109,7 @@ export class UserDashboardComponent implements OnInit{
         route: "/courses",
         buttonTitle: "View Courses",
     },
-    {
-        title: "Approval Status",
-        count: 5,
-        route: "/admin/approve-courses",
-        buttonTitle: "View Status",
-    }
+  
 ];
 
 
@@ -104,15 +120,8 @@ courseManagementCards = [
       buttonText: "Enroll Now",
       route: "/courses", // Route to navigate to the create course page
       image: "/assets/EnrollCourse.jpg" // Path to the image
-  },
-  {
-      title: "Approve Enrollments",
-      description: "Conduct thorough evaluations and authorize user enrollments to ensure a high-quality learning experience and effective course participation.",
-      buttonText: "Review Now",
-      route: "/admin/approve-courses", // Route to navigate to the course approvals page
-      image: "/assets/EnrollCourse.jpg"  // Path to the image
-  },
-
+  }
 ];
 
 }
+

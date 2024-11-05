@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { API_BASE_URL } from '../../../../utils/environment';
 
 export interface UserProfile {
@@ -25,8 +25,17 @@ export class UserServiceService implements OnInit {
   getUserProfile(): Observable<UserProfile> {
     return this.http.get<UserProfile>(this.apiUrl);
   }
+  
   getUserById(id: number): Observable<UserProfile> {
     const url = `${this.fetchUserDetailsById}/${id}`;
     return this.http.get<UserProfile>(url);
   }
+
+  getUserName(id: number): Observable<string> {
+    const url = `http://localhost:8080/instalearn/user/userList/${id}`;
+    return this.http.get<string>(url);
+  }
+
+  
+
 }

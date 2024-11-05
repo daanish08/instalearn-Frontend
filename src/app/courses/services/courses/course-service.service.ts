@@ -52,7 +52,7 @@ export class CourseServiceService {
     return this.http.get(url);
   }
 
-  getCoursesByAdminId(adminId:number){
+  getCoursesByAdminId(adminId:string| null){
     console.log('Collecting list of course details.....');
     const url = `${this.courseDataById}${adminId}`;
     return this.http.get(`${this.courseByAdmin}A${adminId}/courses`);
@@ -61,11 +61,13 @@ export class CourseServiceService {
 
   enrollInCourse(courseId: number): Observable<string> {
     return this.http.post<string>(
-      `${API_BASE_URL}/api/v1/course/U${this.loginService.auth.id}/C${courseId}/enroll`,
+      `${API_BASE_URL}/api/v1/U${this.loginService.auth.id}/C${courseId}/enroll`,
       {},
       { responseType: 'text' as 'json' }
     );
   }
+
+  
 
 
   handleupdateCourse(courseData: any, adminId: number, courseId: number) {
