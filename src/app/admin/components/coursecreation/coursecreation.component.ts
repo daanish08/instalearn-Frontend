@@ -4,16 +4,16 @@ import { Router } from '@angular/router';
 import { CourseServiceService } from '../../../courses/services/courses/course-service.service';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { AdmindashboardComponent } from '../admindashboard/admindashboard.component';
 
 @Component({
   selector: 'app-coursecreation',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AdmindashboardComponent],
   templateUrl: './coursecreation.component.html',
   styleUrls: ['./coursecreation.component.css'],
 })
 export class CoursecreationComponent implements OnInit {
-  
   courseCreation: FormGroup | undefined;
 
   courseName: string = '';
@@ -34,9 +34,9 @@ export class CoursecreationComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private courseService: CourseServiceService,
-    // private toastService:ToastrService
-  ) {}
+    private courseService: CourseServiceService
+  ) // private toastService:ToastrService
+  {}
 
   ngOnInit(): void {
     // Initialize form or other setup logic here if needed
@@ -71,23 +71,36 @@ export class CoursecreationComponent implements OnInit {
     this.isLoading = true;
     this.isSuccess = false;
 
-    this.courseService.getCoursesCreated(this.courseName, this.description,this.duration, this.instructor,this.courseURL,this.githubURL,this.driveURL).subscribe(
-      response => {
-        console.log('Course created successfully:', response);
-        // this.toastService.success('Course created successfully!', 'Success');
-        this.isLoading = false;
-        this.isSuccess = true;
-        
-  
-        setTimeout(() => {
-          this.router.navigate(['/admin/dashboard']);
-        }, 2000);
-      },
-      error => {
-        console.error('Error creating course:', error);
-        // this.toastService.error('Error creating course. Please try again.', 'Error');
-        this.isLoading = false;
-      }
-    );
+    this.courseService
+      .getCoursesCreated(
+        this.courseName,
+        this.description,
+        this.duration,
+        this.instructor,
+        this.courseURL,
+        this.githubURL,
+        this.driveURL
+      )
+      .subscribe(
+        (response) => {
+          console.log('Course created successfully:', response);
+          // this.toastService.success('Course created successfully!', 'Success');
+          this.isLoading = false;
+          this.isSuccess = true;
+
+          setTimeout(() => {
+            this.router.navigate(['/admindashboard']);
+          }, 2000);
+        },
+        (error) => {
+          console.error('Error creating course:', error);
+          // this.toastService.error('Error creating course. Please try again.', 'Error');
+          this.isLoading = false;
+        }
+      );
+
+      setTimeout (() => {
+      this.router.navigate(['/admin/dashboard']);
+      }, 2000);
   }
 }
