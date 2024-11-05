@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { API_BASE_URL } from '../../../../utils/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -8,7 +7,6 @@ import { Observable } from 'rxjs';
 })
 export class EnrollmentServiceService {
 
-  private apiUrl = API_BASE_URL + '/api/v1/course/list';
 
   constructor(private http:HttpClient) { }
 
@@ -19,5 +17,10 @@ export class EnrollmentServiceService {
   
   getEnrollmentUsersList(): Observable<any[]> {
     return this.http.get<any[]>("http://localhost:8080/instalearn/api/v1/enrollments");
+  }
+
+  getEnrollmentsListByUserId(userId:number):Observable<any[]>{
+    return this.http.get<any[]>(`http://localhost:8080/instalearn/api/v1/${userId}/enroll/courses/all`);
+
   }
 }

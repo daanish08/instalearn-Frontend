@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserServiceService } from '../../../services/user-service/user-service.service';
+import { LoginService } from '../../../../login/services/login.service';
 
 interface UserProfile {
   userName: string;
@@ -17,16 +18,17 @@ interface UserProfile {
 export class UserProfileComponent {
   profile: UserProfile | undefined;
 
-  id=2;
+  id=1;
 
-  constructor(private userService: UserServiceService) { }
+  constructor(private userService: UserServiceService,private loginService:LoginService) { }
 
   ngOnInit(): void {
     this.loadUserProfile(this.id);
+    this.id=Number(this.loginService.auth.id);
   }
 
   loadUserProfile(id: number) { // Accept 'id' as a parameter
-    this.userService.getUserById(id).subscribe((response:any)=>{
+    this.userService.getUserName(id).subscribe((response:any)=>{
       this.profile=response;
       console.log(this.profile);
     });

@@ -1,45 +1,67 @@
 import { DatePipe } from '@angular/common';
-import { Component, Pipe } from '@angular/core';
+import { Component, OnInit, Pipe } from '@angular/core';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { LoginService } from '../../../login/services/login.service';
+import { UserServiceService } from '../../../user/services/user-service/user-service.service';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { CourseServiceService } from '../../services/courses/course-service.service';
 
 @Component({
   selector: 'app-course-completion-details',
   standalone: true,
   imports: [DatePipe],
   template: `
-   <div class="container-fluid mt-2 p-3">
-  <div id="certificate" class="certificate bg-tertiary py-4">
-    <div class="certificate-border py-3">
-    <div class="p-4 border border-black">
-      <img src="https://www.ford.com/etc/designs/brand_ford/brand/skin/ford/img/bri-icons/Ford-logo.svg" alt="" width="150" height="50">
-      <h1 class="fw-light pb-2"><span class="text-success">Certificate</span> of Completion</h1>
-      <p>This is to certify that</p>
-      <h2>{{ username }}</h2>
-      <p>has successfully completed the course</p>
-      <h4>{{ courseTitle }}</h4>
-      <!-- Add Date and Signature -->
-      <div class="certificate-footer">
-  <div class="footer-item ">
-    <p><span class="underline">{{ completionDate | date: 'dd.MM.yyyy' }}</span></p>
-    <hr>
-    <p class="text-muted">Date</p>
-  </div>
-  <div class="footer-item">
-    <p><span class="underline">{{ signature }}</span></p>
-    <hr>
-    <p class="text-muted">Signature</p> <!-- If using a placeholder or static text -->
-  </div>
-</div>
-
+    <div class="container-fluid mt-2 p-3">
+      <div id="certificate" class="certificate bg-tertiary py-4">
+        <div class="certificate-border py-3">
+          <div class="p-4 border border-black">
+            <img
+              src="https://www.ford.com/etc/designs/brand_ford/brand/skin/ford/img/bri-icons/Ford-logo.svg"
+              alt=""
+              width="150"
+              height="50"
+            />
+            <h1 class="fw-light pb-2">
+              <span class="text-success">Certificate</span> of Completion
+            </h1>
+            <p>This is to certify that</p>
+            <h2>{{ userName }}</h2>
+            <p>has successfully completed the course</p>
+            <h4>{{ courseName }}</h4>
+            <!-- Add Date and Signature -->
+            <div class="certificate-footer">
+              <div class="footer-item ">
+                <p>
+                  <span class="underline">{{
+                    completionDate | date : 'dd.MM.yyyy'
+                  }}</span>
+                </p>
+                <hr />
+                <p class="text-muted">Date</p>
+              </div>
+              <div class="footer-item">
+                <p>
+                  <span class="underline">{{ signature }}</span>
+                </p>
+                <hr />
+                <p class="text-muted">Signature</p>
+                <!-- If using a placeholder or static text -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center py-3">
+        <button
+          class="btn btn-success fw-light text-white"
+          (click)="generateCertificate()"
+        >
+          Download Certificate
+        </button>
+      </div>
     </div>
-    </div>
-  </div>
-  <div class="text-center py-3">
-    <button class="btn btn-success fw-light text-white" (click)="generateCertificate()">Download Certificate</button>
-  </div>
-</div>
-
   `,
   styles: `
  .certificate {
@@ -98,17 +120,67 @@ import jsPDF from 'jspdf';
 }
 
 
-`
+`,
 })
-export class CourseCompletionDetailsComponent {
+export class CourseCompletionDetailsComponent implements OnInit {
+  userId: string | null = '';
+  IntId: number = 0;
+  userName: string = '';
+  courseId:number=0;
+  courseName:string='';
 
-  courseTitle: string = 'Advanced Angular Development';
-  username: string = 'John Doe';
+
+  private userSubscription: Subscription | undefined;
+  private courseSubscription: Subscription | undefined;
+
+  ngOnInit(): void {
+    console.log('init');
+    this.userId = this.loginService.auth.id;
+    this.IntId = Number(this.userId);
+    this.courseId = Number(this.route.snapshot.paramMap.get('courseId'));
+    this.loadDetails();
+  }
+
+  loadDetails() {
+    console.log(this.userId);
+    console.log(this.IntId);
+
+    if (this.IntId) {
+      // Check if userId is not null or empty
+      this.userSubscription = this.userService
+        .getUserName(this.IntId)
+        .subscribe({
+          next: (response: any) => {
+            this.userName = response.userName;
+            console.log('-------', this.userName);
+          },
+        });
+    }
+
+    if(this.courseId){
+      this.courseSubscription = this.courseService
+        .getcourseDetailsById(this.courseId)
+        .subscribe({
+          next: (response: any) => {
+            this.courseName = response.courseName;
+            console.log('-------', this.courseName);
+          },
+        });
+    }
+  }
+
+  constructor(
+    private loginService: LoginService,
+    private userService: UserServiceService,
+    private route:ActivatedRoute,
+    private courseService:CourseServiceService
+  ) {}
+
+  // courseName: string = 'Advanced Angular Development';
   completionDate: Date = new Date();
-  signature="FORD";
+  signature = 'FORD';
 
   generateCertificate() {
-
     const certificateElement = document.getElementById('certificate');
 
     if (certificateElement) {
@@ -120,7 +192,7 @@ export class CourseCompletionDetailsComponent {
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
         pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-        pdf.save(`${this.username}_Certificate.pdf`);
+        pdf.save(`${this.userName}_Certificate.pdf`);
       });
     }
   }

@@ -29,27 +29,27 @@ import { LoginService } from '../../../login/services/login.service';
         </thead>
         <tbody>
           <tr *ngFor="let enrollment of enrollments">
-            <td>{{ enrollment.id }}</td>
-            <td>{{ enrollment.courseTitle }}</td>
+            <td>{{ enrollment.enrollmentId }}</td>
+            <td>{{ enrollment.course.courseName }}</td>
             <td>{{ enrollment.status }}</td>
             <td class="d-flex justify-content-center">
               <button
                 class="btn fw-bold"
                 style="width: 100px;"
                 [ngClass]="{
-                  'btn-success': enrollment.status === 'Approved',
-                  'btn-warning': enrollment.status === 'Pending',
-                  'btn-danger': enrollment.status === 'Rejected'
+                  'btn-success': enrollment.status === 'APPROVED',
+                  'btn-warning': enrollment.status === 'PENDING',
+                  'btn-danger': enrollment.status === 'REJECTED'
                 }"
                 [routerLink]="
-                  enrollment.status === 'Approved'
-                    ? ['/course', enrollment.id]
+                  enrollment.status === 'APPROVED'
+                    ? ['/courses', enrollment.course.courseId]
                     : null
                 "
-                [disabled]="enrollment.status !== 'Approved'"
+                [disabled]="enrollment.status !== 'APPROVED'"
               >
                 {{
-                  enrollment.status === 'Approved' ? 'View' : enrollment.status
+                  enrollment.status === 'APPROVED' ? 'View' : enrollment.status
                 }}
               </button>
             </td>
@@ -59,19 +59,19 @@ import { LoginService } from '../../../login/services/login.service';
                 class="btn fw-semibold text-white bg-danger"
                 style="width: 100px;"
                 [ngClass]="{
-                  'bg-success': enrollment.status === 'Approved',
-                  'bg-danger': enrollment.status === 'Rejected',
-                  'bg-warning': enrollment.status === 'Pending',
+                  'bg-success': enrollment.status === 'APPROVED',
+                  'bg-danger': enrollment.status === 'REJECTED',
+                  'bg-warning': enrollment.status === 'PENDING',
                 }"
                 [routerLink]="
-                  enrollment.status === 'Approved'
-                    ? ['/course', enrollment.id]
+                  enrollment.status === 'APPROVED'
+                    ? ['/courses',enrollment.course.courseId,'completed']
                     : null
                 "
-                [disabled]="enrollment.status !== 'Approved'"
+                [disabled]="enrollment.status !== 'APPROVED'"
               >
                 {{
-                  enrollment.status === 'Approved'
+                  enrollment.status === 'APPROVED'
                     ? 'Download'
                     : 'Complete'
                 }}
@@ -87,6 +87,7 @@ import { LoginService } from '../../../login/services/login.service';
 export class UserEnrolledStatusComponent implements OnInit {
   enrollmennts: any[] = [];
   userId: string | null = this.loginService.auth.id;
+  IntId:number=Number(this.userId);
 
   constructor(
     private loginService: LoginService,
@@ -94,50 +95,50 @@ export class UserEnrolledStatusComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.findEnrollmentsByUserId(this.userId);
+      this.findEnrolledCoursesByUserId(this.IntId);
   }
 
-  enrollments: any[] = [
-    {
-      id: 1,
-      username: 'john_doe',
-      courseTitle: 'Introduction to Angular',
-      status: 'Pending',
-    },
-    {
-      id: 2,
-      username: 'jane_smith',
-      courseTitle: 'Advanced JavaScript',
-      status: 'Approved',
-    },
-    {
-      id: 3,
-      username: 'alice_jones',
-      courseTitle: 'Data Science Basics',
-      status: 'Rejected',
-    },
-    {
-      id: 4,
-      username: 'bob_brown',
-      courseTitle: 'Web Development Bootcamp',
-      status: 'Pending',
-    },
-    {
-      id: 5,
-      username: 'charlie_white',
-      courseTitle: 'Machine Learning Fundamentals',
-      status: 'Pending',
-    },
-  ];
+  enrollments: any[] = [];
+    // enrollments: any[] = [
+    //   {
+    //     id: 1,
+    //     username: 'john_doe',
+    //     courseTitle: 'Introduction to Angular',
+    //     status: 'Pending',
+    //   },
+    //   {
+    //     id: 2,
+    //     username: 'jane_smith',
+    //     courseTitle: 'Advanced JavaScript',
+    //     status: 'Approved',
+    //   },
+    //   {
+    //     id: 3,
+    //     username: 'alice_jones',
+    //     courseTitle: 'Data Science Basics',
+    //     status: 'Rejected',
+    //   },
+    //   {
+    //     id: 4,
+    //     username: 'bob_brown',
+    //     courseTitle: 'Web Development Bootcamp',
+    //     status: 'Pending',
+    //   },
+    //   {
+    //     id: 5,
+    //     username: 'charlie_white',
+    //     courseTitle: 'Machine Learning Fundamentals',
+    //     status: 'Pending',
+    //   },
+    // ];
 
-  // findEnrollmentsByUserId(userId: string | null) {
-  //   this.enrollmentService.getEnrollmentsListByUserId(userId)
-  //       .subscribe((response: any[]) =>{
-  //         this.enrollmennts=response;
-  //         console.log(this.enrollmennts);
-  //       })
+  findEnrolledCoursesByUserId(userId :number) {
+    this.enrollmentService.getEnrollmentsListByUserId(userId)
+        .subscribe((response: any[]) =>{
+          this.enrollments=response;
+          console.log(this.enrollments);
+        })
 
-  // // Call the API to update the enrollment status
   // this.apiService.updateEnrollmentStatus(enrollment.id, enrollment.status).subscribe(response => {
   //   console.log('Status updated successfully:', response);
   //   // Optionally, you can show a success message or update the local state
@@ -147,4 +148,5 @@ export class UserEnrolledStatusComponent implements OnInit {
   // });
   //   updateEnrollmentStatus(enrollmentId: number, status: string): Observable<any> {
   //     return this.http.put(`${this.baseApiUrl}/admin/enrollments/${enrollmentId}`, { status });
-}
+      }
+    }
