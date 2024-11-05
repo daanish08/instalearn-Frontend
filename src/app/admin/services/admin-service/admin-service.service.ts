@@ -23,6 +23,13 @@ export class AdminServiceService {
     console.log("Fetching users....");
     return this.http.get(this.fetchUsers);
   }
+
+  getUserName(id: number): Observable<string> {
+    const url = `http://localhost:8080/instalearn/admin/adminList/${id}`;
+    return this.http.get<string>(url);
+  }
+
+
   getUserCount(): Observable<number> {
     return this.http.get<number>(this.fetchUsersCount); // Ensure this.countUsers is the correct endpoint URL
   }
@@ -31,7 +38,7 @@ export class AdminServiceService {
     return this.http.get<number>(this.fetchFeedbackCount); // Adjust the endpoint as needed
   }
 
-  getUploadedCoursesCount(adminId:number): Observable<number> {
+  getUploadedCoursesCount(adminId:number|undefined): Observable<number> {
     return this.http.get<number>(`${this.CourseCountByAdminId}/A${adminId}/count`); // Adjust the endpoint as needed
   }
 

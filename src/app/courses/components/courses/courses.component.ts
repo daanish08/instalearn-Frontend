@@ -54,13 +54,14 @@ interface Course {
                 <a
                   href="#"
                   class="text-muted text-decoration-none fw-normal  text-muted"
-                  >{{ course.description }}</a
+                  >{{ course.instructor }}</a
                 >
               </p>
               <button
                 *ngIf="userRole === 'USER' || userRole === null"
                 class="btn btn-success me-md-2 text-white fw-light"
                 (click)="enroll(course.courseId)"
+                [disabled]="isEnrolling"
               >
                 Enroll
               </button>
@@ -103,6 +104,9 @@ export class CoursesComponent implements OnInit {
   userRole: string | null = ''; 
   adminId:string| null=this.loginService.auth.id;
 
+  isEnrolling: boolean = false;
+
+
   constructor(
     private courseService: CourseServiceService,
     private router: Router,
@@ -129,14 +133,17 @@ export class CoursesComponent implements OnInit {
   }
 
   enroll(courseId: number) {
+    isEnrolling: true;
     this.courseService.enrollInCourse(courseId).subscribe({
       next: (response: string) => {
         console.log('Enrollment successful:', response);
         alert('Enrollment successful!');
+        this.isEnrolling = false;
+
       },
       error: (error) => {
         console.error('Enrollment failed:', error);
-        alert('Enrollment failed. Please try again.');
+        alert('Enrollment failed. Please Login and try again.');
       },
     });
   }

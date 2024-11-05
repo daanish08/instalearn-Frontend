@@ -82,10 +82,7 @@ import { LoginService } from '../../../login/services/login.service';
       </table>
     </div>
   `,
-  styles: `
-  .navy-button{
-    background-color:"#00142E";
-  }`,
+  styles: ``
 })
 export class UserEnrolledStatusComponent implements OnInit {
   enrollmennts: any[] = [];

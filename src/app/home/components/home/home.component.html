@@ -1,55 +1,81 @@
 <!-- home-component.html -->
 <div class="bg px-3">
-  <div class="px-4 py-5 my-3 mt-0 text-center text-white fw-semibold">
-
+  <div class="px-4 py-5 my-3 mt-0 text-center text-white fw-semibold" id="home">
     <p class="lead mb-4">In look for a technical Course?</p>
     <h1 class="display-3 text-white">
       Start <u><span class="fw-bold">learning</span></u> a new<br />
-      language today <u><span class="fw-bold">with the best</span></u><br />online courses!
+      language today <u><span class="fw-bold">with the best</span></u
+      ><br />online courses!
     </h1>
-    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-      class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="30"
+      height="30"
+      fill="currentColor"
+      class="bi bi-arrow-down-circle-fill"
+      viewBox="0 0 16 16"
+    >
+    <!-- <a href="/#homecourse-list"></a> -->
       <path
-        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z" />
+        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"
+      />
     </svg>
-    <i class="bi bi-arrow-down-circle-fill"></i>
+    <i class="bi bi-arrow-down-circle-fill">
+        
+    </i>
   </div>
 </div>
 
-
-
-<div class="container-fluid py-3 px-5 col-lg-12 bg-body-tertiary">
+<div
+  class="container-fluid py-3 px-5 col-lg-12 bg-body-tertiary"
+  id="course-list"
+>
   <!-- Language Cards -->
   <div class="row">
-    <div class="col-md-3 mb-4 " *ngFor="let course of courses">
-      <div class="card text-center  bg-white border-0" style="width: 95%;">
-        <div class="card-body  ">
+    <div class="col-md-3 mb-4" *ngFor="let course of courses">
+      <div class="card text-center bg-white border-0" style="width: 95%">
+        <div class="card-body">
           <div class="d-inline-block pb-3">
-            <h6 class="card-subtitle rounded-4 border border-danger text-center p-2 ">
-              {{logo}}
+            <h6
+              class="card-subtitle rounded-4 border border-danger text-center p-2"
+            >
+              {{ logo }}
             </h6>
           </div>
-          <h4 class="card-title"><a href="#"
-              class="fw-normal text-body-emphasis text-decoration-none ">{{course.courseName}}</a></h4>
-          <p class="card-text pb-2"><a href="#"
-              class="text-muted text-decoration-none fw-normal  ">{{course.instructor}}</a>
+          <h4 class="card-title">
+            <a
+              href="#"
+              class="fw-normal text-body-emphasis text-decoration-none"
+              >{{ course.courseName }}</a
+            >
+          </h4>
+          <p class="card-text pb-2">
+            <a href="#" class="text-muted text-decoration-none fw-normal">{{
+              course.instructor
+            }}</a>
           </p>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-6 mx-auto d-flex justify-content-center align-items-center" style="height: 10vh;">
-    <button class="btn btn-success" type="button" routerLink="/courses" style="width: 300px;">
+  <div
+    class="col-6 mx-auto d-flex justify-content-center align-items-center"
+    style="height: 10vh"
+  >
+    <button
+      class="btn btn-success"
+      type="button"
+      routerLink="/courses"
+      style="width: 300px"
+    >
       Show all courses +
       <svg class="bi ms-1" width="20" height="20">
         <use xlink:href="#arrow-right-short"></use>
       </svg>
     </button>
   </div>
-  <hr class="my-4">
+  <hr class="my-4" />
 </div>
-
-
 
 <div class="container-fluid py-2 bg-body-tertiary">
   <!-- Section Header -->
@@ -61,19 +87,24 @@
   <!-- Steps -->
   <div class="row">
     <!-- Step 1 -->
-    <div class="col-md-4 text-center mb-4" *ngFor="let step of stepstoFindCourse">
+    <div
+      class="col-md-4 text-center mb-4"
+      *ngFor="let step of stepstoFindCourse"
+    >
       <div class="card h-100 border-0 bg-body-tertiary">
-        <div class="card-body ">
-          <h2 class="card-title display-4 fw-bold text-success  px-5 py-2 ">{{step.id}}</h2>
-          <h4 class="card-subtitle mb-2">{{step.head}}</h4>
-          <p class="card-text text-muted">{{step.description}}</p>
+        <div class="card-body">
+          <h2 class="card-title display-4 fw-bold text-success px-5 py-2">
+            {{ step.id }}
+          </h2>
+          <h4 class="card-subtitle mb-2">{{ step.head }}</h4>
+          <p class="card-text text-muted">{{ step.description }}</p>
         </div>
       </div>
       <!-- <hr class="my-3">   -->
-    </div>  
+    </div>
     <!-- <hr class="my-3">   -->
   </div>
-  <hr class="my-3">  
+  <hr class="my-3" />
 </div>
 
 <div class="container-fluid py-0 bg-body-tertiary">
@@ -83,20 +114,23 @@
       <div class="col-md-3 text-center mb-4" *ngFor="let feature of features">
         <div class="card h-100 border-0 bg-body-tertiary">
           <div class="card-body">
-            <img [src]="feature.imgTag" [alt]="feature.title" class="img-fluid mb-4" />
+            <img
+              [src]="feature.imgTag"
+              [alt]="feature.title"
+              class="img-fluid mb-4"
+            />
             <h4 class="card-subtitle mb-1 text-center">{{ feature.title }}</h4>
             <!-- <img src="/src/assets/img/Home/payPerPerson.png"> -->
-            <p class="card-text text-center text-muted" style="font-size: 15px;">{{ feature.description }}</p>
+            <p class="card-text text-center text-muted" style="font-size: 15px">
+              {{ feature.description }}
+            </p>
           </div>
         </div>
       </div>
     </div>
     <!-- <hr class="my-3">   -->
   </div>
- 
-
 </div>
-
 
 <!-- <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2">
   <div class="col" *ngFor="let course of courses">

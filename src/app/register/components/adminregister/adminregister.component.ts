@@ -105,13 +105,13 @@ import { AdminRegService } from '../../services/admin-reg.service';
           </div>
 
           <div class="form-group py-2">
-            <label for="refCode" class="pb-1">Referral Code (Optional)</label>
+            <label for="refCode" class="pb-1">Access Code</label>
             <input
               type="number"
               formControlName="refCode"
               class="form-control"
               id="ref-code"
-              placeholder="Referral Code"
+              placeholder="Access Code"
             />
           </div>
 

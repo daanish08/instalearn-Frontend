@@ -77,6 +77,7 @@ export class CoursecreationComponent implements OnInit {
         // this.toastService.success('Course created successfully!', 'Success');
         this.isLoading = false;
         this.isSuccess = true;
+        
   
         setTimeout(() => {
           this.router.navigate(['/admin/dashboard']);

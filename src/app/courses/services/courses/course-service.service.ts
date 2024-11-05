@@ -55,7 +55,7 @@ export class CourseServiceService {
   getCoursesByAdminId(adminId:string| null){
     console.log('Collecting list of course details.....');
     const url = `${this.courseDataById}${adminId}`;
-    return this.http.get(`${this.courseByAdmin}A${adminId}/courses`);
+    return this.http.get(`${this.courseByAdmin}${adminId}/courses`);
   }
 
 
