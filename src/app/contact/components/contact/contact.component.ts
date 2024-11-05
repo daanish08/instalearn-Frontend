@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { ContactService } from '../../services/contact-service/contact.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
@@ -54,12 +55,12 @@ import { NgForm } from '@angular/forms';
         </div>
         <br />
         <div class="form-group">
-          <label for="contactInfo">Contact Info</label>
+          <label for="contact">Contact Info</label>
           <input
             type="text"
             class="form-control"
-            id="contactInfo"
-            name="contactInfo"
+            id="contact"
+            name="contact"
             ngModel
             placeholder="Email or Phone"
             required
@@ -67,11 +68,11 @@ import { NgForm } from '@angular/forms';
         </div>
         <br />
         <div class="form-group">
-          <label for="message">Message</label>
+          <label for="comment">Message</label>
           <textarea
             class="form-control"
-            id="message"
-            name="message"
+            id="comment"
+            name="comment"
             ngModel
             rows="4"
             required
@@ -79,11 +80,11 @@ import { NgForm } from '@angular/forms';
         </div>
         <br />
         <div class="form-group">
-          <label for="inquiryType">What is this about</label>
+          <label for="enquiryType">What is this about</label>
           <select
             class="form-control"
-            id="inquiryType"
-            name="inquiryType"
+            id="enquiryType"
+            name="enquiryType"
             ngModel
             required
           >
@@ -118,8 +119,18 @@ import { NgForm } from '@angular/forms';
   ],
 })
 export class ContactComponent {
+  constructor(private contactService: ContactService,private router:Router) {}
+
   onSubmit(contactForm: NgForm) {
-    const formData = contactForm.value;
-    console.log('Form Data:', formData);
+    console.log('form', contactForm.value);
+
+    this.contactService
+      .handleAddFeedbacks(contactForm.value)
+      .subscribe((response) => {
+        console.log(response);
+        setTimeout(() => {
+          this.router.navigate(['admin/dashboard']);
+        }, 2000);
+      });
   }
 }

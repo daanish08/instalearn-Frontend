@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseServiceService } from '../../../courses/services/courses/course-service.service';
 import { CommonModule } from '@angular/common';
+import { LoginService } from '../../../login/services/login.service';
 
 @Component({
   selector: 'app-course-updation',
@@ -15,7 +16,7 @@ export class CourseUpdationComponent implements OnInit {
   courseUpdation: FormGroup | undefined;
   courseArray:any=[];
   courseId:any;
-  adminId: number = 2;
+  adminId:number = 0;
 
   courseName: string = '';
   description: string = '';
@@ -36,22 +37,26 @@ export class CourseUpdationComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private courseService: CourseServiceService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loginService:LoginService
   ) { }
 
   ngOnInit(): void {
+    
+    this.adminId=Number(this.loginService.auth.id);
+    
     this.courseId = this.route.snapshot.paramMap.get('courseId');
     this.loadCourseData(this.courseId);
   }
-
+  
   loadCourseData(courseId: number) {
-    // Indicate loading started
-    // this.isLoading = true;
+   console.log(courseId);
+   
     this.courseService.getcourseDetailsById(courseId)
       .subscribe(
         (response: any) => {
           console.log(response);
-          this.courseArray = response; // Ensure courseArray is the correct type
+          this.courseArray = response; 
   
           // Now update the properties after receiving the response
           this.courseName = this.courseArray.courseName;
@@ -101,6 +106,8 @@ export class CourseUpdationComponent implements OnInit {
 
     // Here you can later add a service call to submit the updated course data
     // For example:
+    console.log("---",this.adminId);
+    
     this.courseService.handleupdateCourse(courseData, this.adminId, this.courseId)
       .subscribe(
         response => {
@@ -108,10 +115,13 @@ export class CourseUpdationComponent implements OnInit {
           this.isLoading = false;
           this.isSuccess = true;
           console.log("Course updated successfully:", response);
-          // Additional success handling here
+
+          setTimeout(() => {
+          this.router.navigate(['admin/dashboard']);
+        }, 2000);
         },
         error => {
-          console.log("error occued")
+          console.log("error occued", error)
           this.isLoading = false;
           // Handle error here
         }

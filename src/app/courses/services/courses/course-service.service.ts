@@ -66,11 +66,12 @@ export class CourseServiceService {
     );
   }
 
-  handleupdateCourse(courseData: any, adminId: number, courseId: number) {
-    console.log('Updating the course......');
+  handleupdateCourse(courseData: any, adminId: number, courseId: number): Observable<string> {
+    console.log("Updating the course......");
     return this.http.put<string>(
       `${API_BASE_URL}/admin/A${adminId}/C${courseId}/update`,
-      courseData
+      courseData,
+      {responseType: 'text' as 'json'}
     );
   }
 

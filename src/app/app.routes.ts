@@ -48,7 +48,7 @@ export const routes: Routes = [
       { path: 'profile/edit', component: DevelopmentComponent, title: 'Under Construction' },
       { path: 'dashboard', component: AdmindashboardComponent, title: 'Admin Dashboard' },
       { path: 'create-courses', component: CoursecreationComponent, title: 'Create Course' },
-      { path: 'update/:courseid', component: CourseUpdationComponent, title: 'Update Course' },
+      { path: 'update/:courseId', component: CourseUpdationComponent, title: 'Update Course' },
       { path: 'user-list', component: UserListComponent, title: 'User List' },
       { path: 'approve-courses', component: ApprovecoursesComponent, title: 'Approve Courses' },
       { path: 'feedback-details', component: FeedbackDetailsComponent, title: 'Feedbacks' }
