@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { EnrollmentServiceService } from '../../../user/services/enrollment-service/enrollment-service.service';
 
 @Component({
   selector: 'app-approvecourses',
@@ -51,15 +52,34 @@ import { FormsModule } from '@angular/forms';
     `,
   styles: ``
 })
-export class ApprovecoursesComponent {
+export class ApprovecoursesComponent implements OnInit{
+  
+  enrollments:any[]=[];
 
-  enrollments: any[] = [
-    { id: 1, username: 'john_doe', courseTitle: 'Introduction to Angular', status: 'Pending' },
-    { id: 2, username: 'jane_smith', courseTitle: 'Advanced JavaScript', status: 'Approved' },
-    { id: 3, username: 'alice_jones', courseTitle: 'Data Science Basics', status: 'Rejected' },
-    { id: 4, username: 'bob_brown', courseTitle: 'Web Development Bootcamp', status: 'Pending' },
-    { id: 5, username: 'charlie_white', courseTitle: 'Machine Learning Fundamentals', status: 'Pending' }
-  ];
+  
+  constructor(private enrollmentService:EnrollmentServiceService){};
+
+  ngOnInit(): void {
+    this.loadEnrollmentList();
+    // throw new Error('Method not implemented.');
+  }
+
+
+  loadEnrollmentList() {
+    this.enrollmentService.getEnrollmentUsersList()
+      .subscribe((response: any[]) => {
+        this.enrollments = response;
+        console.log(this.enrollments);
+      });
+  }
+
+  // enrollments: any[] = [
+  //   { id: 1, username: 'john_doe', courseTitle: 'Introduction to Angular', status: 'Pending' },
+  //   { id: 2, username: 'jane_smith', courseTitle: 'Advanced JavaScript', status: 'Approved' },
+  //   { id: 3, username: 'alice_jones', courseTitle: 'Data Science Basics', status: 'Rejected' },
+  //   { id: 4, username: 'bob_brown', courseTitle: 'Web Development Bootcamp', status: 'Pending' },
+  //   { id: 5, username: 'charlie_white', courseTitle: 'Machine Learning Fundamentals', status: 'Pending' }
+  // ];
 
   // constructor(private apiService: ApiService) {}
 

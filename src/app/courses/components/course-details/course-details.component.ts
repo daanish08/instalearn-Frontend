@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CourseServiceService } from '../../services/courses/course-service.service';
+import { LoginService } from '../../../login/services/login.service';
 
 interface Course {
   image: string;
@@ -26,14 +27,19 @@ export class CourseDetailsComponent implements OnInit {
   course!: Course;
   courseId:any;
   currentStep: number = 1;
+  userRole: string| null='';
+
+  githubUrl:string='https://github.com/GitTSUser/JavaFSD_Ford_Aug_2024';
 
 
+  
   //git and drive opening link
   openLink(url: string) {
-    window.open(url, '_blank');
+    console.log(url);
+    window.open(this.githubUrl, '_blank');
   }
 
-  constructor(private courseService: CourseServiceService, private route: ActivatedRoute) {
+  constructor(private courseService: CourseServiceService, private route: ActivatedRoute,private loginService:LoginService ) {
     // Reading the url param
     this.courseId = this.route.snapshot.paramMap.get('id');
   }
@@ -53,6 +59,7 @@ export class CourseDetailsComponent implements OnInit {
   ngOnInit(): void {
     console.log('Inside Course Details');
     this.loadCourseDetailsById(this.courseId);
+    this.userRole = this.loginService.auth.role;
  
   }
 
