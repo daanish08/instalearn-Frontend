@@ -56,19 +56,19 @@ export class HomeComponent implements OnInit {
         'Connect with knowledgeable tutors who illuminate the path to understanding.',
     },
     {
-      imgTag: '/assets/img/Home/graduate.png',
+      imgTag: '/assets/img/Home/verified.png',
       title: 'Verified Profiles',
       description:
         'Access trustworthy profiles, ensuring quality and authenticity.',
     },
     {
-      imgTag: '/assets/img/Home/graduate.png',
+      imgTag: '/assets/img/Home/payPerPerson.png',
       title: 'Pay Per Lesson',
       description:
         'Enjoy flexibility with a pay-per-lesson model tailored to your needs.',
     },
     {
-      imgTag: '/assets/img/Home/graduate.png',
+      imgTag: '/assets/img/Home/price.png',
       title: 'Affordable Prices',
       description:
         "Experience quality education at prices that won't break the bank.",

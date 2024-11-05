@@ -23,7 +23,7 @@ import { DevelopmentComponent } from './shared/components/development-page/devel
 
 //config the routes
 export const routes: Routes = [
-  { path: '', component: HomeComponent, title: 'Home Page' },
+  { path: '', component: HomeComponent, title: 'Home' },
   { path: 'courses', component: CoursesComponent, title: 'Courses' },
   {
     path: 'login',
@@ -131,23 +131,23 @@ export const routes: Routes = [
       {
         path: ':courseid/:userid/enroll',
         component: CoursesComponent,
-        title: 'Courses by Admin',
+        title: 'Courses',
       }, // Specific courses by admin
-      { path: 'admin', component: CoursesComponent, title: 'Courses by Admin' }, // Specific courses by admin
+      { path: 'admin', component: CoursesComponent, title: 'Courses' }, // Specific courses by admin
       {
         path: ':id',
         component: CourseDetailsComponent,
-        title: 'Detailed View of Course',
+        title: 'Course Details',
       }, // Detailed view of a specific course
       {
         path: 'user/:userId',
         component: CoursesComponent,
-        title: 'Courses Enrolled By Users',
+        title: 'Enrolled Courses',
       }, // Courses enrolled by a specific user
       {
         path: ':courseId/completed',
         component: CourseCompletionDetailsComponent,
-        title: 'Course Completion Details',
+        title: 'Course Completion',
       }, //Completion Page of the specific users
     ],
   },
