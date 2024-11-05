@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
           src="/assets/img/vectorIcons/construction.jpg"
           alt="Construction Image"
           class="img-fluid"
-          style="height: 550px; width: auto;"
+          style="height: 500px; width: auto;"
         />
         <h3 class="h2 text-muted  fw-light text-secondary">
           Exciting updates are on the way.

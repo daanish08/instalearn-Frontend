@@ -4,11 +4,6 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
 import { HomeService } from './home.service';
 
-// interface HomeCourse {
-//   logo: string;
-//   title: string;
-//   description: string;
-// }
 
 @Component({
   selector: 'app-home',
@@ -19,7 +14,7 @@ import { HomeService } from './home.service';
 })
 export class HomeComponent implements OnInit {
   courses: any = [];
-  logo = 'course';
+  logo = 'Course';
   constructor(private homeService: HomeService) {
     console.log('INSIDE HOME CONSTRUCTOR');
   }
@@ -30,24 +25,7 @@ export class HomeComponent implements OnInit {
       console.log(this.courses);
     });
   }
-  // courses = [
-  //   { logo: 'C1', title: 'Course 1', description: 'Course 1 description goes here.' },
-  //   { logo: 'C2', title: 'Course 2', description: 'Course 2 description goes here.' },
-  //   { logo: 'C3', title: 'Course 3', description: 'Course 3 description goes here.' },
-  //   { logo: 'C4', title: 'Course 4', description: 'Course 4 description goes here.' },
-  //   { logo: 'C5', title: 'Course 5', description: 'Course 5 description goes here.' },
-  //   { logo: 'C6', title: 'Course 6', description: 'Course 6 description goes here.' },
-  //   { logo: 'C4', title: 'Course 7', description: 'Course 4 description goes here.' },
-  //   { logo: 'C5', title: 'Course 8', description: 'Course 5 description goes here.' },
-  //   { logo: 'C6', title: 'Course 9', description: 'Course 6 description goes here.' },
-  //    { logo: 'C4', title: 'Course 10', description: 'Course 4 description goes here.' },
-  //   { logo: 'C5', title: 'Course 11', description: 'Course 5 description goes here.' },
-  //   { logo: 'C6', title: 'Course 12', description: 'Course 6 description goes here.' },
-  //    { logo: 'C4', title: 'Course 13', description: 'Course 4 description goes here.' },
-  //   { logo: 'C5', title: 'Course 14', description: 'Course 5 description goes here.' },
-  //   { logo: 'C6', title: 'Course 15', description: 'Course 6 description goes here.' },
-  // ];
-
+  
   stepstoFindCourse = [
     {
       id: 1,

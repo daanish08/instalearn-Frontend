@@ -3,7 +3,9 @@ h1{
 }
 
 .bg {
-  background-image: url('https://websitedemos.net/language-tutors-02/wp-content/uploads/sites/700/2020/09/bg-03-free-img.jpg');
+  /* background-image: url('https://websitedemos.net/language-tutors-02/wp-content/uploads/sites/700/2020/09/bg-03-free-img.jpg'); */
+  /* background-image: url('/assets/hero.jpg'); */
+  background-color: #D4F2DB;
   background-size: cover;
   /* padding-top: 20px; */
   background-position: center;

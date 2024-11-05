@@ -72,19 +72,19 @@ import { ToastrService } from 'ngx-toastr';
           >
             Login
           </button>
-          <div class="text-center mt-3">
+          <!-- <div class="text-center mt-3">
             <a
               href="#"
               routerLink="/login/forgot-password"
-              class="text-decoration-none text-secondary"
+              class="text-decoration-none text-success-emphasis"
               >Forgot password?</a
             >
-          </div>
+          </div> -->
           <div class="text-center mt-2">
             <p class="text-body">
               Don't have an account?
               <a
-                class="text-decoration-none text-secondary"
+                class="text-decoration-none text-success border-bottom  fw-semibold"
                 routerLink="/register/user"
                 >Register here</a
               >

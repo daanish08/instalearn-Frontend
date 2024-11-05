@@ -68,20 +68,13 @@ import { LoginService } from '../../services/login.service';
           >
             Login
           </button>
-          <div class="text-center mt-3">
-            <a
-              href="#"
-              routerLink="/login/forgot-password"
-              class="text-decoration-none text-secondary"
-              >Forgot password?</a
-            >
-          </div>
+        
           <div class="text-center mt-2">
             <p class="text-body">
               Don't have an account?
               <a
                 href="#"
-                class="text-decoration-none text-secondary"
+                class="text-decoration-none text-success border-bottom  fw-semibold"
                 routerLink="/register/admin"
                 >Register here</a
               >

@@ -1,35 +1,36 @@
 <!-- home-component.html -->
 <div class="bg px-3">
-  <div class="px-4 py-5 my-3 mt-0 text-center text-white fw-semibold" id="home">
-    <p class="lead mb-4">In look for a technical Course?</p>
-    <h1 class="display-3 text-white">
+  <div
+    class="px-4 py-5 my-3 mt-0 text-center text-success-emphasis fw-semibold"
+    id="home"
+  >
+    <p class="lead mb-4 text-success-emphasis">
+      In look for a technical Course?
+    </p>
+    <h1 class="display-3 text-success-emphasis">
       Start <u><span class="fw-bold">learning</span></u> a new<br />
       language today <u><span class="fw-bold">with the best</span></u
       ><br />online courses!
     </h1>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="30"
-      height="30"
-      fill="currentColor"
-      class="bi bi-arrow-down-circle-fill"
-      viewBox="0 0 16 16"
-    >
-    <!-- <a href="/#homecourse-list"></a> -->
-      <path
-        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"
-      />
-    </svg>
-    <i class="bi bi-arrow-down-circle-fill">
-        
-    </i>
+    <br>
+    <a href="#list">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="30"
+        height="30"
+        fill="green"
+        class="bi bi-arrow-down-circle-fill"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"
+        />
+      </svg>
+    </a>
   </div>
 </div>
 
-<div
-  class="container-fluid py-3 px-5 col-lg-12 bg-body-tertiary"
-  id="course-list"
->
+<div class="container-fluid py-3 px-5 col-lg-12 bg-body-tertiary" id="list">
   <!-- Language Cards -->
   <div class="row">
     <div class="col-md-3 mb-4" *ngFor="let course of courses">

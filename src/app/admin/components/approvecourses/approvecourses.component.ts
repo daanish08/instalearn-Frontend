@@ -72,27 +72,8 @@ export class ApprovecoursesComponent implements OnInit {
       });
   }
 
-  // enrollments: any[] = [
-  //   { id: 1, username: 'john_doe', courseTitle: 'Introduction to Angular', status: 'Pending' },
-  //   { id: 2, username: 'jane_smith', courseTitle: 'Advanced JavaScript', status: 'Approved' },
-  //   { id: 3, username: 'alice_jones', courseTitle: 'Data Science Basics', status: 'Rejected' },
-  //   { id: 4, username: 'bob_brown', courseTitle: 'Web Development Bootcamp', status: 'Pending' },
-  //   { id: 5, username: 'charlie_white', courseTitle: 'Machine Learning Fundamentals', status: 'Pending' }
-  // ];
-
-  // constructor(private apiService: ApiService) {}
 
   updateStatus(enrollment: any) {
-    // // Call the API to update the enrollment status
-    // this.apiService.updateEnrollmentStatus(enrollment.id, enrollment.status).subscribe(response => {
-    //   console.log('Status updated successfully:', response);
-    //   // Optionally, you can show a success message or update the local state
-    // }, error => {
-    //   console.error('Error updating status:', error);
-    //   // Handle error appropriately
-    // });
-    //   updateEnrollmentStatus(enrollmentId: number, status: string): Observable<any> {
-    //     return this.http.put(`${this.baseApiUrl}/admin/enrollments/${enrollmentId}`, { status });
-    // }
+  
   }
 }

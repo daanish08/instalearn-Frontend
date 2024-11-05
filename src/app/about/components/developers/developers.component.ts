@@ -25,11 +25,10 @@ import { Component } from '@angular/core';
             <strong class="d-inline-block mb-2 text-primary-emphasis py-1">{{
               developer.company
             }}</strong>
-            <h3 class="mb-0">{{ developer.name }}</h3>
-            <div class="mb-1 text-body-secondary pb-3">
+            <h3 class="mb-1 fs-2">{{ developer.name }}</h3>
+            <div class="mb-1 fs-4 text-body-secondary pb-3">
               {{ developer.title }}
             </div>
-            <p class="card-text mb-auto">{{ developer.description }}</p>
           </div>
         </div>
       </div>
@@ -40,32 +39,28 @@ import { Component } from '@angular/core';
 export class DevelopersComponent {
   developerData = [
     {
-      profile: '/assets/loginPage.jpg',
+      profile: '/assets/img/vectorIcons/profile-logo.png',
       name: 'Mohammed Daanish M',
       title: 'Software Engineer',
       company: 'Ford Motors Company',
-      description: 'Some small hints',
     },
     {
-      profile: '/assets/loginPage.jpg',
-      name: 'Vignesh ',
+      profile: '/assets/img/vectorIcons/profile-logo.png',
+      name: 'Vignesh U',
       title: 'Software Engineer',
       company: 'Ford Motors Company',
-      description: 'Some small hints',
     },
     {
-      profile: '/assets/loginPage.jpg',
-      name: 'Tharun',
+      profile: '/assets/img/vectorIcons/profile-logo.png',
+      name: 'Tharun D',
       title: 'Software Engineer',
       company: 'Ford Motors Company',
-      description: 'Some small hints',
     },
     {
-      profile: '/assets/loginPage.jpg',
-      name: 'Suriya',
+      profile: '/assets/img/vectorIcons/profile-logo.png',
+      name: 'Suriya T',
       title: 'Software Engineer',
       company: 'Ford Motors Company',
-      description: 'Some small hints',
     },
   ];
 }
