@@ -8,10 +8,9 @@ describe('UserEnrolledStatusComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserEnrolledStatusComponent]
-    })
-    .compileComponents();
-    
+      imports: [UserEnrolledStatusComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(UserEnrolledStatusComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

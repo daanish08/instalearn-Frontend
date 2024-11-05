@@ -4,13 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-coursesuccess',
   standalone: true,
   imports: [],
-  template: `
-    <p>
-      coursesuccess works!
-    </p>
-  `,
-  styles: ``
+  template: ` <p>coursesuccess works!</p> `,
+  styles: ``,
 })
-export class CoursesuccessComponent {
-
-}
+export class CoursesuccessComponent {}

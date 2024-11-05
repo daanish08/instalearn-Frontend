@@ -10,13 +10,13 @@ import { LoginService } from '../../../login/services/login.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './course-updation.component.html',
-  styleUrl: './course-updation.component.css'
+  styleUrl: './course-updation.component.css',
 })
 export class CourseUpdationComponent implements OnInit {
   courseUpdation: FormGroup | undefined;
-  courseArray:any=[];
-  courseId:any;
-  adminId:number = 0;
+  courseArray: any = [];
+  courseId: any;
+  adminId: number = 0;
 
   courseName: string = '';
   description: string = '';
@@ -38,43 +38,40 @@ export class CourseUpdationComponent implements OnInit {
     private router: Router,
     private courseService: CourseServiceService,
     private route: ActivatedRoute,
-    private loginService:LoginService
-  ) { }
+    private loginService: LoginService,
+  ) {}
 
   ngOnInit(): void {
-    
-    this.adminId=Number(this.loginService.auth.id);
-    
+    this.adminId = Number(this.loginService.auth.id);
+
     this.courseId = this.route.snapshot.paramMap.get('courseId');
     this.loadCourseData(this.courseId);
   }
-  
+
   loadCourseData(courseId: number) {
-   console.log(courseId);
-   
-    this.courseService.getcourseDetailsById(courseId)
-      .subscribe(
-        (response: any) => {
-          console.log(response);
-          this.courseArray = response; 
-  
-          // Now update the properties after receiving the response
-          this.courseName = this.courseArray.courseName;
-          this.description = this.courseArray.description;
-          this.duration = this.courseArray.duration;
-          this.instructor = this.courseArray.instructor;
-          this.driveURL = this.courseArray.driveURL;
-          this.githubURL = this.courseArray.githubURL;
-          this.courseURL = this.courseArray.courseURL;
-  
-        },
-        error => {
-          console.error("Error loading course data:", error);
-          // Handle error here
-        }
-      );
+    console.log(courseId);
+
+    this.courseService.getcourseDetailsById(courseId).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.courseArray = response;
+
+        // Now update the properties after receiving the response
+        this.courseName = this.courseArray.courseName;
+        this.description = this.courseArray.description;
+        this.duration = this.courseArray.duration;
+        this.instructor = this.courseArray.instructor;
+        this.driveURL = this.courseArray.driveURL;
+        this.githubURL = this.courseArray.githubURL;
+        this.courseURL = this.courseArray.courseURL;
+      },
+      (error) => {
+        console.error('Error loading course data:', error);
+        // Handle error here
+      },
+    );
   }
-  
+
   nextStep() {
     if (this.currentStep === 1) {
       this.currentStep = 2;
@@ -106,25 +103,26 @@ export class CourseUpdationComponent implements OnInit {
 
     // Here you can later add a service call to submit the updated course data
     // For example:
-    console.log("---",this.adminId);
-    
-    this.courseService.handleupdateCourse(courseData, this.adminId, this.courseId)
+    console.log('---', this.adminId);
+
+    this.courseService
+      .handleupdateCourse(courseData, this.adminId, this.courseId)
       .subscribe(
-        response => {
+        (response) => {
           // console.log("Updating the course"+response);
           this.isLoading = false;
           this.isSuccess = true;
-          console.log("Course updated successfully:", response);
+          console.log('Course updated successfully:', response);
 
           setTimeout(() => {
-          this.router.navigate(['admin/dashboard']);
-        }, 2000);
+            this.router.navigate(['admin/dashboard']);
+          }, 2000);
         },
-        error => {
-          console.log("error occued", error)
+        (error) => {
+          console.log('error occued', error);
           this.isLoading = false;
           // Handle error here
-        }
+        },
       );
   }
 }

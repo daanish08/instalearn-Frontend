@@ -20,7 +20,7 @@
 //     <div class="card-body d-flex justify-content-center">  <!-- Added d-flex for better centering -->
 //       <button type="button" class="btn btn-success px-3" (click)="editProfile()" aria-label="Edit Profile">EDIT</button>
 //     </div>
-    
+
 //   </div>
 // </div>
 

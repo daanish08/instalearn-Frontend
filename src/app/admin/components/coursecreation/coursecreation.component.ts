@@ -34,9 +34,10 @@ export class CoursecreationComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private courseService: CourseServiceService
-  ) // private toastService:ToastrService
-  {}
+    private courseService: CourseServiceService,
+  ) {
+    // private toastService:ToastrService
+  }
 
   ngOnInit(): void {
     // Initialize form or other setup logic here if needed
@@ -79,7 +80,7 @@ export class CoursecreationComponent implements OnInit {
         this.instructor,
         this.courseURL,
         this.githubURL,
-        this.driveURL
+        this.driveURL,
       )
       .subscribe(
         (response) => {
@@ -96,11 +97,11 @@ export class CoursecreationComponent implements OnInit {
           console.error('Error creating course:', error);
           // this.toastService.error('Error creating course. Please try again.', 'Error');
           this.isLoading = false;
-        }
+        },
       );
 
-      setTimeout (() => {
+    setTimeout(() => {
       this.router.navigate(['/admin/dashboard']);
-      }, 2000);
+    }, 2000);
   }
 }

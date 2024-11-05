@@ -43,7 +43,7 @@ export class CourseDetailsComponent implements OnInit {
     private courseService: CourseServiceService,
     private route: ActivatedRoute,
     private loginService: LoginService,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
   ) {
     // Reading the url param
     this.courseId = this.route.snapshot.paramMap.get('id');

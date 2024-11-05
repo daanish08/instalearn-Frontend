@@ -19,7 +19,11 @@ import { UserRegService } from '../../services/user-reg.service';
     <div class="d-flex bg-body-tertiary" style="height: 580px;">
       <div class="col-md-6 register-image"></div>
       <div class="col-md-6 d-flex align-items-center justify-content-center">
-        <form [formGroup]="registerForm" class="w-75" (ngSubmit)="handleAddUser()">
+        <form
+          [formGroup]="registerForm"
+          class="w-75"
+          (ngSubmit)="handleAddUser()"
+        >
           <h2 class="text-center mb-1 fw-light">
             Register As <span class="fw-bold text-success">USER</span>
           </h2>
@@ -130,12 +134,12 @@ export class UserregisterComponent {
     private fb: FormBuilder,
     private router: Router,
     // private toastr: ToastrService, // Inject ToastrService
-    private userRegService: UserRegService
+    private userRegService: UserRegService,
   ) {
     this.registerForm = this.fb.group({
       userName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['',[Validators.required, this.contactNumberValidator]],
+      phone: ['', [Validators.required, this.contactNumberValidator]],
       password: ['', Validators.required],
     });
   }
@@ -164,7 +168,7 @@ export class UserregisterComponent {
         (error: any) => {
           console.error('Registration failed', error);
           // this.toastr.error('Registration failed. Please try again.', 'Error'); // Show error toast
-        }
+        },
       );
     }
   }

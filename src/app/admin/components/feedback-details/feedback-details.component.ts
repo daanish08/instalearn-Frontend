@@ -7,52 +7,50 @@ import { FeedbacksService } from '../../services/feedbacks/feedbacks.service';
 @Component({
   selector: 'app-feedback-details',
   standalone: true,
-  imports: [RouterLink,FormsModule,CommonModule],
+  imports: [RouterLink, FormsModule, CommonModule],
   template: `
-   <div class="container-fluid mt-4 px-5">
-<h2 class="text-left fw-light">Approve <span class="fw-semibold text-success">Enrollment Status</span>
-    <hr>
-  </h2>
+    <div class="container-fluid mt-4 px-5">
+      <h2 class="text-left fw-light">
+        Approve <span class="fw-semibold text-success">Enrollment Status</span>
+        <hr />
+      </h2>
 
-  <table class="table table-bordered mt-4 table-hover">
-    <thead class="table-success " style="color:blue">
-        <tr>
+      <table class="table table-bordered mt-4 table-hover">
+        <thead class="table-success " style="color:blue">
+          <tr>
             <th>Feedback ID</th>
             <th>Name</th>
             <th>Phone No.</th>
             <th>Description</th>
             <th>Type</th>
-        </tr>
-    </thead>
-    <tbody >
-        <tr *ngFor="let feedback of feedbacks">
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let feedback of feedbacks">
             <td>{{ feedback.contactId }}</td>
             <td>{{ feedback.name }}</td>
             <td>{{ feedback.contact }}</td>
             <td>{{ feedback.comment }}</td>
             <td>{{ feedback.enquiryType }}</td>
-            </tr>
-    </tbody>
-</table>
-
-</div>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   `,
-  styles: ``
+  styles: ``,
 })
-export class FeedbackDetailsComponent implements OnInit{
-  
-  feedbacks:any[]=[];
+export class FeedbackDetailsComponent implements OnInit {
+  feedbacks: any[] = [];
   //Connect to the Service on load using dep Injection
   constructor(private feedbackService: FeedbacksService) {
-    console.log("INSIDE CONSTRUCTOR");
+    console.log('INSIDE CONSTRUCTOR');
   }
 
   ngOnInit(): void {
-    this.feedbackService.getFeedbacks()
-      .subscribe((response:any)=>{
-        this.feedbacks=response;
-        console.log(this.feedbacks);
-      })
+    this.feedbackService.getFeedbacks().subscribe((response: any) => {
+      this.feedbacks = response;
+      console.log(this.feedbacks);
+    });
     // throw new Error('Method not implemented.');
   }
 
@@ -71,7 +69,7 @@ export class FeedbackDetailsComponent implements OnInit{
   //     "contact": "987-654-3210",
   //     "comment": "Need help with registration.",
   //     "enquiryType": "Registration Assistance",
-  //     "display": false 
+  //     "display": false
   //   },
   //   {
   //     "feedbackId": 3,
@@ -83,6 +81,4 @@ export class FeedbackDetailsComponent implements OnInit{
   //   }
   // ]
   // ;
-
-
 }

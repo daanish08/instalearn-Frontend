@@ -15,7 +15,10 @@ import { CommonModule } from '@angular/common';
 export class MenuListComponent implements OnInit {
   menus$ = new BehaviorSubject<any[]>(this.getDefaultMenus());
 
-  constructor(public loginService: LoginService, private router: Router) {}
+  constructor(
+    public loginService: LoginService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     // Update menus based on the current login state

@@ -14,7 +14,7 @@ export interface UserProfile {
   providedIn: 'root',
 })
 export class UserServiceService implements OnInit {
-  private apiUrl = API_BASE_URL +'/api/user-profile';
+  private apiUrl = API_BASE_URL + '/api/user-profile';
   private fetchUserDetailsById = API_BASE_URL + '/user/userList';
 
   constructor(private http: HttpClient) {}
@@ -25,7 +25,7 @@ export class UserServiceService implements OnInit {
   getUserProfile(): Observable<UserProfile> {
     return this.http.get<UserProfile>(this.apiUrl);
   }
-  
+
   getUserById(id: number): Observable<UserProfile> {
     const url = `${this.fetchUserDetailsById}/${id}`;
     return this.http.get<UserProfile>(url);
@@ -33,11 +33,11 @@ export class UserServiceService implements OnInit {
 
   getUserName(id: number): Observable<string> {
     const url = `http://localhost:8080/instalearn/user/userList/${id}`;
-    return this.http.get<string>(url).pipe(map(resp => {console.log(resp);
-      return resp;
-    }));
+    return this.http.get<string>(url).pipe(
+      map((resp) => {
+        console.log(resp);
+        return resp;
+      }),
+    );
   }
-
-  
-
 }

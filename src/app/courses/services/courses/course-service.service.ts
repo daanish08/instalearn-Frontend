@@ -14,7 +14,10 @@ export class CourseServiceService {
   private updateCourseById = API_BASE_URL + '/admin/';
   private courseByAdmin = API_BASE_URL + '/admin/';
 
-  constructor(private http: HttpClient, private loginService: LoginService) {}
+  constructor(
+    private http: HttpClient,
+    private loginService: LoginService,
+  ) {}
 
   getAllCourses(): Observable<any> {
     console.log('Inside getting it');
@@ -28,7 +31,7 @@ export class CourseServiceService {
     instructor: string,
     courseURL: string,
     githubURL: string,
-    driveURL: string
+    driveURL: string,
   ): Observable<any> {
     const courseData = {
       courseName: courseName,
@@ -62,23 +65,27 @@ export class CourseServiceService {
     return this.http.post<string>(
       `${API_BASE_URL}/api/v1/U${this.loginService.auth.id}/C${courseId}/enroll`,
       {},
-      { responseType: 'text' as 'json' }
+      { responseType: 'text' as 'json' },
     );
   }
 
-  handleupdateCourse(courseData: any, adminId: number, courseId: number): Observable<string> {
-    console.log("Updating the course......");
+  handleupdateCourse(
+    courseData: any,
+    adminId: number,
+    courseId: number,
+  ): Observable<string> {
+    console.log('Updating the course......');
     return this.http.put<string>(
       `${API_BASE_URL}/admin/A${adminId}/C${courseId}/update`,
       courseData,
-      {responseType: 'text' as 'json'}
+      { responseType: 'text' as 'json' },
     );
   }
 
   deleteCourse(adminId: number, courseId: number) {
     return this.http.delete<string>(
       `${API_BASE_URL}/admin/A${adminId}/C${courseId}/delete`,
-      { responseType: 'text' as 'json' }
+      { responseType: 'text' as 'json' },
     );
   }
 }

@@ -119,7 +119,10 @@ import { Router } from '@angular/router';
   ],
 })
 export class ContactComponent {
-  constructor(private contactService: ContactService,private router:Router) {}
+  constructor(
+    private contactService: ContactService,
+    private router: Router,
+  ) {}
 
   onSubmit(contactForm: NgForm) {
     console.log('form', contactForm.value);

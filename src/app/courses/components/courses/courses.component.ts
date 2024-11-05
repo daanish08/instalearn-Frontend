@@ -108,7 +108,7 @@ export class CoursesComponent implements OnInit {
   constructor(
     private courseService: CourseServiceService,
     private router: Router,
-    private loginService: LoginService
+    private loginService: LoginService,
   ) {
     console.log('INSIDE course CONSTRUCTOR');
   }
@@ -179,7 +179,7 @@ export class CoursesComponent implements OnInit {
         alert('Deleted successful!');
 
         this.courses = this.courses.filter(
-          (course) => course.courseId !== courseId
+          (course) => course.courseId !== courseId,
         );
       },
       error: (error) => {

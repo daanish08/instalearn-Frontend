@@ -56,7 +56,7 @@ export class LoginService {
             this.storeTokenData(response.jwt);
           }
           return response;
-        })
+        }),
       );
   }
 

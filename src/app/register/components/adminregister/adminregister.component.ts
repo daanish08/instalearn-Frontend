@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators,
   AbstractControl,
-  ValidationErrors
+  ValidationErrors,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminRegService } from '../../services/admin-reg.service';
@@ -19,7 +19,11 @@ import { AdminRegService } from '../../services/admin-reg.service';
     <div class="d-flex bg-body-tertiary" style="height: 580px;">
       <div class="col-md-6 register-image"></div>
       <div class="col-md-6 d-flex align-items-center justify-content-center">
-        <form [formGroup]="registerForm" class="w-75" (ngSubmit)="handleAddAdmin()">
+        <form
+          [formGroup]="registerForm"
+          class="w-75"
+          (ngSubmit)="handleAddAdmin()"
+        >
           <h2 class="text-center mb-1 fw-light">
             Register As <span class="fw-bold text-success">ADMIN</span>
           </h2>
@@ -154,7 +158,7 @@ export class AdminregisterComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     // private toastr: ToastrService, // Inject ToastrService
-    private adminRegService: AdminRegService
+    private adminRegService: AdminRegService,
   ) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
@@ -193,7 +197,7 @@ export class AdminregisterComponent implements OnInit {
         (error: any) => {
           console.error('Registration failed', error);
           // this.toastr.error('Registration failed. Please try again.', 'Error'); // Show error toast
-        }
+        },
       );
     }
   }

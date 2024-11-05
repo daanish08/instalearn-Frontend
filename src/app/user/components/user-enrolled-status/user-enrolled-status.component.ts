@@ -39,7 +39,7 @@ import { LoginService } from '../../../login/services/login.service';
                 [ngClass]="{
                   'btn-success': enrollment.status === 'APPROVED',
                   'btn-warning': enrollment.status === 'PENDING',
-                  'btn-danger': enrollment.status === 'REJECTED'
+                  'btn-danger': enrollment.status === 'REJECTED',
                 }"
                 [routerLink]="
                   enrollment.status === 'APPROVED'
@@ -65,16 +65,12 @@ import { LoginService } from '../../../login/services/login.service';
                 }"
                 [routerLink]="
                   enrollment.status === 'APPROVED'
-                    ? ['/courses',enrollment.course.courseId,'completed']
+                    ? ['/courses', enrollment.course.courseId, 'completed']
                     : null
                 "
                 [disabled]="enrollment.status !== 'APPROVED'"
               >
-                {{
-                  enrollment.status === 'APPROVED'
-                    ? 'Download'
-                    : 'Complete'
-                }}
+                {{ enrollment.status === 'APPROVED' ? 'Download' : 'Complete' }}
               </button>
             </td>
           </tr>
@@ -82,71 +78,72 @@ import { LoginService } from '../../../login/services/login.service';
       </table>
     </div>
   `,
-  styles: ``
+  styles: ``,
 })
 export class UserEnrolledStatusComponent implements OnInit {
   enrollmennts: any[] = [];
   userId: string | null = this.loginService.auth.id;
-  IntId:number=Number(this.userId);
+  IntId: number = Number(this.userId);
 
   constructor(
     private loginService: LoginService,
-    private enrollmentService: EnrollmentServiceService
+    private enrollmentService: EnrollmentServiceService,
   ) {}
 
   ngOnInit(): void {
-      this.findEnrolledCoursesByUserId(this.IntId);
+    this.findEnrolledCoursesByUserId(this.IntId);
   }
 
   enrollments: any[] = [];
-    // enrollments: any[] = [
-    //   {
-    //     id: 1,
-    //     username: 'john_doe',
-    //     courseTitle: 'Introduction to Angular',
-    //     status: 'Pending',
-    //   },
-    //   {
-    //     id: 2,
-    //     username: 'jane_smith',
-    //     courseTitle: 'Advanced JavaScript',
-    //     status: 'Approved',
-    //   },
-    //   {
-    //     id: 3,
-    //     username: 'alice_jones',
-    //     courseTitle: 'Data Science Basics',
-    //     status: 'Rejected',
-    //   },
-    //   {
-    //     id: 4,
-    //     username: 'bob_brown',
-    //     courseTitle: 'Web Development Bootcamp',
-    //     status: 'Pending',
-    //   },
-    //   {
-    //     id: 5,
-    //     username: 'charlie_white',
-    //     courseTitle: 'Machine Learning Fundamentals',
-    //     status: 'Pending',
-    //   },
-    // ];
+  // enrollments: any[] = [
+  //   {
+  //     id: 1,
+  //     username: 'john_doe',
+  //     courseTitle: 'Introduction to Angular',
+  //     status: 'Pending',
+  //   },
+  //   {
+  //     id: 2,
+  //     username: 'jane_smith',
+  //     courseTitle: 'Advanced JavaScript',
+  //     status: 'Approved',
+  //   },
+  //   {
+  //     id: 3,
+  //     username: 'alice_jones',
+  //     courseTitle: 'Data Science Basics',
+  //     status: 'Rejected',
+  //   },
+  //   {
+  //     id: 4,
+  //     username: 'bob_brown',
+  //     courseTitle: 'Web Development Bootcamp',
+  //     status: 'Pending',
+  //   },
+  //   {
+  //     id: 5,
+  //     username: 'charlie_white',
+  //     courseTitle: 'Machine Learning Fundamentals',
+  //     status: 'Pending',
+  //   },
+  // ];
 
-  findEnrolledCoursesByUserId(userId :number) {
-    this.enrollmentService.getEnrollmentsListByUserId(userId)
-        .subscribe((response: any[]) =>{
-          this.enrollments=response;
-          console.log(this.enrollments);
-        })
+  findEnrolledCoursesByUserId(userId: number) {
+    this.enrollmentService
+      .getEnrollmentsListByUserId(userId)
+      .subscribe((response: any[]) => {
+        this.enrollments = response;
+        console.log(this.enrollments);
+      });
 
-  // this.apiService.updateEnrollmentStatus(enrollment.id, enrollment.status).subscribe(response => {
-  //   console.log('Status updated successfully:', response);
-  //   // Optionally, you can show a success message or update the local state
-  // }, error => {
-  //   console.error('Error updating status:', error);
-  //   // Handle error appropriately
-  // });
-  //   updateEnrollmentStatus(enrollmentId: number, status: string): Observable<any> {
-  //     return this.http.put(`${this.baseApiUrl}/admin/enrollments/${enrollmentId}`, { status });
-      }
-    }
+    // this.apiService.updateEnrollmentStatus(enrollment.id, enrollment.status).subscribe(response => {
+    //   console.log('Status updated successfully:', response);
+    //   // Optionally, you can show a success message or update the local state
+    // }, error => {
+    //   console.error('Error updating status:', error);
+    //   // Handle error appropriately
+    // });
+    //   updateEnrollmentStatus(enrollmentId: number, status: string): Observable<any> {
+    //     return this.http.put(`${this.baseApiUrl}/admin/enrollments/${enrollmentId}`, { status });
+  }
+}

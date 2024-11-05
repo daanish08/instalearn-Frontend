@@ -19,7 +19,7 @@ import { HomeService } from './home.service';
 })
 export class HomeComponent implements OnInit {
   courses: any = [];
-  logo = "course";
+  logo = 'course';
   constructor(private homeService: HomeService) {
     console.log('INSIDE HOME CONSTRUCTOR');
   }

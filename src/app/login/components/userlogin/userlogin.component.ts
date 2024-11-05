@@ -73,7 +73,10 @@ import { ToastrService } from 'ngx-toastr';
             Login
           </button>
           <div class="text-center mt-3">
-            <a href="#" routerLink="/login/forgot-password" class="text-decoration-none text-secondary"
+            <a
+              href="#"
+              routerLink="/login/forgot-password"
+              class="text-decoration-none text-secondary"
               >Forgot password?</a
             >
           </div>
@@ -112,7 +115,10 @@ export class UserloginComponent {
 
   isAdmin: boolean = false; // Default to user login
 
-  constructor(private router: Router, private loginService: LoginService) {}
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+  ) {}
 
   onSubmit(form: any) {
     if (form.valid) {

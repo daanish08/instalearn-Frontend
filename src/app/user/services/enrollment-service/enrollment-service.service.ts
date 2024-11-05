@@ -3,24 +3,26 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EnrollmentServiceService {
+  constructor(private http: HttpClient) {}
 
-
-  constructor(private http:HttpClient) { }
-
-  getEnrolledCoursesCount(userId:string){
-    return this.http.get(`http://localhost:8080/instalearn/api/v1/${userId}/enroll/count`);
+  getEnrolledCoursesCount(userId: string) {
+    return this.http.get(
+      `http://localhost:8080/instalearn/api/v1/${userId}/enroll/count`,
+    );
   }
 
-  
   getEnrollmentUsersList(): Observable<any[]> {
-    return this.http.get<any[]>("http://localhost:8080/instalearn/api/v1/enrollments");
+    return this.http.get<any[]>(
+      'http://localhost:8080/instalearn/api/v1/enrollments',
+    );
   }
 
-  getEnrollmentsListByUserId(userId:number):Observable<any[]>{
-    return this.http.get<any[]>(`http://localhost:8080/instalearn/api/v1/${userId}/enroll/courses/all`);
-
+  getEnrollmentsListByUserId(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(
+      `http://localhost:8080/instalearn/api/v1/${userId}/enroll/courses/all`,
+    );
   }
 }

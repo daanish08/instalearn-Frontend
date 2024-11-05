@@ -35,7 +35,7 @@ import { CourseServiceService } from '../../services/courses/course-service.serv
               <div class="footer-item ">
                 <p>
                   <span class="underline">{{
-                    completionDate | date : 'dd.MM.yyyy'
+                    completionDate | date: 'dd.MM.yyyy'
                   }}</span>
                 </p>
                 <hr />
@@ -64,71 +64,69 @@ import { CourseServiceService } from '../../services/courses/course-service.serv
     </div>
   `,
   styles: `
- .certificate {
-  width: 800px;
-  height: 550px;
-  margin: 0 auto;
-  padding: 25px;
-  text-align: center;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for depth */
-}
+    .certificate {
+      width: 800px;
+      height: 550px;
+      margin: 0 auto;
+      padding: 25px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for depth */
+    }
 
-.certificate-border {
-  padding: 20px;
-}
+    .certificate-border {
+      padding: 20px;
+    }
 
-.certificate h1 {
-  font-size: 40px;
-  color: #003366;
-}
+    .certificate h1 {
+      font-size: 40px;
+      color: #003366;
+    }
 
-.certificate h2 {
-  font-size: 28px;
-  color: #990000;
-}
+    .certificate h2 {
+      font-size: 28px;
+      color: #990000;
+    }
 
-.certificate h3, .certificate h4 {
-  font-size: 24px;
-  color: #003366;
-}
+    .certificate h3,
+    .certificate h4 {
+      font-size: 24px;
+      color: #003366;
+    }
 
-.certificate p {
-  font-size: 18px;
-  color: #333;
-}
+    .certificate p {
+      font-size: 18px;
+      color: #333;
+    }
 
-.certificate-footer {
-  display: flex;
-  justify-content: space-around; /* Evenly distribute space between items */
-  align-items: center; /* Align items vertically centered */
-  margin-top: 40px;
-  padding: 0 40px;
-}
+    .certificate-footer {
+      display: flex;
+      justify-content: space-around; /* Evenly distribute space between items */
+      align-items: center; /* Align items vertically centered */
+      margin-top: 40px;
+      padding: 0 40px;
+    }
 
-.footer-item {
-  text-align: center;
-  flex: 1; /* Allows items to grow equally */
-}
+    .footer-item {
+      text-align: center;
+      flex: 1; /* Allows items to grow equally */
+    }
 
-.underline {
-  font-weight: bold; /* Optional: Make the text bold for emphasis */
-}
+    .underline {
+      font-weight: bold; /* Optional: Make the text bold for emphasis */
+    }
 
-.footer-item p {
-  margin: 5px 0;
-}
-
-
-`,
+    .footer-item p {
+      margin: 5px 0;
+    }
+  `,
 })
 export class CourseCompletionDetailsComponent implements OnInit {
   userId: string | null = '';
   IntId: number = 0;
   userName: string = '';
-  courseId:number=0;
-  courseName:string='';
-
+  courseId: number = 0;
+  courseName: string = '';
 
   private userSubscription: Subscription | undefined;
   private courseSubscription: Subscription | undefined;
@@ -157,7 +155,7 @@ export class CourseCompletionDetailsComponent implements OnInit {
         });
     }
 
-    if(this.courseId){
+    if (this.courseId) {
       this.courseSubscription = this.courseService
         .getcourseDetailsById(this.courseId)
         .subscribe({
@@ -172,8 +170,8 @@ export class CourseCompletionDetailsComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private userService: UserServiceService,
-    private route:ActivatedRoute,
-    private courseService:CourseServiceService
+    private route: ActivatedRoute,
+    private courseService: CourseServiceService,
   ) {}
 
   // courseName: string = 'Advanced Angular Development';

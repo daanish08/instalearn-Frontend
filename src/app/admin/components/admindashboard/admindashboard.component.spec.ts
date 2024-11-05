@@ -8,10 +8,9 @@ describe('AdmindashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdmindashboardComponent]
-    })
-    .compileComponents();
-    
+      imports: [AdmindashboardComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(AdmindashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

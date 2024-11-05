@@ -77,22 +77,22 @@ import { DevelopersComponent } from '../developers/developers.component';
     </div>
   `,
   styles: `
-  .bg-about{
+    .bg-about {
       background-image: url('https://websitedemos.net/language-tutors-02/wp-content/uploads/sites/700/2020/09/bg-06-free-img.jpg');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
       height: 80vh;
       position: relative;
-}
+    }
 
-h2{
-  font-size:50px
-}
-h1{
-  font-size: 75px;
-}
-`,
+    h2 {
+      font-size: 50px;
+    }
+    h1 {
+      font-size: 75px;
+    }
+  `,
 })
 export class AboutComponent {
   MissionVisions = [

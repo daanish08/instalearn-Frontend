@@ -69,10 +69,10 @@ import { LoginService } from '../../services/login.service';
             Login
           </button>
           <div class="text-center mt-3">
-            <a 
-            href="#" 
-            routerLink="/login/forgot-password"
-            class="text-decoration-none text-secondary"
+            <a
+              href="#"
+              routerLink="/login/forgot-password"
+              class="text-decoration-none text-secondary"
               >Forgot password?</a
             >
           </div>
@@ -91,14 +91,16 @@ import { LoginService } from '../../services/login.service';
       </div>
     </div>
   `,
-  styles: `.login-page {
-    height: 100vh; /* Full height for the page */
-  }
-  
-  .login-image {
-    background: url('/assets/loginPage.jpg') no-repeat center center; /* Absolute path */
-    background-size: cover;
-  }`,
+  styles: `
+    .login-page {
+      height: 100vh; /* Full height for the page */
+    }
+
+    .login-image {
+      background: url('/assets/loginPage.jpg') no-repeat center center; /* Absolute path */
+      background-size: cover;
+    }
+  `,
 })
 export class AdminloginComponent {
   user = {
@@ -107,7 +109,10 @@ export class AdminloginComponent {
   };
   isAdmin: boolean = false; // Default to user login
 
-  constructor(private router: Router, private loginService: LoginService) { }
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+  ) {}
 
   onSubmit(form: any) {
     if (form.valid) {

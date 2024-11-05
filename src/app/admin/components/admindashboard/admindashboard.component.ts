@@ -14,16 +14,15 @@ import { Subscription } from 'rxjs';
   styleUrl: './admindashboard.component.css',
 })
 export class AdmindashboardComponent implements OnInit {
-  
-  adminId: string | null ='';
+  adminId: string | null = '';
   IntId: number | undefined;
   userName: string = '';
 
-  private userSubscription: Subscription | undefined; 
+  private userSubscription: Subscription | undefined;
 
   constructor(
     private adminService: AdminServiceService,
-    private loginService: LoginService
+    private loginService: LoginService,
   ) {}
 
   ngOnInit(): void {
@@ -32,7 +31,6 @@ export class AdmindashboardComponent implements OnInit {
     this.loadUserName();
     this.loadDashboardData();
   }
-  
 
   loadUserName() {
     if (this.IntId) {
@@ -41,7 +39,7 @@ export class AdmindashboardComponent implements OnInit {
         .getUserName(this.IntId)
         .subscribe({
           next: (response: any) => {
-            console.log(response)
+            console.log(response);
             this.userName = response.userName;
             console.log(this.userName);
           },
@@ -116,11 +114,9 @@ export class AdmindashboardComponent implements OnInit {
       this.adminDashBoardData[1].count = count;
     });
 
-    this.adminService
-      .getUploadedCoursesCount(this.IntId)
-      .subscribe((count) => {
-        this.adminDashBoardData[2].count = count;
-      });
+    this.adminService.getUploadedCoursesCount(this.IntId).subscribe((count) => {
+      this.adminDashBoardData[2].count = count;
+    });
 
     this.adminService.getPendingApprovalsCount().subscribe((count) => {
       this.adminDashBoardData[3].count = count;

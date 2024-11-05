@@ -15,32 +15,28 @@ interface UserProfile {
   standalone: true,
   imports: [RouterLink],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrl: './profile.component.css',
 })
-export class ProfileComponent implements OnInit{
+export class ProfileComponent implements OnInit {
   profile: UserProfile | undefined;
 
-  id=1;
+  id = 1;
 
-  constructor(private adminService: AdminServiceService) { }
+  constructor(private adminService: AdminServiceService) {}
 
   ngOnInit(): void {
     this.loadUserProfile(this.id);
   }
 
-
-  loadUserProfile(id: number) { // Accept 'id' as a parameter
-    this.adminService.getAdminById(id).subscribe((response:any)=>{
-      this.profile=response;
+  loadUserProfile(id: number) {
+    // Accept 'id' as a parameter
+    this.adminService.getAdminById(id).subscribe((response: any) => {
+      this.profile = response;
       console.log(this.profile);
     });
   }
-  
-  
 
-  editProfile(){
-    console.log("Edit Profile clicked");
-
+  editProfile() {
+    console.log('Edit Profile clicked');
   }
-
 }

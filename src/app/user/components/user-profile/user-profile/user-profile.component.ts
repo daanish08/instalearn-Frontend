@@ -13,29 +13,30 @@ interface UserProfile {
   standalone: true,
   imports: [],
   templateUrl: './user-profile.component.html',
-  styleUrl: './user-profile.component.css'
+  styleUrl: './user-profile.component.css',
 })
 export class UserProfileComponent {
   profile: UserProfile | undefined;
 
-  id=1;
+  id = 1;
 
-  constructor(private userService: UserServiceService,private loginService:LoginService) { }
+  constructor(
+    private userService: UserServiceService,
+    private loginService: LoginService,
+  ) {}
 
   ngOnInit(): void {
     this.loadUserProfile(this.id);
-    this.id=Number(this.loginService.auth.id);
+    this.id = Number(this.loginService.auth.id);
   }
 
-  loadUserProfile(id: number) { // Accept 'id' as a parameter
-    this.userService.getUserName(id).subscribe((response:any)=>{
-      this.profile=response;
+  loadUserProfile(id: number) {
+    // Accept 'id' as a parameter
+    this.userService.getUserName(id).subscribe((response: any) => {
+      this.profile = response;
       console.log(this.profile);
     });
+  }
 
-}
-
-editProfile(){
-
-}
+  editProfile() {}
 }
