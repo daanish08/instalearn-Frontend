@@ -66,7 +66,6 @@ interface Course {
                 Enroll
               </button>
 
-
               <!-- ADMIN BUTTONS -->
               <button
                 *ngIf="userRole === 'ADMIN'"
@@ -101,11 +100,10 @@ interface Course {
 })
 export class CoursesComponent implements OnInit {
   courses: Course[] = [];
-  userRole: string | null = ''; 
-  adminId:string| null=this.loginService.auth.id;
+  userRole: string | null = '';
+  adminId: string | null = this.loginService.auth.id;
 
   isEnrolling: boolean = false;
-
 
   constructor(
     private courseService: CourseServiceService,
@@ -116,18 +114,17 @@ export class CoursesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.getUserRole()==='ADMIN'){
+    if (this.getUserRole() === 'ADMIN') {
       this.getCoursesByAdminId(this.adminId);
-      
-      console.log("Admin")
+
+      console.log('Admin');
+    } else {
+      console.log('User');
+      this.courseService.getAllCourses().subscribe((response: any) => {
+        this.courses = response;
+        console.log(this.courses);
+      });
     }
-    else{
-      console.log("User")
-    this.courseService.getAllCourses().subscribe((response: any) => {
-      this.courses = response;
-      console.log(this.courses);
-    });
-  }
 
     this.getUserRole(); // Add this line to fetch the user's role
   }
@@ -139,7 +136,6 @@ export class CoursesComponent implements OnInit {
         console.log('Enrollment successful:', response);
         alert('Enrollment successful!');
         this.isEnrolling = false;
-
       },
       error: (error) => {
         console.error('Enrollment failed:', error);
@@ -149,11 +145,10 @@ export class CoursesComponent implements OnInit {
   }
 
   view(courseId: number) {
-    this.router.navigate(['/courses',courseId]);
-    this.courseService.getcourseDetailsById(courseId)
-    .subscribe({
+    this.router.navigate(['/courses', courseId]);
+    this.courseService.getcourseDetailsById(courseId).subscribe({
       next: (response: any) => {
-        this.courses=response;
+        this.courses = response;
         console.log('Enrollment successful:', response);
       },
       error: (error) => {
@@ -162,13 +157,12 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  edit(courseId:number,adminId:string| null){
-    this.router.navigate(['admin/update',courseId]);
-    console.log(courseId)
-    this.courseService.getcourseDetailsById(courseId)
-    .subscribe({
+  edit(courseId: number, adminId: string | null) {
+    this.router.navigate(['admin/update', courseId]);
+    console.log(courseId);
+    this.courseService.getcourseDetailsById(courseId).subscribe({
       next: (response: any) => {
-        this.courses=response;
+        this.courses = response;
         // console.log(this.courses)
         console.log('Enrollment successful:', response);
       },
@@ -177,13 +171,16 @@ export class CoursesComponent implements OnInit {
       },
     });
   }
-  
 
-  delete(courseId: number,adminId:number) {
-    this.courseService.deleteCourse(adminId,courseId).subscribe({
+  delete(courseId: number, adminId: number) {
+    this.courseService.deleteCourse(adminId, courseId).subscribe({
       next: (response: any) => {
         console.log('Deleted successful:', response);
         alert('Deleted successful!');
+
+        this.courses = this.courses.filter(
+          (course) => course.courseId !== courseId
+        );
       },
       error: (error) => {
         console.error('Deleted failed:', error);
@@ -192,36 +189,34 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  getCoursesByAdminId(adminId:string| null){
-    this.courseService.getCoursesByAdminId(adminId).subscribe((response: any) => {
-      this.courses = response;
-      console.log(this.courses);
-    });
+  getCoursesByAdminId(adminId: string | null) {
+    this.courseService
+      .getCoursesByAdminId(adminId)
+      .subscribe((response: any) => {
+        this.courses = response;
+        console.log(this.courses);
+      });
   }
 
-
-
   // New method to fetch user role
-  getUserRole(): string | null{
-   
+  getUserRole(): string | null {
     this.userRole = this.loginService.auth.role;
-    return this.userRole; 
+    return this.userRole;
   }
 
   // Placeholder methods for edit and delete actions
   editCourse(courseId: number): void {
-    this.edit(courseId,this.adminId);
+    this.edit(courseId, this.adminId);
     console.log('Edited course:', courseId);
     // Implement the edit logic here
   }
 
+  Intid = Number(this.adminId);
   deleteCourse(courseId: number): void {
-    // this.delete(courseId,this.adminId);
+    this.delete(courseId, this.Intid);
     console.log('Delete course:', courseId);
     // Implement the delete logic here
   }
-
-
 
   //   {
   //     imgTag:'/assets/img/Home/graduate.png',

@@ -2,63 +2,107 @@
   <div class="card">
     <!-- <img [src]="course.image" class="card-img-top" alt="{{ course.title }}" width="450" height="350"> -->
     <div class="card-body">
-      <h1 class="card-title fs-2 fw-light">{{ course.courseName}}</h1>
+      <h1 class="card-title fs-2 fw-light">{{ course.courseName }}</h1>
 
       <!-- Progress Bar -->
       <div class="progress mb-4">
-        <div class="progress-bar bg-success" role="progressbar" [style.width]="(currentStep / 3) * 100 + '%'"
-          [attr.aria-valuenow]="currentStep" aria-valuemin="1" aria-valuemax="3"></div>
+        <div
+          class="progress-bar bg-success"
+          role="progressbar"
+          [style.width]="(currentStep / 3) * 100 + '%'"
+          [attr.aria-valuenow]="currentStep"
+          aria-valuemin="1"
+          aria-valuemax="3"
+        ></div>
       </div>
 
       <!-- Step 1: Course Details -->
       <div *ngIf="currentStep === 1">
-        <p class="card-text fw-semibold"><strong class="text-success fw-normal">Instructor:</strong> {{
-          course.instructor }}</p>
-        <p class="card-text fw-semibold"><strong class="text-success fw-normal">Duration:</strong> {{ course.duration }}
+        <p class="card-text fw-semibold">
+          <strong class="text-success fw-normal">Instructor:</strong>
+          {{ course.instructor }}
         </p>
-        <p class="card-text fw-semibold"><strong class="text-success fw-normal">Description:</strong> {{
-          course.description }}</p>
-
+        <p class="card-text fw-semibold">
+          <strong class="text-success fw-normal">Duration:</strong>
+          {{ course.duration }}
+        </p>
+        <p class="card-text fw-semibold">
+          <strong class="text-success fw-normal">Description:</strong>
+          {{ course.description }}
+        </p>
       </div>
 
       <!-- Step 2: Attachments -->
       <div *ngIf="currentStep === 2">
-        <h5 class="fw-semibold text-success border-bottom w-10">Course Materials</h5>
+        <h5 class="fw-semibold text-success border-bottom w-10">
+          Course Materials
+        </h5>
         <div class="d-flex justify-content-center">
-          <button type="button" class="btn btn-outline-success mx-2 my-2" (click)="openLink(course.githubUrl)" target="_blank">
+          <button
+            type="button"
+            class="btn btn-outline-success mx-2 my-2"
+            (click)="openLink(course.githubURL)"
+            target="_blank"
+          >
             <i class="fab fa-github"></i> GitHub
           </button>
-          <button type="button" class="btn btn-outline-success mx-2 my-2" (click)="openLink(course.driveUrl)" target="_blank">
-            <i class="fas fa-file-alt"></i>Google Drive
+          <button
+            type="button"
+            class="btn btn-outline-success mx-2 my-2"
+            (click)="openLink(course.driveURL)"
+            target="_blank"
+          >
+            <i class="fas fa-file-alt"></i> Drive
           </button>
         </div>
-        
       </div>
 
       <!-- Step 3: Video -->
       <div *ngIf="currentStep === 3">
-        <h5 class="fw-semibold text-success border-bottom w-10">Course Video</h5>
+        <h5 class="fw-semibold text-success border-bottom w-10">
+          Course Video
+        </h5>
         <div class="embed-responsive embed-responsive-16by9 px-5 py-2">
-
-          <iframe width="800" height="500" [src]=course.courseUrl
-            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
+          <iframe
+            width="800"
+            height="500"
+            [src]="course.sanitizedCourseURL"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; 
                   encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
         </div>
-
       </div>
 
       <!-- Navigation Buttons -->
       <div class="mt-3 d-flex justify-content-between">
-        <button class="btn btn-secondary" type="button" (click)="previousStep()" [disabled]="currentStep === 1">
+        <button
+          class="btn btn-secondary"
+          type="button"
+          (click)="previousStep()"
+          [disabled]="currentStep === 1"
+        >
           Previous
         </button>
-        <button class="btn btn-success" type="button" (click)="nextStep()" *ngIf="currentStep < 3">
+        <button
+          class="btn btn-success"
+          type="button"
+          (click)="nextStep()"
+          *ngIf="currentStep < 3"
+        >
           Next
         </button>
-        <button class="btn btn-success" type="button" routerLink="completed" *ngIf="currentStep === 3 && userRole!=='ADMIN'">
+        <button
+          class="btn btn-success"
+          type="button"
+          routerLink="completed"
+          *ngIf="currentStep === 3 && userRole !== 'ADMIN'"
+        >
           Finish
-        </button>        
+        </button>
       </div>
     </div>
   </div>
