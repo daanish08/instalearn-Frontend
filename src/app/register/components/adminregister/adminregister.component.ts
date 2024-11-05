@@ -107,12 +107,21 @@ import { AdminRegService } from '../../services/admin-reg.service';
           <div class="form-group py-2">
             <label for="refCode" class="pb-1">Access Code</label>
             <input
-              type="number"
+              type="text"
               formControlName="refCode"
               class="form-control"
               id="ref-code"
               placeholder="Access Code"
             />
+            <div
+              *ngIf="
+                registerForm.get('refCode')?.touched &&
+                registerForm.get('refCode')?.invalid
+              "
+              class="text-danger"
+            >
+              Enter a valid Access Code
+            </div>
           </div>
 
           <button
@@ -126,19 +135,17 @@ import { AdminRegService } from '../../services/admin-reg.service';
         </form>
       </div>
     </div>
-
-   
-
   `,
   styles: `
-  .register-page {
-    height: 100vh; /* Full height for the page */
-  }
-  
-  .register-image {
-    background: url('/assets/RegisterPage.jpg') no-repeat center center; /* Absolute path */
-    background-size: cover;
-  }`,
+    .register-page {
+      height: 100vh; /* Full height for the page */
+    }
+
+    .register-image {
+      background: url('/assets/RegisterPage.jpg') no-repeat center center; /* Absolute path */
+      background-size: cover;
+    }
+  `,
 })
 export class AdminregisterComponent implements OnInit {
   registerForm: FormGroup;
@@ -154,13 +161,17 @@ export class AdminregisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, this.contactNumberValidator]],
       password: ['', Validators.required],
-      refCode: [''], // Optional field
+      refCode: ['', [this.accessCodeValidator]], // Add custom validator
     });
   }
 
   contactNumberValidator(control: AbstractControl): ValidationErrors | null {
     const valid = /^\d{10}$/.test(control.value);
     return valid ? null : { invalidContactNumber: true };
+  }
+
+  accessCodeValidator(control: AbstractControl): ValidationErrors | null {
+    return control.value === '1234' ? null : { invalidAccessCode: true };
   }
 
   ngOnInit(): void {
@@ -186,6 +197,7 @@ export class AdminregisterComponent implements OnInit {
       );
     }
   }
+
   resetForm() {
     this.registerForm.reset();
   }
