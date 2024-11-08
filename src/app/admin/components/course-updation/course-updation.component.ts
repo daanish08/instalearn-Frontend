@@ -96,14 +96,14 @@ export class CourseUpdationComponent implements OnInit {
       githubURL: this.githubURL,
       courseURL: this.courseURL,
     };
-    console.log(courseData);
+    // console.log(courseData);
 
     this.isLoading = true;
     this.isSuccess = false;
 
     // Here you can later add a service call to submit the updated course data
     // For example:
-    console.log('---', this.adminId);
+    // console.log('---', this.adminId);
 
     this.courseService
       .handleupdateCourse(courseData, this.adminId, this.courseId)

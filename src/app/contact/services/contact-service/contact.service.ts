@@ -12,7 +12,7 @@ export class ContactService {
     return this.http.post<string>(
       'http://localhost:8080/instalearn/admin/feedbacks/add',
       feedbackDetails,
-      { responseType: 'text' as 'json' },
+      // { responseType: 'text' as 'json' },
     );
   }
 }

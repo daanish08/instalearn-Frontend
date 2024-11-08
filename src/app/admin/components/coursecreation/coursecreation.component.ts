@@ -5,6 +5,7 @@ import { CourseServiceService } from '../../../courses/services/courses/course-s
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { AdmindashboardComponent } from '../admindashboard/admindashboard.component';
+import { Notyf } from 'notyf';
 
 @Component({
   selector: 'app-coursecreation',
@@ -15,6 +16,8 @@ import { AdmindashboardComponent } from '../admindashboard/admindashboard.compon
 })
 export class CoursecreationComponent implements OnInit {
   courseCreation: FormGroup | undefined;
+
+  notyf = new Notyf();
 
   courseName: string = '';
   description: string = '';
@@ -85,13 +88,14 @@ export class CoursecreationComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log('Course created successfully:', response);
+          this.notyf.success('Your changes have been successfully saved!');
           // this.toastService.success('Course created successfully!', 'Success');
           this.isLoading = false;
           this.isSuccess = true;
 
-          setTimeout(() => {
-            this.router.navigate(['/admindashboard']);
-          }, 2000);
+          // setTimeout(() => {
+          //   this.router.navigate(['/admindashboard']);
+          // }, 2000);
         },
         (error) => {
           console.error('Error creating course:', error);

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CourseServiceService } from '../../services/courses/course-service.service';
 import { LoginService } from '../../../login/services/login.service';
+import { Notyf } from 'notyf';
 
 interface Course {
   courseId: number;
@@ -102,6 +103,7 @@ export class CoursesComponent implements OnInit {
   courses: Course[] = [];
   userRole: string | null = '';
   adminId: string | null = this.loginService.auth.id;
+  notyf = new Notyf();
 
   isEnrolling: boolean = false;
 
@@ -176,7 +178,8 @@ export class CoursesComponent implements OnInit {
     this.courseService.deleteCourse(adminId, courseId).subscribe({
       next: (response: any) => {
         console.log('Deleted successful:', response);
-        alert('Deleted successful!');
+        this.notyf.success('Your changes have been successfully saved!');
+        // alert('Deleted successful!');
 
         this.courses = this.courses.filter(
           (course) => course.courseId !== courseId,
