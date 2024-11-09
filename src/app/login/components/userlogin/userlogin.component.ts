@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { ToastrService } from 'ngx-toastr';
+import { Notyf } from 'notyf';
 
 @Component({
   selector: 'app-userlogin',
@@ -108,6 +109,8 @@ import { ToastrService } from 'ngx-toastr';
   ],
 })
 export class UserloginComponent {
+
+  notyf = new Notyf();
   user = {
     email: '',
     password: '',
@@ -124,7 +127,12 @@ export class UserloginComponent {
     if (form.valid) {
       this.loginService.login(form.value).subscribe((response: any) => {
         console.log('login response', response);
-        this.router.navigate(['/user/dashboard']);
+        this.notyf.success('User Logged In successfully!');
+
+        setTimeout(() => {
+          this.router.navigate(['/user/dashboard']);
+        }, 2000);
+        
       });
     } else {
       console.error('Form is invalid');

@@ -136,12 +136,22 @@ export class CoursesComponent implements OnInit {
     this.courseService.enrollInCourse(courseId).subscribe({
       next: (response: string) => {
         console.log('Enrollment successful:', response);
-        alert('Enrollment successful!');
+        this.notyf.success(
+          'Course Id with ' + courseId + ' Enrolled Successfully',
+        );
+        setTimeout(() => {
+          this.router.navigate(['/user/dashboard']);
+        }, 2000);
         this.isEnrolling = false;
       },
       error: (error) => {
         console.error('Enrollment failed:', error);
-        alert('Enrollment failed. Please Login and try again.');
+        this.notyf.error(
+          'Please Login and enroll the course!',
+        );
+        setTimeout(() => {
+          this.router.navigate(['/login/user']);
+        }, 2000);
       },
     });
   }
@@ -165,10 +175,15 @@ export class CoursesComponent implements OnInit {
     this.courseService.getcourseDetailsById(courseId).subscribe({
       next: (response: any) => {
         this.courses = response;
-        // console.log(this.courses)
-        console.log('Enrollment successful:', response);
+        console.log('edit started successful:', response);
       },
       error: (error) => {
+        this.notyf.error(
+          'Unable to update the Course Id: ' + courseId,
+        );
+        setTimeout(() => {
+          this.router.navigate([`/courses/update/${courseId}`]);
+        }, 2000);
         console.error('Enrollment failed:', error);
       },
     });
@@ -178,8 +193,10 @@ export class CoursesComponent implements OnInit {
     this.courseService.deleteCourse(adminId, courseId).subscribe({
       next: (response: any) => {
         console.log('Deleted successful:', response);
-        this.notyf.success('Your changes have been successfully saved!');
-        // alert('Deleted successful!');
+        this.notyf.success('Course deleted Successfully!');
+        setTimeout(() => {
+          this.router.navigate([`/courses`]);
+        }, 2000);
 
         this.courses = this.courses.filter(
           (course) => course.courseId !== courseId,
@@ -187,6 +204,11 @@ export class CoursesComponent implements OnInit {
       },
       error: (error) => {
         console.error('Deleted failed:', error);
+        this.notyf.error('Unable to delete the Course!');
+        setTimeout(() => {
+          this.router.navigate([`/courses/${courseId}`]);
+        }, 2000);
+
         alert('Deleted failed. Please try again.');
       },
     });
@@ -210,8 +232,10 @@ export class CoursesComponent implements OnInit {
   // Placeholder methods for edit and delete actions
   editCourse(courseId: number): void {
     this.edit(courseId, this.adminId);
-    console.log('Edited course:', courseId);
-    // Implement the edit logic here
+    this.notyf.success(
+      'Course Id with ' + courseId + ' Updated Successfully',
+    );
+   
   }
 
   Intid = Number(this.adminId);
@@ -221,59 +245,4 @@ export class CoursesComponent implements OnInit {
     // Implement the delete logic here
   }
 
-  //   {
-  //     imgTag:'/assets/img/Home/graduate.png',
-  //     title: 'Beginner Spanish',
-  //     courseName: 'Spanish 101',
-  //     description: 'Learn the basics of Spanish, including vocabulary, grammar, and pronunciation.',
-  //     duration: '6 weeks',
-  //     instructor: 'Maria Gomez',
-  //     attachments: ['syllabus.pdf', 'intro-video.mp4']
-  //   },
-  //   {
-  //     imgTag:'/assets/img/Home/graduate.png',
-  //     title: 'Intermediate French',
-  //     courseName: 'French Intermediate',
-  //     description: 'Enhance your French skills with intermediate-level vocabulary and conversation practice.',
-  //     duration: '8 weeks',
-  //     instructor: 'Jean Dupont',
-  //     attachments: ['course-outline.pdf', 'audio-lessons.zip']
-  //   },
-  //   {
-  //     imgTag:'/assets/img/Home/graduate.png',
-  //     title: 'Advanced English Grammar',
-  //     courseName: 'English Grammar Mastery',
-  //     description: 'Master complex grammar structures and improve your writing skills in English.',
-  //     duration: '4 weeks',
-  //     instructor: 'John Smith',
-  //     attachments: ['grammar-guide.pdf', 'practice-exercises.docx']
-  //   },
-  //   {
-  //     imgTag:'/assets/img/Home/graduate.png',
-  //     title: 'Japanese for Travelers',
-  //     courseName: 'Japanese Travel Essentials',
-  //     description: 'Get ready for your trip to Japan with essential phrases and cultural insights.',
-  //     duration: '3 weeks',
-  //     instructor: 'Hiroshi Tanaka',
-  //     attachments: ['phrasebook.pdf', 'cultural-tips.mp4']
-  //   },
-  //   {
-  //     imgTag:'/assets/img/Home/graduate.png',
-  //     title: 'Business English',
-  //     courseName: 'Professional English',
-  //     description: 'Improve your professional English communication skills for the workplace.',
-  //     duration: '5 weeks',
-  //     instructor: 'Emily Chen',
-  //     attachments: ['business-vocab.pdf', 'meeting-simulations.mp4']
-  //   },
-  //   {
-  //     imgTag:'/assets/img/Home/graduate.png',
-  //     title: 'German Literature',
-  //     courseName: 'Exploring German Literature',
-  //     description: 'Explore classic and contemporary German literature with expert guidance.',
-  //     duration: '10 weeks',
-  //     instructor: 'Friedrich Müller',
-  //     attachments: ['reading-list.pdf', 'lecture-notes.docx']
-  //   }
-  // ];
 }

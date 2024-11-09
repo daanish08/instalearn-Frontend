@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../services/login.service';
+import { Notyf } from 'notyf';
 
 @Component({
   selector: 'app-adminlogin',
@@ -68,7 +69,7 @@ import { LoginService } from '../../services/login.service';
           >
             Login
           </button>
-        
+
           <div class="text-center mt-2">
             <p class="text-body">
               Don't have an account?
@@ -96,6 +97,7 @@ import { LoginService } from '../../services/login.service';
   `,
 })
 export class AdminloginComponent {
+  notyf = new Notyf();
   user = {
     email: '',
     password: '',
@@ -110,9 +112,14 @@ export class AdminloginComponent {
   onSubmit(form: any) {
     if (form.valid) {
       this.loginService.login(this.user).subscribe((response: any) => {
-        this.router.navigate(['/admin/dashboard']);
+        this.notyf.success('Admin Logged In successfully!');
+
+        setTimeout(() => {
+          this.router.navigate(['/admin/dashboard']);
+        }, 2000);
       });
     } else {
+      this.notyf.error('Admin Logged In Failed!');
       console.error('Form is invalid');
     }
   }

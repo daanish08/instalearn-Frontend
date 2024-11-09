@@ -88,18 +88,14 @@ export class CoursecreationComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log('Course created successfully:', response);
-          this.notyf.success('Your changes have been successfully saved!');
-          // this.toastService.success('Course created successfully!', 'Success');
+          this.notyf.success('Your Course is successfully created!');
           this.isLoading = false;
           this.isSuccess = true;
-
-          // setTimeout(() => {
-          //   this.router.navigate(['/admindashboard']);
-          // }, 2000);
+          
         },
         (error) => {
           console.error('Error creating course:', error);
-          // this.toastService.error('Error creating course. Please try again.', 'Error');
+          this.notyf.error('Your changes have been successfully saved!');
           this.isLoading = false;
         },
       );

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminServiceService } from '../../../services/admin-service/admin-service.service';
 import { UserServiceService } from '../../../../user/services/user-service/user-service.service';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 interface UserProfile {
   name: string;
@@ -13,13 +14,17 @@ interface UserProfile {
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink,CommonModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
 export class ProfileComponent implements OnInit {
   profile: UserProfile | undefined;
+  
+  showPassword: boolean = false;
+  password: string | undefined = ''; // Initialize to null for safety
 
+  
   id = 1;
 
   constructor(private adminService: AdminServiceService) {}
@@ -33,6 +38,7 @@ export class ProfileComponent implements OnInit {
     this.adminService.getAdminById(id).subscribe((response: any) => {
       this.profile = response;
       console.log(this.profile);
+      this.password=this.profile?.password;
     });
   }
 

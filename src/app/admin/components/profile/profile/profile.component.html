@@ -1,15 +1,45 @@
-<div class="container-fluid d-flex justify-content-center align-items-center py-3">
-  <div class="card" style="width: 22rem;">
-    <img src="/assets/img/vectorIcons/profile.png" height="280px" class="card-img-top pt-1" alt="Profile Image">
+<div
+  class="container-fluid d-flex justify-content-center align-items-center py-3"
+>
+  <div class="card" style="width: 22rem">
+    <img
+      src="/assets/img/vectorIcons/profile.png"
+      height="280px"
+      class="card-img-top pt-1"
+      alt="Profile Image"
+    />
     <div class="card-body">
-      <h5 class="card-title  text-center fw-bold text-success">{{ profile?.name }}</h5>
+      <h5 class="card-title text-center fw-bold text-success">
+        {{ profile?.name }}
+      </h5>
       <ul class="list-group list-group-flush text-center">
-        <li class="list-group-item fw-light"><strong class="text-muted fw-bold">Email:   </strong> {{ profile?.email }}</li>
-        <li class="list-group-item fw-light"><strong class="text-muted fw-bold">Contact:</strong> {{ profile?.phone }}</li>
-        <li class="list-group-item fw-light"><strong class="text-muted fw-bold">Password:</strong> {{ profile?.password}}</li>
+        <li class="list-group-item fw-light">
+          <strong class="text-muted fw-bold">Email: </strong>
+          {{ profile?.email }}
+        </li>
+        <li class="list-group-item fw-light">
+          <strong class="text-muted fw-bold">Contact:</strong>
+          {{ profile?.phone }}
+        </li>
+        <li class="list-group-item fw-light">
+          <strong class="text-muted fw-bold">Password: </strong>
+          <span *ngIf="password; else passwordNotSet" >
+            <span *ngIf="showPassword; else maskedPassword">{{
+              password
+            }}</span>
+            <ng-template #maskedPassword>
+              <span>*******</span>
+            </ng-template>
+            <button class="mx-3 btn btn-success" (click)="showPassword = !showPassword">
+              {{ showPassword ? "Hide" : "Show" }}
+            </button>
+          </span>
+          <ng-template #passwordNotSet>
+            <span>Password not set</span>
+          </ng-template>
+        </li>
         <!-- Password is NOT displayed for security reasons -->
       </ul>
     </div>
-   
   </div>
 </div>
